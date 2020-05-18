@@ -1,0 +1,25 @@
+@import '~lanlinker/es/style/index.less';
+
+.registerStatistics {
+  .pieCharts {
+    display: flex;
+    > aside {
+      width: 24%;
+      text-align: center;
+    }
+    > article {
+      width: 76%;
+      display: flex;
+      flex-wrap: wrap;
+      align-self: start;
+      > section {
+        width: 20%;
+        height: 185px;
+        &:nth-child(-n + 5) {
+          border-bottom: @border-normal;
+          border-bottom-style: dashed;
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,12 @@
+@import '../style/themes/index.less';
+
+.cardTabs {
+  :global {
+    .ant-tabs-nav-scroll {
+      padding: 0 @padding-normal;
+    }
+    .ant-tabs-tabpane {
+      padding: 0 @padding-normal;
+    }
+  }
+}

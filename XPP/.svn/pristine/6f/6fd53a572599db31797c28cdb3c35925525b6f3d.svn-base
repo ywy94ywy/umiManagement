@@ -1,0 +1,3 @@
+export const fetchUserUnion = () => ({
+  url: `/api/userUnion`,
+});

@@ -1,0 +1,28 @@
+@import '~lanlinker/es/style/index.less';
+
+.reportCenter {
+  .btns {
+    > * {
+      margin-left: 8px;
+    }
+  }
+  .title {
+    border-top: @border-split;
+    position: relative;
+    margin: 10px 0;
+    > span {
+      position: absolute;
+      top: 0;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      padding: 0 15px;
+      background-color: white;
+      color: rgba(0, 0, 0, 0.25);
+    }
+  }
+  .preview {
+    width: 100%;
+    height: 550px;
+    overflow: auto;
+  }
+}

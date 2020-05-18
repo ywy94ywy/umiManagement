@@ -1,0 +1,8 @@
+@import '~lanlinker/es/style/index.less';
+
+.userOrganization {
+  .systemsWrapper {
+    display: flex;
+    flex-wrap: wrap;
+  }
+}

@@ -1,0 +1,11 @@
+export const request = {
+  // timeout: 10000,
+  errorConfig: {
+    adaptor: resData => ({
+      data: resData.data,
+      success: resData.status === 200,
+      errorCode: resData.status,
+      errorMessage: resData.msg,
+    }),
+  },
+};

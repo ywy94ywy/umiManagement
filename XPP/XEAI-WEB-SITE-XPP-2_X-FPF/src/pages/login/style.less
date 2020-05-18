@@ -1,0 +1,76 @@
+.login {
+  height: 100vh;
+  min-height: 700px;
+  background-image: url(./login.jpg);
+  background-size: cover;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  color: white;
+  > section {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    margin-top: 8%;
+    > header {
+      width: 530px;
+      height: 75px;
+      > img {
+        width: 100%;
+      }
+    }
+    > .log {
+      margin-top: 50px;
+      width: 530px;
+      display: flex;
+      > *:nth-child(n + 2) {
+        margin-left: 16px;
+      }
+      .item {
+        width: 200px;
+      }
+      .btn {
+        width: 98px;
+        border-color: #1d2088;
+        background-color: #1d2088;
+      }
+      :global {
+        .ant-input-affix-wrapper:hover,
+        .ant-input-affix-wrapper:focus,
+        .ant-input-affix-wrapper-focused {
+          border-color: #54568f;
+        }
+      }
+    }
+    > .actions {
+      margin-top: 40px;
+      > span {
+        cursor: pointer;
+      }
+      > span:first-child {
+        margin-right: 20px;
+        position: relative;
+        &::after {
+          content: '|';
+          position: absolute;
+          top: -2px;
+          right: -12px;
+        }
+      }
+    }
+    > .code {
+      margin-top: 80px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      > img {
+        width: 100px;
+      }
+    }
+  }
+
+  > footer {
+    margin-top: auto;
+    margin-bottom: 10px;
+  }
+}

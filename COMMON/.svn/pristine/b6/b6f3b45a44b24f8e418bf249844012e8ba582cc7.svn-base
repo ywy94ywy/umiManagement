@@ -1,0 +1,14 @@
+.tableActions {
+  > .left {
+    display: flex;
+    > *:nth-child(n + 2) {
+      margin-left: 8px;
+    }
+  }
+  > .right {
+    display: flex;
+    > *:nth-last-child(n + 2) {
+      margin-right: 8px;
+    }
+  }
+}

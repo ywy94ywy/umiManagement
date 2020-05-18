@@ -1,0 +1,24 @@
+@import '~lanlinker/es/style/index.less';
+
+.listItem {
+  position: relative;
+  padding-bottom: 16px;
+  border-bottom: @border-split;
+  margin-bottom: 12px;
+  :global {
+    .ant-list-item-meta-title {
+      .h4;
+    }
+  }
+
+  .profile {
+    width: 100px;
+    height: 125px;
+  }
+
+  > .btn {
+    position: absolute;
+    top: 0px;
+    right: 0px;
+  }
+}

@@ -1,0 +1,16 @@
+@import '../style/index.less';
+
+.tableActions {
+  > .left {
+    display: flex;
+    > *:nth-child(n + 2) {
+      margin-left: @table-actions-margin;
+    }
+  }
+  > .right {
+    display: flex;
+    > *:nth-last-child(n + 2) {
+      margin-right: @table-actions-margin;
+    }
+  }
+}

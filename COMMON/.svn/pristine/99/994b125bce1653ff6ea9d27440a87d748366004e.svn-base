@@ -1,0 +1,44 @@
+@import "../style/index.less";
+
+.timeWeather {
+  position: relative;
+  height: 100%;
+
+  .wrapper {
+    position: absolute;
+    width: calc(500px + (var(--fontSize, 14px) - @fs-base) * 10);
+    height: 32px;
+    border-radius: 16px;
+    line-height: 30px;
+    text-align: center;
+    top: 50%;
+    transform: translateY(-50%);
+    border: 1px solid @header-fc-secondary;
+    padding: 0 30px;
+    font-size: var(--fontSize, 14px);
+    color: @header-fc-secondary;
+    display: flex;
+    justify-content: space-around;
+    transition: all 0.3s;
+    span:not(:last-child) {
+      margin-right: 8px;
+    }
+    .iconWrapper {
+      display: flex;
+      align-items: center;
+      > i {
+        margin-right: 8px;
+      }
+    }
+    .weather {
+      :global {
+        .sw-container {
+          color: @header-fc-secondary;
+          .sw-typography {
+            font-size: var(--fontSize, 14px);
+          }
+        }
+      }
+    }
+  }
+}

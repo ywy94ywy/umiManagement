@@ -1,0 +1,102 @@
+export default {
+  'POST /api/login'(req, res) {
+    let user = req.body;
+    if (user.user === 'admin' && user.password === '123456') {
+      setTimeout(() => {
+        res.json({
+          status: 200,
+          msg: '操作成功',
+          data: [],
+        });
+      }, 1000);
+    } else {
+      res.json({
+        status: 10086,
+        msg: '用户名或密码错误!',
+        data: [],
+      });
+    }
+  },
+  'POST /api/user'(req, res) {
+    setTimeout(() => {
+      res.json({
+        status: 200,
+        msg: '操作成功',
+        data: {
+          user: {
+            userName: '贾亚军',
+            profile:
+              'https://gw.alipayobjects.com/zos/antfincdn/XAosXuNZyF/BiazfanxmamNRoxxVxka.png',
+          },
+          menu: [
+            {
+              path: '/homeManagement',
+              name: '主页管理',
+              icon: 'icon-poweroff',
+              key: 'homeManagement',
+              children: [
+                {
+                  path: '/home',
+                  name: '首页',
+                  icon: 'icon-poweroff',
+                  key: 'home',
+                },
+                {
+                  path: '/manual',
+                  name: '操作手册',
+                  icon: 'icon-poweroff',
+                  key: 'manual',
+                },
+              ],
+            },
+            {
+              path: '/businessManagement',
+              name: '业务管理',
+              icon: 'icon-poweroff',
+              key: 'businessManagement',
+              children: [
+                {
+                  path: '/userInfo',
+                  name: '用户信息管理',
+                  icon: 'icon-poweroff',
+                  key: 'userInfo',
+                },
+                {
+                  path: '/userUnion',
+                  name: '用户联合登录管理',
+                  icon: 'icon-poweroff',
+                  key: 'userUnion',
+                },
+                {
+                  path: '/userBank',
+                  name: '用户银行信息管理',
+                  icon: 'icon-poweroff',
+                  key: 'userBank',
+                },
+                {
+                  path: '/userSecurity',
+                  name: '用户安全管理',
+                  icon: 'icon-poweroff',
+                  key: 'userSecurity',
+                },
+                {
+                  path: '/userAuth',
+                  name: '用户认证管理',
+                  icon: 'icon-poweroff',
+                  key: 'userAuth',
+                },
+                {
+                  path: '/userLicense',
+                  name: '用户执照管理',
+                  icon: 'icon-poweroff',
+                  key: 'userLicense',
+                },
+              ],
+            },
+          ],
+          systems: {},
+        },
+      });
+    }, 1000);
+  },
+};

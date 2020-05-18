@@ -1,0 +1,52 @@
+@import '~lanlinker/es/style/index.less';
+
+.form {
+  margin-top: 20px;
+}
+.stepForm {
+  margin-top: 40px;
+  height: 350px;
+  &.step1{
+    padding-top: 120px;
+  }
+  &.step4{
+    padding-top: 40px;
+  }
+}
+.tab {
+  :global {
+    .ant-tabs-bar {
+      width: 400px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+  }
+}
+.listWrapper {
+  :global {
+    .ant-list-split .ant-list-item:last-child {
+      border-bottom: @border-split;
+    }
+    .ant-list-item {
+      padding-top: 14px;
+      padding-bottom: 14px;
+    }
+  }
+}
+.content {
+  width: 600px;
+  margin: 0 auto;
+}
+// todo 统一管理
+// 密码强度
+:global {
+  .strong {
+    color: @success-color;
+  }
+  .medium {
+    color: @warning-color;
+  }
+  .weak {
+    color: @error-color;
+  }
+}

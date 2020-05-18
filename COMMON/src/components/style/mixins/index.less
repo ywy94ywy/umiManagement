@@ -1,0 +1,143 @@
+@import '../themes/index.less';
+
+// 居中
+.center() {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+// 清除浮动
+.clearfix() {
+  &::before,
+  &::after {
+    content: '';
+    display: table;
+  }
+  &::after {
+    clear: both;
+  }
+}
+// 单行省略
+.ellipsis() {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+// 背景hover变浅主色
+.background-primary-hover() {
+  transition: all 0.3s;
+  cursor: pointer;
+  &:hover {
+    background: @hover-primary-color;
+  }
+}
+
+// 深色背景hover变亮
+.background-dark-hover() {
+  transition: all 0.3s;
+  cursor: pointer;
+  &:hover {
+    background: @hover-dark-color;
+  }
+}
+
+.header-panel() {
+  background: @white;
+  border-radius: 4px;
+  box-shadow: @shadow-1-down;
+}
+
+.font-size-1() {
+  font-size: @heading-2-size; //30
+}
+.font-size-2() {
+  font-size: @heading-3-size; //24
+}
+.font-size-3() {
+  font-size: @heading-4-size; //20
+}
+.font-size-4() {
+  font-size: @font-size-lg; //16
+}
+.font-size-5() {
+  font-size: @font-size-base; //14
+}
+.font-size-6() {
+  font-size: @font-size-sm; //12
+}
+
+.font1() {
+  .font-size-1;
+  line-height: ceil(@heading-2-size * 1.26);
+}
+.font2() {
+  .font-size-2;
+  line-height: ceil(@heading-3-size * 1.33);
+}
+.font3() {
+  .font-size-3;
+  line-height: ceil(@heading-4-size * 1.4);
+}
+.font4() {
+  .font-size-4;
+  line-height: ceil(@font-size-lg * 1.5);
+}
+.font5() {
+  .font-size-5;
+  line-height: ceil(@font-size-base * 1.57);
+}
+.font6() {
+  .font-size-6;
+  line-height: ceil(@font-size-sm * 1.66);
+}
+
+// 标题
+.h1() {
+  .font1;
+  font-weight: 500;
+  color: @title-color;
+}
+.h2() {
+  .font2;
+  font-weight: 500;
+  color: @title-color;
+}
+.h3() {
+  .font3;
+  font-weight: 500;
+  color: @title-color;
+}
+.h4() {
+  .font4;
+  font-weight: 500;
+  color: @title-color;
+}
+.h5() {
+  .font5;
+  font-weight: 500;
+  color: @title-color;
+}
+.h6() {
+  .font6;
+  font-weight: 500;
+  color: @title-color;
+}
+
+// 正文
+.text-xl() {
+  .font3;
+  color: @text-color;
+}
+.text-lg() {
+  .font4;
+  color: @text-color;
+}
+.text-base() {
+  .font5;
+  color: @text-color;
+}
+.text-sm() {
+  .font6;
+  color: @text-color;
+}

@@ -1,0 +1,29 @@
+@import '../style/index.less';
+
+.userMenu {
+  padding: 0 10px;
+  color: @header-fc-third;
+  width: fit-content;
+  .center;
+  .background-dark-hover;
+  &:hover {
+    color: @header-fc;
+  }
+  .user {
+    margin-left: 10px;
+  }
+}
+.userMenuPanel {
+  :global {
+    .ant-menu-item {
+      margin-top: 0;
+      margin-bottom: 0;
+      &:not(:last-child) {
+        margin-bottom: 0;
+      }
+    }
+    .ant-popover-inner-content {
+      padding: 0;
+    }
+  }
+}

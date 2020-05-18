@@ -1,0 +1,5 @@
+.authManagement {
+  .searchTree {
+    height: 575px;
+  }
+}

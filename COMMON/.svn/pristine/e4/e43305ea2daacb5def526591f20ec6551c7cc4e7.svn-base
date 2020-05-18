@@ -1,0 +1,13 @@
+@import '../style/index.less';
+
+.switchSystems {
+  width: 40px;
+  .background-dark-hover;
+  .center;
+  > span {
+    font-size: calc(var(--fontSize, 14px) + 2px);
+  }
+}
+.systemPanel {
+  width: 480px;
+}

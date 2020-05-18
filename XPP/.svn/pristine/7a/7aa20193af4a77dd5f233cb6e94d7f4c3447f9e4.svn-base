@@ -1,0 +1,8 @@
+export const fetchUserInfo = page => {
+  return {
+    url: `/api/userInfo`,
+    params: {
+      page,
+    },
+  };
+};

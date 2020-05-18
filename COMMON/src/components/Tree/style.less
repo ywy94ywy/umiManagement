@@ -1,0 +1,50 @@
+// showLine-fix
+:global {
+  .ant-tree.ant-tree-show-line.hide-file-icon {
+    .ant-tree-treenode {
+      .ant-tree-indent-unit-end:last-child::after {
+        content: ' ';
+        width: 1px;
+        border-left: 1px solid #fff;
+        height: 11px;
+        position: absolute;
+        z-index: 2;
+        right: -12px;
+        bottom: 0;
+      }
+      .ant-tree-switcher {
+        z-index: 3;
+      }
+      .ant-tree-switcher-noop {
+        background: transparent;
+        position: relative;
+        z-index: 1;
+        &::before {
+          content: ' ';
+          width: 1px;
+          border-left: 1px solid #d9d9d9;
+          height: 100%;
+          position: absolute;
+          left: 11px;
+          top: 0;
+          margin: 0;
+        }
+        &::after {
+          content: ' ';
+          height: 1px;
+          border-bottom: 1px solid #d9d9d9;
+          width: 7px;
+          position: absolute;
+          left: 11px;
+          top: 50%;
+          margin: 0;
+        }
+        > .ant-tree-switcher-line-icon {
+          > svg {
+            visibility: hidden;
+          }
+        }
+      }
+    }
+  }
+}

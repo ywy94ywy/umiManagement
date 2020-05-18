@@ -1,0 +1,55 @@
+@import "../style/index.less";
+
+.notification {
+  width: 40px;
+  height: 100%;
+  text-align: center;
+  .background-dark-hover;
+  .center;
+  :global {
+    .ant-badge-count {
+      min-width: 16px;
+      height: 16px;
+      line-height: 16px;
+      padding: 0 5px;
+      box-shadow: none;
+      top: -2px;
+      right: -2px;
+    }
+  }
+  > span {
+    font-size: calc(var(--fontSize, 14px) + 2px);
+  }
+}
+
+.notificationPanel {
+  width: 340px;
+  .list {
+    max-height: 360px;
+    overflow-y: auto;
+    .listItem {
+      .hover-background;
+      padding: 12px 24px;
+    }
+    .itemReaded {
+      opacity: 0.4;
+    }
+  }
+  .clear {
+    height: 60px;
+    border-top: @border-list;
+    cursor: pointer;
+    .center;
+  }
+  :global {
+    .ant-popover-inner-content {
+      padding: 0;
+      .ant-tabs-nav-scroll {
+        text-align: center;
+      }
+      .ant-tabs-bar {
+        margin-bottom: 0;
+      }
+    }
+  }
+}

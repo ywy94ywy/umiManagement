@@ -1,0 +1,13 @@
+export default {
+  '/api/userUnion'(req, res) {
+    res.json({
+      status: 200,
+      msg: '操作成功',
+      data: {
+        a: '235215335',
+        b: '江小白',
+        c: '',
+      },
+    });
+  },
+};

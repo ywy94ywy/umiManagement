@@ -1,0 +1,15 @@
+.userWrapper {
+  position: relative;
+  > .user {
+    position: absolute;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    .upload {
+      margin-top: 20px;
+    }
+    .content {
+      margin-top: 20px;
+    }
+  }
+}

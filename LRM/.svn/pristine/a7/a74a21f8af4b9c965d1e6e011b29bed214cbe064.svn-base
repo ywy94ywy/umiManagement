@@ -1,0 +1,74 @@
+@import '~lanlinker/es/style/index.less';
+
+.attributeStatistics {
+  .customTabs {
+    border: @border-normal;
+    :global {
+      .ant-tabs-tabpane {
+        padding: 12px;
+      }
+    }
+    .header {
+      border-bottom: @border-split;
+      padding: 0 20px;
+      vertical-align: middle;
+      min-height: 45px;
+      .left {
+        .center;
+        .title {
+          color: @primary-color;
+          font-weight: bold;
+        }
+        .subTitle {
+          margin-left: 60px;
+        }
+      }
+      :global {
+        .ant-tabs-bar {
+          margin-bottom: -1px;
+        }
+      }
+      .prefix {
+        padding-left: 15px;
+        position: relative;
+        &::before {
+          content: '';
+          color: transparent;
+          position: absolute;
+          left: 0;
+          top: 50%;
+          transform: translateY(-50%);
+          height: 25px;
+          border-left: @border-split;
+        }
+      }
+      .buttonWrapper {
+        margin-left: 15px;
+        .more {
+          padding-left: 0px;
+          height: 100%;
+        }
+      }
+    }
+
+    .rank() {
+      width: 22px;
+      height: 22px;
+      border-radius: 50%;
+      color: #fff;
+      margin: 0 auto;
+    }
+    .first {
+      .rank;
+      background: #e78840;
+    }
+    .second {
+      .rank;
+      background: #1890FF;
+    }
+    .third {
+      .rank;
+      background: #7892F7;
+    }
+  }
+}

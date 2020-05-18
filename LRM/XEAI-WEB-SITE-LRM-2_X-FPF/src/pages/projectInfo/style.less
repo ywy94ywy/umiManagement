@@ -1,0 +1,38 @@
+@import '~lanlinker/es/style/index.less';
+
+.projectInfo {
+  padding: @padding-normal;
+  .cardHeader() {
+    > :global(.ant-card-head) {
+      background: @primary-color;
+      color: @text-color-inverse;
+    }
+  }
+  .left {
+    width: 385px;
+    .cardHeader;
+    .imgCard {
+      &:nth-child(n + 2) {
+        margin-top: @padding-normal;
+      }
+      img {
+        max-width: 100%;
+      }
+    }
+  }
+  .right {
+    width: calc(100% - 385px - @padding-normal);
+    .cardHeader;
+    .common() {
+      width: 620px;
+      margin: 0 auto;
+    }
+    .license {
+      .common;
+    }
+    .licenseExtra {
+      .common;
+      margin-top: 20px;
+    }
+  }
+}

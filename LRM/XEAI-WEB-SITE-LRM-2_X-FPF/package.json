@@ -1,0 +1,39 @@
+{
+  "name": "web_lrm_fpf",
+  "private": true,
+  "version": "0.0.1",
+  "description": "",
+  "main": "dist/index.js",
+  "module": "dist/index.esm.js",
+  "license": "MIT",
+  "files": [
+    "dist",
+    "es",
+    "lib"
+  ],
+  "scripts": {
+    "start": "umi dev",
+    "build": "umi build",
+    "prettier": "prettier --write '**/*.{js,jsx,tsx,ts,less,md,json}'"
+  },
+  "gitHooks": {
+    "pre-commit": "lint-staged"
+  },
+  "lint-staged": {
+    "*.{js,jsx,less,md,json}": [
+      "prettier --write",
+      "git add"
+    ]
+  },
+  "dependencies": {
+    "@umijs/preset-react": "1.x",
+    "antd": "^4.0.2",
+    "bizcharts": "^3.5.7",
+    "lint-staged": "^10.0.7",
+    "prettier": "^1.19.1",
+    "react": "^16.13.0",
+    "react-dom": "^16.13.0",
+    "umi": "3.0.10",
+    "yorkie": "^2.0.0"
+  }
+}

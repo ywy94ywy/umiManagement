@@ -1,0 +1,29 @@
+.license {
+  width: 711px;
+  height: 1043px;
+  margin: 0 auto;
+  position: relative;
+  > img {
+    width: inherit;
+    height: inherit;
+    position: absolute;
+  }
+  > .content {
+    position: absolute;
+    width: 85.7%;
+    top: 35%;
+    left: 6.5%;
+    .textArea {
+      resize: none;
+      display: -webkit-box;
+      -webkit-box-orient: vertical;
+      -webkit-line-clamp: 8;
+      overflow: hidden;
+    }
+    :global {
+      .ant-form-item {
+        margin-bottom: 9px;
+      }
+    }
+  }
+}

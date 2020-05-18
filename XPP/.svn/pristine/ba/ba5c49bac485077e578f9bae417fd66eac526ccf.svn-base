@@ -1,0 +1,35 @@
+@import "~lanlinker/es/style/index.less";
+
+.homepage {
+  padding-top: 15px;
+  padding-bottom: 40px;
+  .servers {
+    width: 935px;
+    margin: 0 auto;
+    .row {
+      margin-bottom: 50px;
+      .listItem {
+        width: 415px;
+      }
+    }
+  }
+  .intros {
+    max-width: 1150px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-around;
+    img {
+      width: 305px;
+      height: 320px;
+    }
+  }
+  :global {
+    .ant-list-item-meta-title {
+      .h3;
+    }
+    .ant-list-item-meta-description {
+      margin-top: 10px;
+      .text-base;
+    }
+  }
+}

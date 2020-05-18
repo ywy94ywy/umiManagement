@@ -1,0 +1,12 @@
+@import '../style/index.less';
+
+.cardMT {
+  && {
+    margin-top: @padding-normal;
+  }
+}
+.cardML {
+  && {
+    margin-left: @padding-normal;
+  }
+}

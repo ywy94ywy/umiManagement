@@ -1,0 +1,43 @@
+@import '~lanlinker/es/style/index.less';
+
+.moduleManagement {
+  .searchTree {
+    height: 530px;
+  }
+}
+.moduleManagementModal {
+  :global {
+    // .ant-form-item-label {
+    //   width: 125px;
+    // }
+    // .ant-tabs-tabpane {
+    //   height: 300px;
+    //   padding: 0 15px;
+    //   overflow-x: hidden;
+    // }
+  }
+  .user {
+    width: 450px;
+    height: 530px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    > .upload {
+      margin-top: 20px;
+    }
+    > .info {
+      width: 350px;
+      margin-top: 20px;
+      p {
+        .h4;
+        display: flex;
+        > span {
+          &:first-child {
+            flex: 0 0 180px;
+            text-align: right;
+          }
+        }
+      }
+    }
+  }
+}

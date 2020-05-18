@@ -1,0 +1,60 @@
+@import '~lanlinker/es/style/index.less';
+
+.infoQuery {
+  .latest {
+    cursor: pointer;
+  }
+  .age {
+    cursor: pointer;
+    margin-left: 20px;
+  }
+  .sort {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    margin-left: 8px;
+    .up {
+      width: 0;
+      height: 0;
+      border: 5px solid transparent;
+      border-top: none;
+      border-bottom-color: @grey-2;
+      &.active {
+        border-bottom-color: @primary-color;
+      }
+    }
+    .down {
+      margin-top: 2px;
+      width: 0;
+      height: 0;
+      border: 5px solid transparent;
+      border-bottom: none;
+      border-top-color: @grey-2;
+      &.active {
+        border-top-color: @primary-color;
+      }
+    }
+  }
+  .card {
+    width: 100%;
+    margin-bottom: 16px;
+    > tbody {
+      > tr {
+        height: 42px;
+        > td {
+          border: @border-split;
+          padding: 0 16px;
+          overflow: hidden;
+        }
+        > .profile {
+          padding: 3px;
+          width: 120px;
+          text-align: center;
+          > img {
+            max-height: 120px;
+          }
+        }
+      }
+    }
+  }
+}

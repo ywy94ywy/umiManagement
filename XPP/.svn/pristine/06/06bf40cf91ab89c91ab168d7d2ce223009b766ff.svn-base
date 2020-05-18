@@ -1,0 +1,27 @@
+@import '~lanlinker/es/style/index.less';
+
+.userSecurity {
+  .layout {
+    padding: 16px 0;
+    background: #fff;
+
+    .leftMenu {
+      border-right: @border-split;
+      :global {
+        .ant-menu-inline {
+          border-right: none;
+        }
+        .ant-menu-item {
+          font-size: @fs-lg;
+        }
+      }
+    }
+    .right {
+      padding: 8px 40px;
+      .title {
+        margin-bottom: 12px;
+        .h3;
+      }
+    }
+  }
+}

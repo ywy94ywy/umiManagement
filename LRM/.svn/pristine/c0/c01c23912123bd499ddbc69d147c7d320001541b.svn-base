@@ -1,0 +1,41 @@
+@import '~lanlinker/es/style/index.less';
+
+.searchBar {
+  position: relative;
+  display: flex;
+  border: @border-normal;
+  padding: 10px 20px;
+  .noBorder {
+    border: none;
+  }
+  &:not(:last-child) {
+    border-bottom: none;
+  }
+  > .label {
+    width: 100px;
+    margin-right: 20px;
+    height: 32px;
+    line-height: 32px;
+    .ellipsis;
+  }
+  > .content {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    > .narrow {
+      flex: 1;
+      overflow: hidden;
+      max-height: 32px;
+    }
+    > .expanded {
+      flex: 1;
+      overflow: visible;
+      max-height: fit-content;
+    }
+    > .more {
+      width: 60px;
+      align-self: flex-start;
+      .center;
+    }
+  }
+}
