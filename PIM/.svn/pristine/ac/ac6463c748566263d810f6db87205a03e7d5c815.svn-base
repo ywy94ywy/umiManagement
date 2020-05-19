@@ -1,12 +1,7 @@
-/**
- * @module 项目信息管理
- */
-import { useState } from 'react';
-import { PageHeaderWrapper, useConstructTree } from 'lanlinker';
-import { Card, Layout, Space } from 'antd';
-import TabsForm from './components/TabsForm';
-import TabsSearch from './components/TabsSearch';
-import { UserOutlined } from '@ant-design/icons';
+import { PageHeaderWrapper, SearchTree, useConstructTree } from 'lanlinker';
+import { Card, Layout, Tabs } from 'antd';
+
+const { TabPane } = Tabs;
 
 export default () => {
   const treeRawData = [
@@ -80,36 +75,34 @@ export default () => {
     icon: 'c',
     key: 'id',
   });
-
+  console.log('render');
   return (
     <PageHeaderWrapper>
       <Card>
         <Layout>
-          <Layout.Sider theme="light" width={300} style={{ marginRight: 24 }}>
-            <Card
-              title={
-                <Space>
-                  <UserOutlined />
-                  组织组别管理
-                </Space>
-              }
-              bodyStyle={{ padding: '0 16px', height: '100%', minHeight: 500 }}
-            >
-              <TabsSearch treeData={treeData} />
+          <Layout.Sider theme="light" width={300}>
+            <Card bodyStyle={{ padding: '0 16px', height: 500 }}>
+              <Tabs>
+                <TabPane tab="承建工程标签" key="承建工程标签">
+                  <SearchTree
+                    height={400}
+                    treeProps={{
+                      treeData,
+                      onRightClick(a) {
+                        console.log(a);
+                        return <Card>123</Card>;
+                      },
+                    }}
+                  ></SearchTree>
+                </TabPane>
+                <TabPane tab="监管工程标签" key="监管工程标签">
+                  <SearchTree height={400}></SearchTree>
+                </TabPane>
+              </Tabs>
             </Card>
           </Layout.Sider>
-          <Layout.Content>
-            <Card
-              title={
-                <Space>
-                  <UserOutlined />
-                  详情信息
-                </Space>
-              }
-              bodyStyle={{ height: '100%', minHeight: 500 }}
-            >
-              <TabsForm />
-            </Card>
+          <Layout.Content style={{ marginLeft: 24 }}>
+            <Card bodyStyle={{ padding: 0, height: 500 }}>12415</Card>
           </Layout.Content>
         </Layout>
       </Card>

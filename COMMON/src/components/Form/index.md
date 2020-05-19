@@ -133,7 +133,7 @@ export default () => {
   const [form] = Form.useForm();
   const data = [];
 
-  for (let i = 1; i < 6; i++) {
+  for (let i = 1; i < 5; i++) {
     data.push({
       label: '名称' + i,
       name: 'filed' + i,
@@ -141,9 +141,10 @@ export default () => {
       rules: [{ required: true }],
     });
   }
-  data.push({});
   data.push({
-    component: null,
+    label: 'test',
+    component: <Input />,
+    colSpan: 2,
   });
   for (let i = 10; i < 16; i++) {
     data.push({

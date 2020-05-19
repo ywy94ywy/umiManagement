@@ -1,9 +1,11 @@
 /**
  * @module TreeBase(antd-Tree)
  * @description 为基础菜单添加右键菜单功能
- * @todo 优化菜单公用一个div
+ * @todo 提供关闭回调
+ * @todo 优化: 动画效果、body上事件可能过多
  */
 import React, { useRef, useState, useEffect } from 'react';
+import { createPortal } from 'react-dom';
 import { Tree as AntdTree } from 'antd';
 import { TreeProps as AntdTreeProps } from 'antd/es/Tree';
 import classNames from 'classnames';
@@ -24,33 +26,40 @@ const TreeBase: React.FC<TreeBaseProps> = ({
   onRightClick,
   ...props
 }) => {
-  const [contextMenu, setContextMenu] = useState<React.ReactNode>(null);
-  const [wrapperStyle, setWrapperStyle] = useState<React.CSSProperties>({
-    top: '0',
-    left: '0',
-    visibility: 'hidden',
-  });
-  const menuRef = useRef<HTMLDivElement>(null);
+  const [menuInfo, setMenuInfo] = useState<{
+    menu?: React.ReactNode;
+    position?: {
+      top: number;
+      left: number;
+    };
+  }>({});
+  const wrapperRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    try {
-      if (menuRef.current) {
-        const fn = (e: Event) => {
-          if (
-            menuRef &&
-            menuRef.current !== null &&
-            !menuRef.current.contains(e.target as Node)
-          ) {
-            setWrapperStyle({ top: '0', left: '0', visibility: 'hidden' });
-          }
-        };
-        document.body.addEventListener('click', fn);
-        return () => document.body.removeEventListener('click', fn);
+    const fn = (e: Event) => {
+      if (
+        wrapperRef.current &&
+        !wrapperRef.current.contains(e.target as Node)
+      ) {
+        wrapperRef.current.style.display = 'none';
       }
-    } catch (err) {
-      console.log(err, '树组件右键菜单隐藏失败');
+    };
+    document.body.addEventListener('click', fn);
+    document.body.addEventListener('contextmenu', fn);
+    window.addEventListener('scroll', fn);
+
+    return () => {
+      document.body.removeEventListener('click', fn);
+      document.body.removeEventListener('contextmenu', fn);
+      window.removeEventListener('scroll', fn);
+    };
+  }, []);
+
+  useEffect(() => {
+    if (wrapperRef.current) {
+      wrapperRef.current.style.display = 'block';
     }
-  }, [contextMenu]);
+  }, [menuInfo]);
 
   return (
     <>
@@ -60,17 +69,19 @@ const TreeBase: React.FC<TreeBaseProps> = ({
         showLine={true}
         className={classNames('hide-file-icon', className)}
         onRightClick={({ event, node }) => {
+          const { pageX, pageY } = event;
+
           if (onRightClick) {
             const menu = onRightClick({ event, node });
             try {
-              if (menu) {
-                setWrapperStyle({
-                  left: event.pageX + 'px',
-                  top: event.pageY + 'px',
-                  visibility: 'visible',
+              menu &&
+                setMenuInfo({
+                  menu,
+                  position: {
+                    left: pageX,
+                    top: pageY,
+                  },
                 });
-                setContextMenu(menu);
-              }
             } catch (err) {
               console.log(err, '树组件右键菜单展示错误');
             }
@@ -79,20 +90,32 @@ const TreeBase: React.FC<TreeBaseProps> = ({
         defaultExpandAll
         {...props}
       />
-      {contextMenu && (
-        <div
-          ref={menuRef}
-          style={{
-            position: 'absolute',
-            ...wrapperStyle,
-            zIndex: 1000,
-            boxShadow:
-              '0 3px 6px -4px rgba(0, 0, 0, 0.12), 0 6px 16px 0 rgba(0, 0, 0, 0.08), 0 9px 28px 8px rgba(0, 0, 0, 0.05)',
-          }}
-        >
-          {contextMenu}
-        </div>
-      )}
+      {menuInfo.menu &&
+        createPortal(
+          <div
+            style={{
+              position: 'absolute',
+              left: 0,
+              top: 0,
+              width: '100%',
+            }}
+          >
+            <div
+              style={{
+                position: 'absolute',
+                left: menuInfo.position?.left,
+                top: menuInfo.position?.top,
+                zIndex: 1000,
+                boxShadow:
+                  '0 3px 6px -4px rgba(0, 0, 0, 0.12), 0 6px 16px 0 rgba(0, 0, 0, 0.08), 0 9px 28px 8px rgba(0, 0, 0, 0.05)',
+              }}
+              ref={wrapperRef}
+            >
+              {menuInfo.menu}
+            </div>
+          </div>,
+          document.body,
+        )}
     </>
   );
 };

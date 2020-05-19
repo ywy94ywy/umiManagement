@@ -78,22 +78,43 @@ export default () => {
   });
 
   return (
-    <Tree
-      treeData={treeData}
-      onRightClick={({ event, node }) => {
-        return (
-          <Menu>
-            <Menu.Item
-              onClick={() => {
-                console.log(node);
-              }}
-            >
-              菜单1
-            </Menu.Item>
-            <Menu.Item>菜单2</Menu.Item>
-          </Menu>
-        );
-      }}
-    ></Tree>
+    <>
+      <p>树一</p>
+      <Tree
+        treeData={treeData}
+        onRightClick={({ event, node }) => {
+          return (
+            <Menu>
+              <Menu.Item
+                onClick={() => {
+                  console.log(node);
+                }}
+              >
+                菜单1
+              </Menu.Item>
+              <Menu.Item>菜单2</Menu.Item>
+            </Menu>
+          );
+        }}
+      ></Tree>
+      <p>树二</p>
+      <Tree
+        treeData={treeData}
+        onRightClick={({ event, node }) => {
+          return (
+            <Menu>
+              <Menu.Item
+                onClick={() => {
+                  console.log(node);
+                }}
+              >
+                菜单1
+              </Menu.Item>
+              <Menu.Item>菜单2</Menu.Item>
+            </Menu>
+          );
+        }}
+      ></Tree>
+    </>
   );
 };

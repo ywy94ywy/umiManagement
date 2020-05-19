@@ -1,0 +1,21 @@
+@width: 210px;
+@height: 150px;
+
+.upload {
+  :global {
+    .ant-upload-list {
+      > .ant-upload-list-picture-card-container {
+        width: @width;
+        height: @height;
+        .ant-upload-list-item {
+          width: @width;
+          height: @height;
+        }
+      }
+    }
+    .ant-upload.ant-upload-select-picture-card {
+      width: @width;
+      height: @height;
+    }
+  }
+}
