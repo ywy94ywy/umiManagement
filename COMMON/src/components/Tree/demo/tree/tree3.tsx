@@ -2,8 +2,7 @@
  * title: 添加右键菜单功能
  */
 import React from 'react';
-import { Tree, useConstructTree } from 'lanlinker';
-import { Menu } from 'antd';
+import { Tree, useConstructTree, TreeContextMenu } from 'lanlinker';
 
 export default () => {
   const treeRawData = [
@@ -79,39 +78,58 @@ export default () => {
 
   return (
     <>
-      <p>树一</p>
+      <h3>树一</h3>
       <Tree
         treeData={treeData}
-        onRightClick={({ event, node }) => {
+        onRightClick={({ event, node }, close) => {
           return (
-            <Menu>
-              <Menu.Item
-                onClick={() => {
-                  console.log(node);
-                }}
-              >
-                菜单1
-              </Menu.Item>
-              <Menu.Item>菜单2</Menu.Item>
-            </Menu>
+            <TreeContextMenu
+              closeOnClick={close}
+              reNameClick={e => {
+                console.log(e);
+              }}
+              moveClick={e => {
+                console.log(e);
+              }}
+              removeClick={e => {
+                console.log(e);
+              }}
+              moveUpClick={(e, step) => {
+                console.log(e, step);
+              }}
+              moveDownClick={(e, step) => {
+                console.log(e, step);
+              }}
+            ></TreeContextMenu>
           );
         }}
       ></Tree>
-      <p>树二</p>
+      <h3>树二</h3>
       <Tree
         treeData={treeData}
-        onRightClick={({ event, node }) => {
+        onRightClick={({ event, node }, close) => {
           return (
-            <Menu>
-              <Menu.Item
-                onClick={() => {
-                  console.log(node);
-                }}
-              >
-                菜单1
-              </Menu.Item>
-              <Menu.Item>菜单2</Menu.Item>
-            </Menu>
+            <TreeContextMenu
+              closeOnClick={close}
+              createClick={e => {
+                console.log(e);
+              }}
+              reNameClick={e => {
+                console.log(e);
+              }}
+              moveClick={e => {
+                console.log(e);
+              }}
+              removeClick={e => {
+                console.log(e);
+              }}
+              moveUpClick={(e, step) => {
+                console.log(e, step);
+              }}
+              moveDownClick={(e, step) => {
+                console.log(e, step);
+              }}
+            ></TreeContextMenu>
           );
         }}
       ></Tree>

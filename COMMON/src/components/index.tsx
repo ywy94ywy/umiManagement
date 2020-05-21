@@ -14,6 +14,8 @@ export { default as BindInput } from './BindInput';
 export { default as Form } from './Form';
 export { default as HighSpeedScanner } from './HighSpeedScanner';
 export { default as Popconfirm } from './Popconfirm';
+export { default as TreeContextMenu } from './TreeContextMenu';
+export { default as License } from './License';
 
 export * from './Table';
 export * from './Card';

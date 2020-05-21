@@ -13,10 +13,13 @@ import './style.less';
 
 export interface TreeBaseProps extends Omit<AntdTreeProps, 'onRightClick'> {
   height?: number | undefined;
-  onRightClick?: (info: {
-    event: React.MouseEvent;
-    node: any;
-  }) => React.ReactNode | void;
+  onRightClick?: (
+    info: {
+      event: React.MouseEvent;
+      node: any;
+    },
+    close: () => void,
+  ) => React.ReactNode | void;
 }
 
 const TreeBase: React.FC<TreeBaseProps> = ({
@@ -35,6 +38,7 @@ const TreeBase: React.FC<TreeBaseProps> = ({
   }>({});
   const wrapperRef = useRef<HTMLDivElement>(null);
 
+  // 隐藏菜单
   useEffect(() => {
     const fn = (e: Event) => {
       if (
@@ -55,6 +59,7 @@ const TreeBase: React.FC<TreeBaseProps> = ({
     };
   }, []);
 
+  // 展示菜单
   useEffect(() => {
     if (wrapperRef.current) {
       wrapperRef.current.style.display = 'block';
@@ -72,7 +77,11 @@ const TreeBase: React.FC<TreeBaseProps> = ({
           const { pageX, pageY } = event;
 
           if (onRightClick) {
-            const menu = onRightClick({ event, node });
+            const menu = onRightClick({ event, node }, () => {
+              if (wrapperRef.current) {
+                wrapperRef.current.style.display = 'none';
+              }
+            });
             try {
               menu &&
                 setMenuInfo({

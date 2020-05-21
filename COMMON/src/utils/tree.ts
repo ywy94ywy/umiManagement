@@ -10,6 +10,10 @@ export interface rename {
   reName?: rename;
 }
 
+export interface rename2 {
+  children?: string;
+}
+
 type IContructTree = (treeList: TreeList, reName?: rename) => Array<any>;
 
 // 根据平铺结构生成嵌套树结构
@@ -47,4 +51,21 @@ export const constructTree: IContructTree = (treeList = [], config = {}) => {
   });
 
   return nextTreeList;
+};
+
+// todo 优化
+export const destructTree = (treeData = [], options = {}) => {
+  const arr: any[] = [];
+  const destruct = (treeData: any, options: any) => {
+    const { children = 'children' } = options;
+    treeData.forEach((node: any) => {
+      const { [children]: child, ...props } = node;
+      arr.push(props);
+      if (child) {
+        destruct(child, options);
+      }
+    });
+  };
+  destruct(treeData, options);
+  return arr;
 };

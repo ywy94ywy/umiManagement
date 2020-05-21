@@ -73,7 +73,7 @@ export default disabled => {
       label: '工程建筑面积',
       component: (
         <Space>
-          <Input></Input>
+          <Input disabled={disabled}></Input>
           <span>㎡</span>
         </Space>
       ),

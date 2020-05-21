@@ -10,6 +10,10 @@ export default defineConfig({
       component: '@/layout',
       routes: [
         {
+          path: '/',
+          redirect: '/project',
+        },
+        {
           path: '/cooperative',
           component: '@/pages/cooperative',
         },

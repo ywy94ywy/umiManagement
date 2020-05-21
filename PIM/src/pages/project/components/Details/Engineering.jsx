@@ -1,18 +1,19 @@
 /**
- * @module 右侧
+ * @module 工程详细信息
  */
+
 import { useState } from 'react';
 import { Form, ButtonModal } from 'lanlinker';
 import { Tabs, Button, Space, Select } from 'antd';
 import participantBase from './forms/participantBase';
-import projectBase from './forms/projectBase';
+import engineeringBase from './forms/engineeringBase';
 import responsibilityBase from './forms/responsibilityBase';
 import supervisorBase from './forms/supervisorBase';
 import PictureWall from '../PictureWall';
 
 const { TabPane } = Tabs;
 
-export default () => {
+export default ({ node, readOnly = false }) => {
   const [editing, setEditing] = useState(false); // 编辑状态
   const [fileList, setFileList] = useState([
     {
@@ -44,7 +45,9 @@ export default () => {
         'https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png',
     },
   ]);
-  const disabled = !editing;
+
+  const disabled = readOnly ? true : !editing;
+  const { first, id } = node;
 
   const handleCreate = () => {
     setEditing(true);
@@ -61,43 +64,62 @@ export default () => {
 
   return (
     <>
-      <Space>
-        <Button type="primary" onClick={handleCreate} disabled={editing}>
-          新增
-        </Button>
-        <Button type="primary" onClick={handleUpdate} disabled={editing}>
-          修改
-        </Button>
-        {editing && (
-          <>
-            <Button type="primary" onClick={handleSave}>
-              保存
-            </Button>
-            <Button onClick={handleCancel}>取消</Button>
-          </>
-        )}
-        <ButtonModal
-          title="绑定租户执照"
-          buttonProps={{
-            text: '绑定',
-            type: 'primary',
-            // onClick: handleUpdate,
-          }}
-        >
-          <Form layout="vertical">
-            <Form.Item label="请选择要绑定的租户执照">
-              <Select></Select>
-            </Form.Item>
-          </Form>
-        </ButtonModal>
-      </Space>
+      {!readOnly && (
+        <Space style={{ marginTop: 16 }}>
+          {!editing && (
+            <>
+              {first && (
+                <Button
+                  type="primary"
+                  onClick={handleCreate}
+                  disabled={editing}
+                >
+                  新增
+                </Button>
+              )}
+              {!first && (
+                <Button
+                  type="primary"
+                  onClick={handleUpdate}
+                  disabled={editing}
+                >
+                  修改
+                </Button>
+              )}
+            </>
+          )}
+          {editing && (
+            <>
+              <Button type="primary" onClick={handleSave}>
+                保存
+              </Button>
+              <Button onClick={handleCancel}>取消</Button>
+            </>
+          )}
+          <ButtonModal
+            title="绑定租户执照"
+            buttonProps={{
+              text: '绑定',
+              type: 'primary',
+              // onClick: handleUpdate,
+            }}
+          >
+            <Form layout="vertical">
+              <Form.Item label="请选择要绑定的租户执照">
+                <Select></Select>
+              </Form.Item>
+            </Form>
+          </ButtonModal>
+        </Space>
+      )}
       <Tabs>
         <TabPane tab="工程基本信息" key="工程基本信息">
           <Form
             labelCol={{
               flex: '0 0 130px',
             }}
-            configForm={projectBase(disabled)}
+            style={{ maxWidth: 900 }}
+            configForm={engineeringBase(disabled)}
             columns={2}
           ></Form>
         </TabPane>

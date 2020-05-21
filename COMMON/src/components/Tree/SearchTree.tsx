@@ -5,7 +5,7 @@ import React, { useState, useEffect } from 'react';
 import { Input } from 'antd';
 import { SearchProps } from 'antd/es/input';
 import Tree, { TreeProps } from './Tree';
-
+import { useDestructTree } from '../../hooks';
 const { Search } = Input;
 
 export interface SearchTreeProps {
@@ -27,15 +27,16 @@ const SearchTree: React.FC<SearchTreeProps> = ({
   const [expandedList, setExpandedList] = useState<string[]>([]);
   const [autoExpandParent, setAutoExpandParent] = useState(true);
   const [flag, setFlag] = useState(false);
+  const [flatTree] = useDestructTree(treeData);
 
   useEffect(() => {
-    const allKeys = treeData.map(item => item['key'].toString());
+    const allKeys = flatTree.map(v => v.key);
     // 默认展开所有
     setExpandedList(allKeys);
   }, []);
 
   const handleChange = (e: any) => {
-    const list = treeData
+    const list = flatTree
       .filter(item => {
         const title = item['title'] as string;
         try {
@@ -48,6 +49,7 @@ const SearchTree: React.FC<SearchTreeProps> = ({
         }
       })
       .map((item: any) => item['key']);
+
     setAutoExpandParent(true);
     setExpandedList(list);
   };
