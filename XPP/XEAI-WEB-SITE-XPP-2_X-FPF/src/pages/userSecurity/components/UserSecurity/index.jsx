@@ -12,6 +12,7 @@ import classNames from 'classnames';
 import styles from '../style.less';
 
 const layout = { labelCol: { span: 9 }, wrapperCol: { span: 10 } };
+const modalStyle = { minHeight: 300 };
 
 export default () => {
   const [currentQuestion, setCurrentQuestion] = useState(0);
@@ -22,7 +23,7 @@ export default () => {
   const data = [
     {
       title: '用户密保问题管理',
-      description: '未设置密保问题，密保问题可有效保护帐户安全',
+      description: '未设置密保问题，密保问题可有效保护帐户安全', //todo 动态
       actions: [
         <ButtonModal
           buttonProps={{
@@ -34,6 +35,7 @@ export default () => {
           }}
           title="用户密保问题修改"
           width={700}
+          bodyStyle={modalStyle}
           visible={modal}
           onCancel={() => {
             setModal(false);
@@ -65,17 +67,22 @@ export default () => {
     },
     {
       title: '用户密保手机管理',
-      description: '已绑定手机：138****8293',
+      description: '已绑定手机：138****8293', //todo 动态
       actions: [
         <ButtonModal
           title="用户密保手机修改"
           width={700}
+          bodyStyle={modalStyle}
           buttonProps={{
             text: '修改',
             type: 'link',
           }}
+          afterClose={() => {
+            formPhone.resetFields();
+          }}
           onOk={async (e, close) => {
             const res = await formPhone.validateFields();
+            // 接口
             close();
             message.success('用户密保手机修改成功！');
           }}
@@ -86,17 +93,23 @@ export default () => {
     },
     {
       title: '用户密保邮箱管理',
-      description: '未绑定邮箱',
+      description: '未绑定邮箱', //todo 动态
       actions: [
         <ButtonModal
           title="用户密保邮箱修改"
           width={700}
+          bodyStyle={modalStyle}
           buttonProps={{
             text: '绑定',
             type: 'link',
           }}
+          afterClose={() => {
+            formEmail.resetFields();
+          }}
           onOk={async (e, close) => {
             const res = await formEmail.validateFields();
+
+            // 提交接口
             close();
             message.success('用户密保邮箱修改成功！');
           }}

@@ -3,36 +3,41 @@
  */
 import React, { useState } from 'react';
 import { PageHeaderWrapper, Form, SafeInput, BindInput } from 'lanlinker';
-import { fetchUserUnion } from './servers';
-import { Card } from 'antd';
+import { Card, Skeleton } from 'antd';
 import { useRequest } from 'umi';
+import { fetchUserUnion } from './servers';
 
 const Union = () => {
   const [form] = Form.useForm();
-  const [flags, setFlags] = useState({});
+  const [flags, setFlags] = useState({ a: false, b: false, c: false }); // todo 假数据
+  const fakeTime = '2020-01-10'; // todo 假数据
 
-  useRequest(fetchUserUnion, {
-    onSuccess(res, params) {
-      if (res) {
-        form.setFieldsValue(res);
-        setFlags(res);
-      }
-    },
-  });
+  // const { loading } = useRequest(fetchUserUnion, {
+  // onSuccess(res) {
+  //   form.setFieldsValue(res);
+  // },
+  // });
 
+  const layoutStyle = { width: 800, margin: '20px 0 0 50px' };
   return (
     <PageHeaderWrapper>
       <Card style={{ minHeight: 600 }}>
+        {/* {loading ? (
+          <div style={layoutStyle}>
+            <Skeleton active />
+          </div>
+        ) : ( */}
         <Form
           form={form}
           columns={2}
-          style={{ width: '70%', margin: '0 auto' }}
+          style={layoutStyle}
           labelCol={{ span: 8 }}
           wrapperCol={{ span: 14 }}
         >
           <Form.Item name="a" label="用户QQ账号">
             <BindInputWrapper
               disabled={flags.a}
+              active={!flags.a}
               activeModalProps={{
                 title: 'QQ扫码绑定',
               }}
@@ -55,11 +60,12 @@ const Union = () => {
               pull: 1,
             }}
           >
-            时间
+            {fakeTime}
           </Form.Item>
           <Form.Item name="b" label="用户微信账号">
             <BindInputWrapper
               disabled={flags.b}
+              active={!flags.b}
               activeModalProps={{
                 title: '微信扫码绑定',
               }}
@@ -82,12 +88,12 @@ const Union = () => {
               pull: 1,
             }}
           >
-            时间
+            {fakeTime}
           </Form.Item>
           <Form.Item name="c" label="用户新浪账号">
             <BindInputWrapper
               disabled={flags.c}
-              active
+              active={!flags.c}
               activeModalProps={{
                 title: '新浪扫码绑定',
               }}
@@ -110,9 +116,10 @@ const Union = () => {
               pull: 1,
             }}
           >
-            时间
+            {fakeTime}
           </Form.Item>
         </Form>
+        {/* )} */}
       </Card>
     </PageHeaderWrapper>
   );

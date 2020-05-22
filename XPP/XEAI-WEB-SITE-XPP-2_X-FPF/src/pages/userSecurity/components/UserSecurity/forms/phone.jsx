@@ -19,6 +19,6 @@ export default [
     label: '新手机验证码',
     name: 'c',
     rules: [{ required: true }],
-    component: <CountDownInput></CountDownInput>,
+    component: <CountDownInput></CountDownInput>, // todo 如何调用接口
   },
 ];

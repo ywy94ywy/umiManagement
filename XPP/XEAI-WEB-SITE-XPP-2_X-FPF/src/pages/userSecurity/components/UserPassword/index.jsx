@@ -1,11 +1,10 @@
 /**
  * @module 用户密码管理
- * @todo destroyOnClose???
  * @todo tabs
  */
-import ListWrapper from '../ListWrapper';
 import { ButtonModal, Form } from 'lanlinker';
 import { Tabs, message } from 'antd';
+import ListWrapper from '../ListWrapper';
 import loginForm from './forms/login';
 import phoneForm from './forms/phone';
 import emailForm from './forms/email';
@@ -20,26 +19,36 @@ const passwordStrength = {
 };
 
 const layout = { labelCol: { span: 9 }, wrapperCol: { span: 10 } };
+const modalStyle = { minHeight: 300 };
 
 export default () => {
   const [formLogin] = Form.useForm();
-  // const [formReset] = Form.useForm();
   const [formSafe] = Form.useForm();
+  const [formPhone] = Form.useForm();
+  const [formEmail] = Form.useForm();
+  const [formSecurity] = Form.useForm();
 
   const data = [
     {
       title: '用户登录密码管理',
-      description: <>当前密码强度：{passwordStrength.strong}</>,
+      description: <>当前密码强度：{passwordStrength.strong}</>, // todo 这里的样式怎控制的 //todo 动态
       actions: [
         <ButtonModal
           title="用户登录密码修改"
+          afterClose={() => {
+            formLogin.resetFields();
+          }}
           width={700}
+          bodyStyle={modalStyle}
           buttonProps={{
             text: '修改',
             type: 'link',
           }}
           onOk={async (e, close) => {
             const res = await formLogin.validateFields();
+
+            // 提交接口
+
             close();
             message.success('用户登录密码修改成功！');
           }}
@@ -56,12 +65,18 @@ export default () => {
           <ButtonModal
             title="用户安全密码修改"
             width={700}
+            bodyStyle={modalStyle}
             buttonProps={{
               text: '修改',
               type: 'link',
             }}
+            afterClose={() => {
+              formSafe.resetFields();
+            }}
             onOk={async (e, close) => {
               const res = await formSafe.validateFields();
+              // 提交接口
+
               close();
               message.success('用户安全密码修改成功！');
             }}
@@ -71,25 +86,33 @@ export default () => {
           <ButtonModal
             title="用户安全密码重置"
             width={700}
+            bodyStyle={modalStyle}
             buttonProps={{
               text: '重置',
               type: 'link',
             }}
+            afterClose={() => {
+              formPhone.resetFields();
+              formEmail.resetFields();
+              formSecurity.resetFields();
+            }}
             onOk={async (e, close) => {
               // const res = await safeForm.validateFields();
+              // 提交接口
+
               close();
-              // message.success('用户安全密码重置修改成功！');
+              message.success('用户安全密码重置修改成功！');
             }}
           >
             <Tabs size="large" className={styles.tab}>
-              <Tabs.TabPane tab="手机验证" key="手机验证">
-                <Form configForm={phoneForm} {...layout}></Form>
+              <Tabs.TabPane tab="手机验证" key="手机验证" forceRender>
+                <Form form={formPhone} configForm={phoneForm} {...layout}></Form>
               </Tabs.TabPane>
-              <Tabs.TabPane tab="邮箱验证" key="邮箱验证">
-                <Form configForm={emailForm} {...layout}></Form>
+              <Tabs.TabPane tab="邮箱验证" key="邮箱验证" forceRender>
+                <Form form={formEmail} configForm={emailForm} {...layout}></Form>
               </Tabs.TabPane>
-              <Tabs.TabPane tab="密保验证" key="密保验证">
-                <Form configForm={securityForm} {...layout}></Form>
+              <Tabs.TabPane tab="密保验证" key="密保验证" forceRender>
+                <Form form={formSecurity} configForm={securityForm} {...layout}></Form>
               </Tabs.TabPane>
             </Tabs>
           </ButtonModal>

@@ -16,7 +16,18 @@ export default [
   {
     label: '新安全密码确认',
     name: 'c',
-    rules: [{ required: true }],
+    validateTrigger: 'onBlur',
+    rules: [
+      { required: true },
+      ({ getFieldValue }) => ({
+        validator(rule, value) {
+          if (!value || getFieldValue('b').join('') === value.join('')) {
+            return Promise.resolve();
+          }
+          return Promise.reject('两次输入的密码不一致！');
+        },
+      }),
+    ],
     component: <SafeInput></SafeInput>,
   },
 ];

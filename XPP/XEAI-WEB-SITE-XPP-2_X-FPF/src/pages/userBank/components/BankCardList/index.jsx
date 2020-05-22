@@ -2,11 +2,16 @@ import React, { useState } from 'react';
 import { Modal } from 'lanlinker';
 import BankCard from '../BankCard';
 import { PlusOutlined } from '@ant-design/icons';
-import { Form, Input, message, Select, Checkbox, Row, Col } from 'antd';
+import { Form, Input, message, Select, Checkbox, Row, Col, Skeleton } from 'antd';
 import styles from './style.less';
 
-export default ({ data }) => {
+export default ({ data, loading }) => {
   const [add, showAdd] = useState(false);
+
+  if (!data || loading) {
+    return <Skeleton />;
+  }
+
   return (
     <div className={styles.layout}>
       {data.map((v, i) => (

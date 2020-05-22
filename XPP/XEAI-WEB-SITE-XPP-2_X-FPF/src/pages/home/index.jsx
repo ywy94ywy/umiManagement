@@ -3,9 +3,10 @@
  * @author DesYang
  * @todo 图片更换
  */
-import { Card, Row, List, Avatar } from 'antd';
+import { Card } from 'antd';
 import { PageHeaderWrapper } from 'lanlinker';
 import ManualTitle from '@/components/ManualTitle';
+import ListWrapper from './components/ListWrapper';
 import styles from './style.less';
 import pic1 from './imgs/1.png';
 import pic2 from './imgs/2.png';
@@ -34,32 +35,6 @@ export default () => {
       </Card>
     </PageHeaderWrapper>
   );
-};
-
-const ListWrapper = ({ data = [] }) => {
-  const rows = Math.ceil(data.length / 2);
-  const list = [];
-  for (let i = 0; i < rows; i++) {
-    const ListRow = () => {
-      return (
-        <Row key={i} type="flex" justify="space-between" className={styles.row}>
-          {data.slice(i * 2, (i + 1) * 2).map((item, index) => {
-            return (
-              <List.Item className={styles.listItem} key={index}>
-                <List.Item.Meta
-                  avatar={<Avatar shape="square" size={90} src={item.pic} />}
-                  title={item.title}
-                  description={item.content}
-                />
-              </List.Item>
-            );
-          })}
-        </Row>
-      );
-    };
-    list.push(<ListRow key={i} />);
-  }
-  return list;
 };
 
 const data = [

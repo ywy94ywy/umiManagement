@@ -5,9 +5,8 @@
  */
 import React from 'react';
 import { PageHeaderWrapper } from 'lanlinker';
-import { Card, Row, Col } from 'antd';
-import { history } from 'umi';
-import classNames from 'classnames';
+import { Card } from 'antd';
+import Steps from './components/Steps';
 import ManualTitle from '@/components/ManualTitle';
 import step1 from './imgs/step1.png';
 import step2 from './imgs/step2.png';
@@ -27,38 +26,11 @@ export default () => {
       <Card>
         <div className={styles.layout}>
           <ManualTitle title="操作指南" subtitle={subtitle}></ManualTitle>
-          <Manuals manuals={manuals}></Manuals>
+          <Steps manuals={manuals}></Steps>
         </div>
       </Card>
     </PageHeaderWrapper>
   );
-};
-
-const Manuals = ({ manuals }) => {
-  return manuals.map((item, index) => {
-    return (
-      <Row justify="space-between" key={index} className={styles.stepWrapper}>
-        <Col order={index % 2 ? 3 : 1} className={styles.col1}>
-          <div className={styles.title}>
-            <img src={item.step} className={styles.step} alt="步骤"></img>
-            <span>{item.title}</span>
-          </div>
-          <span className={styles.description}>{item.description}</span>
-        </Col>
-        <Col
-          order={2}
-          className={classNames(styles.col2, item.url ? styles.link : '')}
-          onClick={() => {
-            if (item.url) {
-              history.push(item.url);
-            }
-          }}
-        >
-          <img src={item.manual} className={styles.manualPic} alt="图示"></img>
-        </Col>
-      </Row>
-    );
-  });
 };
 
 const subtitle =

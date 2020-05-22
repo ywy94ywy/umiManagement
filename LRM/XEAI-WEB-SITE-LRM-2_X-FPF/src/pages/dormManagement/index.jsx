@@ -1,3 +1,6 @@
+/**
+ * @module 宿舍管理
+ */
 import React, { useState } from 'react';
 import { PageHeaderWrapper, ButtonModal, SearchTree, Table } from 'lanlinker';
 import { Layout, Row, Col, Card, Button, Input } from 'antd';

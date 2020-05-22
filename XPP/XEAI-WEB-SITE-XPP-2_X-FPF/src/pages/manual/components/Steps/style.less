@@ -1,0 +1,42 @@
+@import '~lanlinker/es/style/index.less';
+
+.stepWrapper {
+  margin: 30px 0;
+  .col1 {
+    margin-top: 52px;
+    width: 260px;
+    > .title {
+      display: flex;
+      align-items: center;
+      .h3;
+      > .step {
+        width: 80px;
+        max-height: 40px;
+      }
+      > span {
+        width: 160px;
+        margin-left: 20px;
+        .ellipsis;
+      }
+    }
+    > .description {
+      margin-top: 10px;
+      .text-lg;
+    }
+  }
+  .col2 {
+    width: 400px;
+    height: 200px;
+    overflow: hidden;
+    .manualPic {
+      width: inherit;
+    }
+    &.link {
+      transition: box-shadow 0.3s;
+      cursor: pointer;
+      &:hover {
+        box-shadow: @block-shadow;
+      }
+    }
+  }
+}

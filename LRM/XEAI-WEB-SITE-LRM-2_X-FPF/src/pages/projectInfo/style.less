@@ -1,7 +1,7 @@
 @import '~lanlinker/es/style/index.less';
 
 .projectInfo {
-  padding: @padding-normal;
+  padding: @layout-padding;
   .cardHeader() {
     > :global(.ant-card-head) {
       background: @primary-color;
@@ -13,7 +13,7 @@
     .cardHeader;
     .imgCard {
       &:nth-child(n + 2) {
-        margin-top: @padding-normal;
+        margin-top: @layout-padding;
       }
       img {
         max-width: 100%;
@@ -21,7 +21,7 @@
     }
   }
   .right {
-    width: calc(100% - 385px - @padding-normal);
+    width: calc(100% - 385px - @layout-padding);
     .cardHeader;
     .common() {
       width: 620px;

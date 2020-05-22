@@ -14,12 +14,17 @@ export default defineConfig({
           redirect: '/project',
         },
         {
+          path: '/project',
+          component: '@/pages/project',
+        },
+        {
           path: '/cooperative',
           component: '@/pages/cooperative',
         },
+
         {
-          path: '/project',
-          component: '@/pages/project',
+          path: '/position',
+          component: '@/pages/position',
         },
       ],
     },

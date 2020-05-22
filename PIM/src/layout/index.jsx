@@ -52,6 +52,12 @@ const fakeMenu = [
             icon: 'icon-appstore',
             key: 'cooperative',
           },
+          {
+            path: '/position',
+            name: '工程位置管理',
+            icon: 'icon-appstore',
+            key: 'position',
+          },
         ],
       },
     ],

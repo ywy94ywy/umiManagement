@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Modal, SafeInput } from 'lanlinker';
-import { Form, Input, Button, message, Select, Checkbox, Row, Col } from 'antd';
+import { Form, Input, message, Select, Checkbox, Row, Col } from 'antd';
 import nongye from './imgs/nongye.png';
 import nongye_logo from './imgs/nongye_logo.png';
 import gongshang from './imgs/gongshang.png';
@@ -20,7 +20,6 @@ import other_logo from './imgs/other_logo.png';
 import styles from './style.less';
 
 export default ({ title, type, number, first = false }) => {
-  // const [info, showInfo] = useState(false);
   const [del, showDel] = useState(false);
   const [update, showUpdate] = useState(false);
   const item = bankMap[title] || bankMap['其他'];
@@ -36,7 +35,7 @@ export default ({ title, type, number, first = false }) => {
             </div>
             <div className={styles.type}>{type}</div>
           </div>
-          {first && <div className={styles.default}>默认</div>}
+          {first && <span className={styles.default}>默认</span>}
         </div>
         <div className={styles.number}>{encrypt(number)}</div>
       </header>
@@ -55,54 +54,6 @@ export default ({ title, type, number, first = false }) => {
         >
           修改
         </span>
-        {/* <Modal
-          title="银行卡信息详情"
-          visible={info}
-          width={730}
-          bodyStyle={modalStyle}
-          footer={
-            <>
-              <Button
-                type="danger"
-                onClick={() => {
-                  showDel(true);
-                }}
-              >
-                删除
-              </Button>
-              <Button
-                type="primary"
-                onClick={() => {
-                  showUpdate(true);
-                }}
-              >
-                修改
-              </Button>
-              <Button
-                onClick={() => {
-                  showInfo(false);
-                }}
-              >
-                取消
-              </Button>
-            </>
-          }
-          onCancel={() => {
-            showInfo(false);
-          }}
-        >
-          <Form style={formStyle} labelCol={{ span: 5 }}>
-            <Form.Item label="银行卡号">
-              <Input></Input>
-            </Form.Item>
-            <Form.Item label="银行名称">
-              <Input></Input>
-            </Form.Item>
-            <Form.Item label="支行名称">
-              <Input></Input>
-            </Form.Item>
-          </Form>
-        </Modal> */}
         <Modal
           title="验证安全密码"
           width={730}

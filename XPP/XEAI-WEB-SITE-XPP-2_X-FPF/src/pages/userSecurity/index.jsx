@@ -7,7 +7,6 @@ import { Menu, Layout, Card } from 'antd';
 import UserPassword from './components/UserPassword';
 import UserSecurity from './components/UserSecurity';
 import styles from './style.less';
-
 const MENU_LIST = ['用户密码管理', '用户密保管理'];
 
 export default () => {
@@ -15,8 +14,8 @@ export default () => {
 
   return (
     <PageHeaderWrapper className={styles.userSecurity}>
-      <Card bodyStyle={{ padding: 0 }}>
-        <Layout className={styles.layout}>
+      <Card bodyStyle={{ padding: '16px 0', minHeight: 600 }}>
+        <Layout>
           <Layout.Sider theme="light" width={225} className={styles.leftMenu}>
             <Menu
               mode="inline"
@@ -41,8 +40,7 @@ export default () => {
 };
 
 // 左侧菜单
-const getMenu = menuList =>
-  menuList.map((item, index) => <Menu.Item key={menuList[index]}>{item}</Menu.Item>);
+const getMenu = menuList => menuList.map(item => <Menu.Item key={item}>{item}</Menu.Item>);
 
 // 右侧内容
 const renderChildren = (selectKey, menuList) => {

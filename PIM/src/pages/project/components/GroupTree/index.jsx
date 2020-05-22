@@ -9,7 +9,7 @@ import {
   Modal,
 } from 'lanlinker';
 import { useRequest } from 'umi';
-import { Form, Input, Select, Tree } from 'antd';
+import { Form, Input, Select, Skeleton } from 'antd';
 import { fetchTree } from '../../services';
 
 export default ({ tabKey, detailKeyList, setDetailType }) => {
@@ -20,7 +20,7 @@ export default ({ tabKey, detailKeyList, setDetailType }) => {
   const [createType, setCreateType] = useState('1');
   const [porjectForm] = Form.useForm();
 
-  const { data, loading, run } = useRequest(fetchTree(tabKey));
+  const { data } = useRequest(fetchTree(tabKey));
 
   const [treeData] = useConstructTree(data, {
     title: 'a',
@@ -28,8 +28,8 @@ export default ({ tabKey, detailKeyList, setDetailType }) => {
     key: 'id',
   });
 
-  if (loading) {
-    return null;
+  if (!data) {
+    return <Skeleton active />;
   }
 
   return (

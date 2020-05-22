@@ -59,17 +59,6 @@ export default () => {
               </div>
             </Collapse.Panel>
           )}
-          <div style={{ position: 'relative' }}>
-            <div style={{ position: 'absolute', zIndex: 2, right: 0 }}>
-              <span>租户单位：</span>
-              <Select defaultValue="1">
-                <Select.Option value="1">南通二建集团有限公司</Select.Option>
-                <Select.Option value="2">太原长风置业有限公司</Select.Option>
-                <Select.Option value="3">山西省建筑设计有限公司</Select.Option>
-                <Select.Option value="4">启东兴华建筑劳务有限公司</Select.Option>
-              </Select>
-            </div>
-          </div>
           {(currentType === licenseType[0] || currentType === unApplied) && (
             <Collapse.Panel
               header={<span className={styles.fix}>{unApplied}</span>}

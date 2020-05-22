@@ -1,6 +1,5 @@
 /**
  * @module 用户信息管理
- * @author DesYang
  * @todo 可编辑表格，级联菜单,图片真实旋转
  */
 import React from 'react';
