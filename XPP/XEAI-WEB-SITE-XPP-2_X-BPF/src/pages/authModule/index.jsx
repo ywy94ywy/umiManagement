@@ -1,28 +1,15 @@
 /**
  * @module 权限管理-模块综合管理
- * @author DesYang
- * @todo 模态框内容
+ * @todo 模态框处理，公共删除confirm
  */
-import React from 'react';
-import { Button, Input, Tabs, Dropdown, Menu, Checkbox, Form, Select, Row, Col } from 'antd';
-import {
-  PageHeaderWrapper,
-  LanLayout,
-  Card,
-  Table,
-  SearchTree,
-  ButtonModal,
-  Tabs as LanTabs,
-  Form as LanForm,
-} from 'lanlinker';
+import { PageHeaderWrapper, Table, SearchTree, ButtonModal, useConstructTree } from 'lanlinker';
+import { Button, Input, Card, Tabs, Dropdown, Menu, Checkbox, Form, Select, Row, Col } from 'antd';
 import DataManagement from '@/components/DataManagement';
-import moduleForm from './forms/module';
-import accountForm from './forms/account';
-import baseForm from './forms/base';
+import ModuleModal from './components/ModuleModal';
 import styles from './style.less';
 
 export default () => {
-  const treeData = [
+  const treeRawData = [
     {
       id: 1,
       a: '名字1',
@@ -87,270 +74,186 @@ export default () => {
       pId: 7,
     },
   ];
-  const treeData2 = [
-    {
-      id: 1,
-      a: '名字1',
-      b: '键1',
-      c: '图标',
-      pId: 0,
-    },
-    {
-      id: 2,
-      a: '名字2',
-      b: '键2',
-      c: '图标',
-      pId: 0,
-    },
-    {
-      id: 3,
-      a: '名字3333333333333333333333333333333333333333333333',
-      b: '键3',
-      c: '图标',
-      pId: 1,
-    },
-    {
-      id: 7,
-      a: '名字4',
-      b: '键7',
-      c: '图标',
-      pId: 1,
-    },
-    {
-      id: 8,
-      a: '名字',
-      b: '键8',
-      c: '图标',
-      pId: 1,
-    },
-    {
-      id: 5,
-      a: '名字',
-      b: '键5',
-      c: '图标',
-      pId: 2,
-    },
-    {
-      id: 4,
-      a: '名字',
-      b: '键4',
-      c: '图标',
-      pId: 3,
-    },
-    {
-      id: 6,
-      a: '名字',
-      b: '键6',
-      c: '图标',
-      pId: 3,
-    },
-    {
-      id: 9,
-      a: '名字9',
-      b: '键9',
-      c: '图标',
-      pId: 7,
-    },
-  ];
+  const [treeData] = useConstructTree(treeRawData, {
+    title: 'a',
+    key: 'id',
+    icon: 'c',
+    pId: 'pId',
+  });
 
   return (
     <PageHeaderWrapper className={styles.moduleManagement}>
-      <LanLayout
-        siderWidth={300}
-        siderCardProps={{ title: '模块组别管理', bodyStyle: { padding: 0 } }}
-        contentCardProps={{ title: '模块详细列表' }}
-        sider={
-          <LanTabs>
-            <LanTabs.TabPane tab="模块菜单分类" key="1">
-              <SearchTree
-                height={590}
-                treeProps={{
-                  treeRawData: treeData,
-                  reName: {
-                    title: 'a',
-                    key: 'id',
-                    icon: 'c',
-                    pId: 'pId',
-                  },
-                }}
-              ></SearchTree>
-            </LanTabs.TabPane>
-            <LanTabs.TabPane tab="模块权限标签" key="2">
-              <SearchTree
-                height={590}
-                treeProps={{
-                  treeRawData: treeData2,
-                  reName: {
-                    title: 'a',
-                    key: 'id',
-                    icon: 'c',
-                    pId: 'pId',
-                  },
-                }}
-              ></SearchTree>
-            </LanTabs.TabPane>
-          </LanTabs>
-        }
-        content={
-          <Table
-            actions={{
-              left: (
-                <>
-                  <ButtonModal
-                    title="新增"
-                    width={1000}
-                    bodyStyle={{
-                      height: 600,
-                      overflow: 'auto',
-                    }}
-                    buttonProps={{ text: '新建', type: 'primary' }}
-                  >
-                    <LanForm configData={moduleForm()} columns={2} labelCol={{ span: 9 }}></LanForm>
-                    <Tabs>
-                      <Tabs.TabPane tab="账号信息" key="1">
-                        <LanForm
-                          configData={accountForm()}
-                          columns={2}
-                          labelCol={{ span: 9 }}
-                        ></LanForm>
-                      </Tabs.TabPane>
-                      <Tabs.TabPane tab="基本信息" key="2">
-                        <LanForm configData={baseForm()} labelCol={{ span: 4 }}></LanForm>
-                      </Tabs.TabPane>
-                    </Tabs>
-                  </ButtonModal>
-                  <ButtonModal buttonProps={{ text: '修改', type: 'primary' }}>hello</ButtonModal>
-                  <Button type="primary" danger>
-                    删除
-                  </Button>
-                  <ButtonModal buttonProps={{ text: '排序', type: 'primary' }}>hello</ButtonModal>
-                </>
-              ),
-              right: (
-                <Form layout="inline">
-                  <Form.Item>
-                    <Checkbox>总览</Checkbox>
-                  </Form.Item>
-                  <Form.Item>
-                    <Row>
-                      <Col span={8}>
-                        <Select></Select>
-                      </Col>
-                      <Col span={16}>
-                        <Input placeholder="请输入要查询的关键字"></Input>
-                      </Col>
-                    </Row>
-                  </Form.Item>
-
-                  <Button type="primary">查询</Button>
-                </Form>
-              ),
-            }}
-            columns={columns}
-            dataSource={data}
-            rowKey={(v, i) => i}
-            rowSelection={rowSelection}
-            scroll={{ x: 3935 }}
-          ></Table>
-        }
-      ></LanLayout>
-      <Card title="数据管理" marginTop>
-        <DataManagement />
-      </Card>
+      <Row gutter={[24, 24]}>
+        <Col flex="0 0 300px" style={{ overflow: 'hidden' }}>
+          <Card title="模块组别管理" bodyStyle={{ padding: '0 12px 16px' }}>
+            <Tabs>
+              <Tabs.TabPane tab="模块菜单分类" key="模块菜单分类">
+                <SearchTree
+                  height={590}
+                  treeProps={{
+                    treeData,
+                  }}
+                ></SearchTree>
+              </Tabs.TabPane>
+              <Tabs.TabPane tab="模块权限标签" key="模块权限标签">
+                <SearchTree
+                  height={590}
+                  treeProps={{
+                    treeData,
+                  }}
+                ></SearchTree>
+              </Tabs.TabPane>
+            </Tabs>
+          </Card>
+        </Col>
+        <Col flex="1" style={{ overflow: 'hidden' }}>
+          <Card title="模块详细列表">
+            <Table
+              actions={{
+                left: (
+                  <>
+                    <ModuleModal
+                      title="新增"
+                      buttonProps={{ text: '新增', type: 'primary' }}
+                    ></ModuleModal>
+                    <ButtonModal buttonProps={{ text: '修改', type: 'primary' }}>
+                      暂无页面
+                    </ButtonModal>
+                    <Button type="primary" danger>
+                      删除
+                    </Button>
+                  </>
+                ),
+                right: (
+                  <Form layout="inline" initialValues={{ c: '1' }}>
+                    <Form.Item>
+                      <Checkbox>总览</Checkbox>
+                    </Form.Item>
+                    <Form.Item name="b">
+                      <Input
+                        style={{ width: 250 }}
+                        addonBefore={
+                          <Form.Item name="c" noStyle>
+                            <Select
+                              options={[
+                                {
+                                  label: '模块编码',
+                                  value: '1',
+                                },
+                                {
+                                  label: '平台系统执照编码',
+                                  value: '2',
+                                },
+                                {
+                                  label: '模块英文名称',
+                                  value: '3',
+                                },
+                                {
+                                  label: '模块英文类型',
+                                  value: '4',
+                                },
+                                {
+                                  label: '模块URL',
+                                  value: '5',
+                                },
+                                {
+                                  label: '模块元素中文名称',
+                                  value: '6',
+                                },
+                              ]}
+                            ></Select>
+                          </Form.Item>
+                        }
+                        placeholder="请输入关键字"
+                      ></Input>
+                    </Form.Item>
+                    <Form.Item>
+                      <Button type="primary">查询</Button>
+                    </Form.Item>
+                    <Form.Item>
+                      <Button>重置</Button>
+                    </Form.Item>
+                  </Form>
+                ),
+              }}
+              columns={columns}
+              dataSource={data}
+              rowKey={(v, i) => i}
+              rowSelection={{ onChange() {} }}
+              scroll={{ x: 1740 }}
+            ></Table>
+          </Card>
+        </Col>
+        <Col span={24}>
+          <Card title="数据管理">
+            <DataManagement />
+          </Card>
+        </Col>
+      </Row>
     </PageHeaderWrapper>
   );
-};
-
-const rowSelection = {
-  onChange: (selectedRowKeys, selectedRows) => {
-    console.log(`selectedRowKeys: ${selectedRowKeys}`, 'selectedRows: ', selectedRows);
-  },
 };
 
 const columns = [
   {
     title: '平台系统执照中文名称',
     dataIndex: 'a',
+    width: 200,
     ellipsis: true,
   },
   {
     title: '模块中文类型',
     dataIndex: 'b',
+    width: 120,
+    align: 'center',
     ellipsis: true,
   },
   {
     title: '模块编号',
     dataIndex: 'c',
+    width: 120,
     ellipsis: true,
   },
   {
     title: '模块中文名称',
     dataIndex: 'd',
+    width: 200,
     ellipsis: true,
   },
   {
     title: '模块英文名称',
     dataIndex: 'e',
-    ellipsis: true,
-  },
-  {
-    title: '图标fontclass英文名称',
-    dataIndex: 'f',
-    ellipsis: true,
-  },
-  {
-    title: '图标unicode英文名称',
-    dataIndex: 'g',
+    width: 300,
     ellipsis: true,
   },
   {
     title: '模块URI',
     dataIndex: 'h',
-    ellipsis: true,
-  },
-  {
-    title: '模块简介',
-    dataIndex: 'i',
-    ellipsis: true,
-  },
-  {
-    title: '模块描述',
-    dataIndex: 'j',
-    ellipsis: true,
-  },
-  {
-    title: '模块备注',
-    dataIndex: 'k',
-    ellipsis: true,
-  },
-  {
-    title: '模块元素名',
-    dataIndex: 'l',
-    ellipsis: true,
-  },
-  {
-    title: '模块元素值',
-    dataIndex: 'm',
+    width: 200,
     ellipsis: true,
   },
   {
     title: '创建时间',
     dataIndex: 'n',
+    width: 130,
     ellipsis: true,
   },
   {
     title: '修改时间',
     dataIndex: 'o',
+    width: 130,
     ellipsis: true,
   },
   {
     title: '启用时间',
     dataIndex: 'p',
+    width: 130,
     ellipsis: true,
   },
   {
     title: '失效时间',
     dataIndex: 'q',
+    width: 130,
     ellipsis: true,
   },
   {
@@ -364,10 +267,17 @@ const columns = [
           overlay={
             <Menu>
               <Menu.Item>
-                <ButtonModal buttonProps={{ text: '详情', type: 'link' }}></ButtonModal>
+                <ModuleModal
+                  title="详情"
+                  buttonProps={{ text: '详情', type: 'link' }}
+                  disabled
+                ></ModuleModal>
               </Menu.Item>
               <Menu.Item>
-                <ButtonModal buttonProps={{ text: '修改', type: 'link' }}></ButtonModal>
+                <ModuleModal
+                  title="修改"
+                  buttonProps={{ text: '修改', type: 'link' }}
+                ></ModuleModal>
               </Menu.Item>
               <Menu.Item>
                 <ButtonModal buttonProps={{ text: '删除', type: 'link' }}></ButtonModal>

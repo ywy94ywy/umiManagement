@@ -1,7 +1,7 @@
 /**
  * @module 企业扩展信息
  */
-import { Input, Select, Row, Form } from 'antd';
+import { Input, Select, Space, Form } from 'antd';
 import { INDUSTRY } from './expandedSelect';
 
 export default ({ disabled = true } = {}) => {
@@ -23,23 +23,12 @@ export default ({ disabled = true } = {}) => {
       name: 'd',
       label: '单位规模',
       component: (
-        <Row>
-          <div style={{ flex: 1 }}>
-            <Form.Item noStyle name="h">
-              <Input disabled={disabled}></Input>
-            </Form.Item>
-          </div>
-          <div
-            style={{
-              flex: '0 0 30px',
-              display: 'flex',
-              justifyContent: 'center',
-              alignItems: 'center',
-            }}
-          >
-            人
-          </div>
-        </Row>
+        <Space>
+          <Form.Item noStyle name="h">
+            <Input disabled={disabled}></Input>
+          </Form.Item>
+          <span>人</span>
+        </Space>
       ),
     },
     {

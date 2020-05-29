@@ -148,6 +148,12 @@ const fakeMenu = [
         icon: 'icon-poweroff',
         key: 'platformUser',
       },
+      {
+        path: '/platformModule',
+        name: '接口模板设置',
+        icon: 'icon-poweroff',
+        key: 'platformModule',
+      },
     ],
   },
   {

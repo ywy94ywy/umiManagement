@@ -1,7 +1,7 @@
 ---
 group:
   path: /tabs
-  title: 标签页
+  title: 标签页（废弃）
 title: 标签页
 ---
 

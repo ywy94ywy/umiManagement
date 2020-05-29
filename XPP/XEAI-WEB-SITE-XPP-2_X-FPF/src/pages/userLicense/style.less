@@ -1,29 +1,20 @@
 @import '~lanlinker/es/style/index.less';
 
 .userLicense {
-  padding-bottom: 50px;
-  .head {
-    display: flex;
-    justify-content: space-between;
-    .title {
-      padding-right: 30px;
-      .h4;
-    }
-    .item {
-      padding: 0 10px;
-      cursor: pointer;
-      &:nth-of-type(n + 3) {
-        margin-left: 20px;
-      }
-      &:hover,
-      &.active {
-        color: @primary-color;
-      }
-    }
+  .title {
+    padding-right: 24px;
+    .h4;
   }
-  .fix {
-    display: inline-block;
-    margin-top: 5px;
+  .item {
+    padding: 0 10px;
+    cursor: pointer;
+    &:nth-of-type(n + 3) {
+      margin-left: 24px;
+    }
+    &:hover,
+    &.active {
+      color: @primary-color;
+    }
   }
   :global {
     .ant-collapse {
@@ -31,11 +22,6 @@
       border: none;
       .ant-collapse-item {
         border-bottom: none;
-        .ant-collapse-header {
-          // width: fit-content;
-          // height: 64px;
-          // line-height: 40px;
-        }
       }
       .ant-collapse-content {
         overflow: visible;
@@ -50,49 +36,9 @@
   .panel {
     display: flex;
     flex-wrap: wrap;
-  }
-  .systemCard {
-    width: 350px;
-    min-height: 180px;
-    background: #fff;
-    border: none;
-    margin-left: 8px;
-    margin-top: 8px;
-    :global {
-      .ant-list-footer {
-        padding: 0;
-      }
-    }
-    .header {
-      min-height: 125px;
-      padding: 30px 25px 15px;
-    }
-    .footer {
-      height: 53px;
-      background: @card-footer-bg;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      box-sizing: border-box;
-      > span {
-        flex: 1;
-        height: 1.5em;
-        cursor: pointer;
-        .center;
-        &:nth-child(n + 2) {
-          border-left: @border-normal;
-        }
-      }
-    }
-    .greyfilter {
-      opacity: 0.5;
-      filter: grayscale(1);
-    }
-    &.border {
-      border: @border-normal;
-    }
-    .borderTop {
-      border-top: @border-normal;
+    > * {
+      margin-left: 8px;
+      margin-top: 8px;
     }
   }
 }

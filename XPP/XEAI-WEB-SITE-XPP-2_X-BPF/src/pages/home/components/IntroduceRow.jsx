@@ -6,7 +6,7 @@ import Field from './Field';
 
 const IntroduceRow = () => {
   return (
-    <Row gutter={24}>
+    <>
       <Col span={6}>
         <ChartCard
           title="注册用户数据量"
@@ -55,7 +55,7 @@ const IntroduceRow = () => {
           footer={<Field label="当日IP访问数" value="6,560"></Field>}
         />
       </Col>
-    </Row>
+    </>
   );
 };
 

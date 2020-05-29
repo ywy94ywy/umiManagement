@@ -1,3 +1,6 @@
+/**
+ * @module 标签页
+ */
 import moment from 'moment';
 import { useRequest } from 'umi';
 import { message } from 'antd';
@@ -12,7 +15,7 @@ import { fetchUserInfo } from '../../servers';
 const layout = { labelCol: { flex: '0 0 120px' } };
 
 // 用户基本信息
-export const BasicInfo = ({ type }) => {
+export const BasicInfo = ({ type, authorized }) => {
   const [form] = Form.useForm();
   useRequest(fetchUserInfo, {
     defaultParams: [1],
@@ -25,13 +28,17 @@ export const BasicInfo = ({ type }) => {
     <EditForm
       form={form}
       saveData={() => {
-        // todo 发起修改请求
+        // 认证过的个人无修改
+        if (authorized === true && type === 'person') {
+          return;
+        }
 
-        message.success('修改成功');
+        // message.success('修改成功');
       }}
       template={baseInfoForm}
       columns={2}
       type={type}
+      authorized={authorized}
       {...layout}
     ></EditForm>
   );
@@ -70,7 +77,7 @@ export const GeneralInfo = ({ type }) => {
 };
 
 // 个人扩展信息
-export const PersonExpanded = ({ type }) => {
+export const PersonExpanded = ({ type, authorized }) => {
   const [form] = Form.useForm();
   useRequest(fetchUserInfo, {
     defaultParams: [3],
@@ -89,6 +96,7 @@ export const PersonExpanded = ({ type }) => {
       }}
       template={personExpandedForm}
       type={type}
+      authorized={authorized}
       columns={2}
       {...layout}
     ></EditForm>

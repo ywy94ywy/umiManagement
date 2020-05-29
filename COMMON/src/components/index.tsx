@@ -13,12 +13,13 @@ export { default as SafeInput } from './SafeInput';
 export { default as BindInput } from './BindInput';
 export { default as Form } from './Form';
 export { default as HighSpeedScanner } from './HighSpeedScanner';
-export { default as Popconfirm } from './Popconfirm';
 export { default as TreeContextMenu } from './TreeContextMenu';
 export { default as License } from './License';
+export { default as Province } from './Province';
 
 export * from './Table';
 export * from './Card';
 export * from './Modal';
 export * from './Tree';
+export * from './Popconfirm';
 export * from './Layout';

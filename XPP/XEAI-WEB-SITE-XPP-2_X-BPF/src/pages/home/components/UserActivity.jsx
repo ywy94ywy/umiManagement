@@ -1,15 +1,20 @@
 import { Card } from 'antd';
 import { Table } from 'lanlinker';
-import React from 'react';
 
 const UserActivity = ({ data }) => (
-  <Card bordered={false} title="各系统用户量">
+  <Card
+    title="各系统用户量"
+    style={{
+      height: '100%',
+    }}
+  >
     <Table
+      size="small"
       rowKey="id"
       columns={columns}
       dataSource={data}
       pagination={{
-        pageSize: 6,
+        pageSize: 8,
       }}
     />
   </Card>
@@ -21,27 +26,38 @@ const columns = [
   {
     title: '排名',
     dataIndex: 'index',
+    width: 50,
+    ellipsis: true,
   },
   {
     title: '系统名称',
     dataIndex: 'keyword',
+    width: 130,
+    ellipsis: true,
     render: text => <a href="/">{text}</a>,
   },
   {
     title: '总用户数',
     dataIndex: 'count',
-    key: 'count',
+    width: 90,
+    ellipsis: true,
   },
   {
     title: 'DAU',
     dataIndex: 'a',
+    width: 70,
+    ellipsis: true,
   },
   {
     title: 'WAU',
     dataIndex: 'b',
+    width: 70,
+    ellipsis: true,
   },
   {
     title: 'MAU',
     dataIndex: 'c',
+    width: 70,
+    ellipsis: true,
   },
 ];

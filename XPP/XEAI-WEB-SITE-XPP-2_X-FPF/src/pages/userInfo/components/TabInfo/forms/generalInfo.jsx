@@ -1,7 +1,7 @@
 /**
  * @module 用户综合信息
  */
-import { Input, DatePicker, Form, Select, Row, Col } from 'antd';
+import { Input, DatePicker, Form, Select, Space } from 'antd';
 import { BindInput } from 'lanlinker';
 import User from '../../User';
 
@@ -44,35 +44,33 @@ export default ({ disabled, type } = {}) => [
   {
     name: 'E',
     label: '用户常用地址',
-    component: <Input disabled={disabled} maxLength={64} placeholder="最长可输入64个字符"></Input>,
+    component: (
+      <Input
+        disabled={disabled}
+        maxLength={64}
+        placeholder="最长可输入64个字符"
+      ></Input>
+    ),
     colSpan: 2,
   },
   {
     name: 'F',
     label: '用户住址地区',
     component: (
-      <Row gutter={12}>
-        <Col span={6}>
-          <Select disabled={disabled}>
-            <Select.Option></Select.Option>
-          </Select>
-        </Col>
-        <Col span={6}>
-          <Select disabled={disabled}>
-            <Select.Option></Select.Option>
-          </Select>
-        </Col>
-        <Col span={6}>
-          <Select disabled={disabled}>
-            <Select.Option></Select.Option>
-          </Select>
-        </Col>
-        <Col span={6}>
-          <Select disabled={disabled}>
-            <Select.Option></Select.Option>
-          </Select>
-        </Col>
-      </Row>
+      <Space>
+        <Select disabled={disabled}>
+          <Select.Option></Select.Option>
+        </Select>
+        <Select disabled={disabled}>
+          <Select.Option></Select.Option>
+        </Select>
+        <Select disabled={disabled}>
+          <Select.Option></Select.Option>
+        </Select>
+        <Select disabled={disabled}>
+          <Select.Option></Select.Option>
+        </Select>
+      </Space>
     ),
     colSpan: 2,
   },
@@ -86,7 +84,13 @@ export default ({ disabled, type } = {}) => [
   {
     name: 'H',
     label: '用户简介',
-    component: <Input disabled={disabled} maxLength={50} placeholder="最长可输入50个字符"></Input>,
+    component: (
+      <Input
+        disabled={disabled}
+        maxLength={50}
+        placeholder="最长可输入50个字符"
+      ></Input>
+    ),
     colSpan: 2,
   },
   {

@@ -1,24 +1,19 @@
 /**
  * @module 用户认证管理
- * @author DesYang
+ * @todo 不知业务流程
  */
 import { useState, useEffect } from 'react';
-import { PageHeaderWrapper, Card } from 'lanlinker';
-import { Row, Col, Table, Button, Form, Select } from 'antd';
+import { PageHeaderWrapper, Card, Table } from 'lanlinker';
+import { Row, Button, Form, Select, Space } from 'antd';
+import { IdCard, IdCardTemp } from './idCardWrapper';
 import License from '@/components/License';
-import FormTextItem from '@/components/FormTextItem';
-import classNames from 'classnames';
-import styles from './style.less';
-import person from './imgs/person.png';
 
-const cardType = {
-  idCard: '居民身份证',
-  idCardTemp: '临时身份证',
-};
+const CARD_TYPE_LIST = ['居民身份证', '临时身份证'];
 
 export default () => {
-  const [type, setType] = useState('idCard');
+  const [cardType, setCardType] = useState(CARD_TYPE_LIST[0]);
   const [editable, setEditable] = useState(false);
+  const [editable2, setEditable2] = useState(false);
   const [formIdCard] = Form.useForm();
   const [formIdCardTemp] = Form.useForm();
   const [formLicense] = Form.useForm();
@@ -32,26 +27,26 @@ export default () => {
   }, []);
 
   return (
-    <PageHeaderWrapper className={styles.userAuth}>
+    <PageHeaderWrapper>
       <Card title="个人实名信息管理">
         <Row justify="space-between" style={{ marginBottom: 24 }}>
           <Form layout="inline">
             <Form.Item label="证件类型">
-              <Select
-                value={type}
-                onSelect={e => {
-                  setType(e);
-                }}
-              >
-                {Object.keys(cardType).map((v, i) => (
-                  <Select.Option value={v} key={v}>
-                    {cardType[v]}
+              <Select value={cardType} onSelect={key => setCardType(key)}>
+                {CARD_TYPE_LIST.map(value => (
+                  <Select.Option value={value} key={value}>
+                    {value}
                   </Select.Option>
                 ))}
               </Select>
             </Form.Item>
             <Form.Item label="证件地区">
-              <Select></Select>
+              {/* 地区组件封装 */}
+              <Space>
+                <Select></Select>
+                <Select></Select>
+                <Select></Select>
+              </Space>
             </Form.Item>
           </Form>
           <div>
@@ -80,14 +75,11 @@ export default () => {
             </Button>
           </div>
         </Row>
-        <CardSwitcher
-          type={type}
-          editable={editable}
-          formList={[formIdCard, formIdCardTemp]}
-        ></CardSwitcher>
+        {cardType === CARD_TYPE_LIST[0] && <IdCard form={formIdCard} editable={editable} />}
+        {cardType === CARD_TYPE_LIST[1] && <IdCardTemp form={formIdCardTemp} editable={editable} />}
       </Card>
       <Card title="用户实名认证情况列表" marginTop>
-        <Table columns={columns} dataSource={dataSource} bordered></Table>
+        <Table columns={columns} dataSource={dataSource}></Table>
       </Card>
       {/* todo */}
       <br />
@@ -125,122 +117,6 @@ export default () => {
     </PageHeaderWrapper>
   );
 };
-
-const CardSwitcher = ({ type, editable, formList }) => {
-  const keys = Object.keys(cardType);
-  switch (type) {
-    case keys[0]:
-      return <IdCardForm editable={editable} form={formList[0]}></IdCardForm>;
-    case keys[1]:
-      return <IdCardTempForm editable={editable} form={formList[1]}></IdCardTempForm>;
-    default:
-      return;
-  }
-};
-
-const IdCardForm = ({ editable, form }) => {
-  return (
-    <Form form={form} colon={false} className={classNames(styles.cardWrapper, styles.idCard)}>
-      <div className={styles.front}>
-        <Row style={{ width: 300 }}>
-          <FormTextItem label="姓名" name="name" editable={editable} />
-        </Row>
-        <Row gutter={8} style={{ width: 300 }}>
-          <Col span={8}>
-            <FormTextItem label="性别" name="sex" editable={editable} width={50} />
-          </Col>
-          <Col span={12}>
-            <FormTextItem label="民族" name="nation" editable={editable} width={100} />
-          </Col>
-        </Row>
-        <Form.Item label="出生">
-          <Row gutter={8} style={{ width: 400 }}>
-            <Col span={4}>
-              <FormTextItem name="year" editable={editable} noStyle />
-            </Col>
-            <Col span={2}>
-              <LabelWrapper>年</LabelWrapper>
-            </Col>
-            <Col span={3}>
-              <FormTextItem name="month" editable={editable} noStyle />
-            </Col>
-            <Col span={2}>
-              <LabelWrapper>月</LabelWrapper>
-            </Col>
-            <Col span={3}>
-              <FormTextItem name="day" editable={editable} noStyle />
-            </Col>
-            <Col span={2}>
-              <LabelWrapper>日</LabelWrapper>
-            </Col>
-          </Row>
-        </Form.Item>
-        <FormTextItem name="address" label="住址" textArea editable={editable} width={290} />
-        <FormTextItem name="idNumber" label="公民身份证号码" editable={editable} width={300} />
-      </div>
-      <div className={styles.back}>
-        <FormTextItem name="visa" label="签发机关" editable={editable} width={280} />
-        <FormTextItem name="expiry" label="有效期限" editable={editable} width={280} />
-      </div>
-    </Form>
-  );
-};
-
-const IdCardTempForm = ({ editable, form }) => {
-  return (
-    <Form form={form} colon={false} className={classNames(styles.cardWrapper, styles.idCardTemp)}>
-      <div className={styles.front}>
-        <div className={styles.profile}>
-          <img src={person} alt="profile" />
-        </div>
-        <Row style={{ width: 300 }}>
-          <FormTextItem label="姓名" name="name" editable={editable} />
-        </Row>
-        <Row gutter={8} style={{ width: 300 }}>
-          <Col span={8}>
-            <FormTextItem label="性别" name="sex" editable={editable} width={50} />
-          </Col>
-          <Col span={12}>
-            <FormTextItem label="民族" name="nation" editable={editable} width={100} />
-          </Col>
-        </Row>
-        <Form.Item label="出生">
-          <Row gutter={8} style={{ width: 400 }}>
-            <Col span={4}>
-              <FormTextItem name="year" editable={editable} noStyle />
-            </Col>
-            <Col span={2}>
-              <LabelWrapper>年</LabelWrapper>
-            </Col>
-            <Col span={3}>
-              <FormTextItem name="month" editable={editable} noStyle />
-            </Col>
-            <Col span={2}>
-              <LabelWrapper>月</LabelWrapper>
-            </Col>
-            <Col span={3}>
-              <FormTextItem name="day" editable={editable} noStyle />
-            </Col>
-            <Col span={2}>
-              <LabelWrapper>日</LabelWrapper>
-            </Col>
-          </Row>
-        </Form.Item>
-        <FormTextItem name="address" label="住址" editable={editable} width={298} />
-        <FormTextItem name="visa" label="签发机关" editable={editable} width={270} />
-        <FormTextItem name="expiry" label="有效期限" editable={editable} width={270} />
-        <FormTextItem name="idNumber" label="公民身份证号码" editable={editable} width={228} />
-      </div>
-      <div className={styles.back}></div>
-    </Form>
-  );
-};
-
-const LabelWrapper = ({ children }) => (
-  <div className="ant-col ant-form-item-label" style={{ height: '100%' }}>
-    <label className="ant-form-item-no-colon">{children}</label>
-  </div>
-);
 
 const license = {
   a: '913206811388888888',

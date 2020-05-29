@@ -1,10 +1,16 @@
 /**
  * @module 个人扩展信息
  */
-import { Input, Radio, Select, Row, Form } from 'antd';
-import { NATION, EDUCATION, MARRIAGE, POLITICES, BLOOD } from './expandedSelect';
+import { Input, Radio, Select, Form, Space } from 'antd';
+import {
+  NATION,
+  EDUCATION,
+  MARRIAGE,
+  POLITICES,
+  BLOOD,
+} from './expandedSelect';
 
-export default ({ disabled = true } = {}) => [
+export default ({ disabled = true, authorized } = {}) => [
   {
     colSpan: 2,
     component: <h1>附加信息</h1>,
@@ -13,11 +19,12 @@ export default ({ disabled = true } = {}) => [
     name: 'a',
     label: '用户性别',
     component: (
-      <Radio.Group disabled={disabled} style={{ width: '100%' }}>
-        {/* <Row justify="space-around"> */}
-          <Radio value={1}>男</Radio>
-          <Radio value={2}>女</Radio>
-        {/* </Row> */}
+      <Radio.Group
+        disabled={authorized ? true : disabled}
+        style={{ width: '100%' }}
+      >
+        <Radio value={1}>男</Radio>
+        <Radio value={2}>女</Radio>
       </Radio.Group>
     ),
     rules: [{ required: true, message: '请选择用户性别' }],
@@ -82,45 +89,23 @@ export default ({ disabled = true } = {}) => [
   {
     label: '用户身高',
     component: (
-      <Row>
-        <div style={{ flex: 1 }}>
-          <Form.Item noStyle name="g">
-            <Input disabled={disabled}></Input>
-          </Form.Item>
-        </div>
-        <div
-          style={{
-            flex: '0 0 30px',
-            display: 'flex',
-            justifyContent: 'center',
-            alignItems: 'center',
-          }}
-        >
-          cm
-        </div>
-      </Row>
+      <Space>
+        <Form.Item noStyle name="g">
+          <Input disabled={disabled}></Input>
+        </Form.Item>
+        <span>cm</span>
+      </Space>
     ),
   },
   {
     label: '用户体重',
     component: (
-      <Row>
-        <div style={{ flex: 1 }}>
-          <Form.Item noStyle name="h">
-            <Input disabled={disabled}></Input>
-          </Form.Item>
-        </div>
-        <div
-          style={{
-            flex: '0 0 30px',
-            display: 'flex',
-            justifyContent: 'center',
-            alignItems: 'center',
-          }}
-        >
-          kg
-        </div>
-      </Row>
+      <Space>
+        <Form.Item noStyle name="h">
+          <Input disabled={disabled}></Input>
+        </Form.Item>
+        <span>kg</span>
+      </Space>
     ),
   },
   {

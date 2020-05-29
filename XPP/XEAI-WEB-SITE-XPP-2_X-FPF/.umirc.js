@@ -7,6 +7,9 @@ export default defineConfig({
   devServer: {
     port: 8001,
   },
+  nodeModulesTransform: {
+    type: 'none',
+  },
   routes: [
     {
       path: '/login',

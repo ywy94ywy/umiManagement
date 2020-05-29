@@ -3,7 +3,7 @@ import { SafeInput } from 'lanlinker';
 
 export const questionForm0 = [
   {
-    label: '原安全密码',
+    label: '安全密码',
     name: 'a',
     rules: [
       {
@@ -18,6 +18,11 @@ export const questionForm1 = [
   {
     label: '密保问题01',
     name: 'a',
+    rules: [
+      {
+        required: true,
+      },
+    ],
     component: (
       <Select>
         <Select.Option value="1">您母亲的生日是？</Select.Option>
@@ -37,6 +42,11 @@ export const questionForm1 = [
   {
     label: '密保问题02',
     name: 'c',
+    rules: [
+      {
+        required: true,
+      },
+    ],
     component: (
       <Select>
         <Select.Option value="1">您父亲的生日是？</Select.Option>
@@ -56,6 +66,11 @@ export const questionForm1 = [
   {
     label: '密保问题03',
     name: 'e',
+    rules: [
+      {
+        required: true,
+      },
+    ],
     component: (
       <Select>
         <Select.Option value="1">您配偶的生日是？</Select.Option>

@@ -4,9 +4,8 @@ export default defineConfig({
   devServer: {
     port: 8003,
   },
-  initialState: false,
-  targets: {
-    ie: 9,
+  nodeModulesTransform: {
+    type: 'none',
   },
   routes: [
     {

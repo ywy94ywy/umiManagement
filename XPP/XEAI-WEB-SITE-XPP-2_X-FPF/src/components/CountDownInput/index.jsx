@@ -1,3 +1,7 @@
+/**
+ * @module 短信验证
+ * @todo onclick
+ */
 import React, { useState, useEffect } from 'react';
 import { Input, Button, Row, Col } from 'antd';
 

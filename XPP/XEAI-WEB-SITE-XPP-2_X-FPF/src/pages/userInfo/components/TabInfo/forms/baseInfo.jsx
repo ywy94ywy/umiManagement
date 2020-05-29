@@ -4,7 +4,7 @@
 import { Input, Select } from 'antd';
 import { BindInput } from 'lanlinker';
 
-export default ({ disabled, type } = {}) => [
+export default ({ disabled, type, authorized } = {}) => [
   {
     name: 'a',
     label: '用户类型',
@@ -21,7 +21,7 @@ export default ({ disabled, type } = {}) => [
   {
     name: 'b',
     label: '用户全名',
-    component: <Input disabled={disabled}></Input>,
+    component: <Input disabled={authorized ? true : disabled}></Input>,
     rules: [{ required: true }],
   },
   type === 'person' && {
@@ -40,7 +40,7 @@ export default ({ disabled, type } = {}) => [
   {
     name: 'd',
     label: '用户昵称账号',
-    component: <Input disabled={disabled}></Input>,
+    component: <Input disabled={authorized ? true : disabled}></Input>,
   },
   {
     name: 'E',
@@ -55,7 +55,13 @@ export default ({ disabled, type } = {}) => [
   {
     name: 'G',
     label: '用户证件账号',
-    component: <BindInput disabled activeTitle="已认证" inactiveTitle="未认证"></BindInput>,
+    component: (
+      <BindInput
+        disabled
+        activeTitle="已认证"
+        inactiveTitle="未认证"
+      ></BindInput>
+    ),
   },
   {
     name: 'H',

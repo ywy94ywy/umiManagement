@@ -4,7 +4,6 @@ import { Chart, Geom, Tooltip, Coord, Legend, Guide } from 'bizcharts';
 
 const SideProportion = ({}) => (
   <Card
-    bordered={false}
     title="各端使用占比"
     style={{
       height: '100%',

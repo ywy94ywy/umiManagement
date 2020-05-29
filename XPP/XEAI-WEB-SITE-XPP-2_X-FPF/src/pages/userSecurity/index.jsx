@@ -7,10 +7,11 @@ import { Menu, Layout, Card } from 'antd';
 import UserPassword from './components/UserPassword';
 import UserSecurity from './components/UserSecurity';
 import styles from './style.less';
+
 const MENU_LIST = ['用户密码管理', '用户密保管理'];
 
 export default () => {
-  const [selectKey, setSelectKey] = useState('用户密码管理');
+  const [selectKey, setSelectKey] = useState(MENU_LIST[0]);
 
   return (
     <PageHeaderWrapper className={styles.userSecurity}>

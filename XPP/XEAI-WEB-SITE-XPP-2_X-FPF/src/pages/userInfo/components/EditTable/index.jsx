@@ -2,10 +2,10 @@
  * title: 可添加行表格
  */
 import React, { useState } from 'react';
-import { EditTable,Popconfirm } from 'lanlinker';
-import { Button,  Form, Select } from 'antd';
+import { EditTable, Popconfirm } from 'lanlinker';
+import { Button, Form, Select } from 'antd';
 
-export default () => {
+export default ({ type }) => {
   const [form] = Form.useForm();
   const [editingKey, setEditingKey] = useState('');
   const [data, setData] = useState(originData);
@@ -68,12 +68,17 @@ export default () => {
       title: '身份关系',
       dataIndex: 'identity',
       width: '15%',
-      inputNode: (
-        <Select>
-          <Select.Option value="父亲">父亲</Select.Option>
-          <Select.Option value="母亲">母亲</Select.Option>
-        </Select>
-      ),
+      inputNode:
+        type === 'person' ? (
+          <Select>
+            <Select.Option value="父亲">父亲</Select.Option>
+            <Select.Option value="母亲">母亲</Select.Option>
+          </Select>
+        ) : type === 'company' ? (
+          <Select>
+            <Select.Option value="其他">其他</Select.Option>
+          </Select>
+        ) : null,
       editable: true,
       required: true,
     },
@@ -92,7 +97,12 @@ export default () => {
         if (record.id === 'add-new-row') {
           return editable ? (
             <span>
-              <Button type="link" size="small" onClick={() => add()} style={{ marginRight: 8 }}>
+              <Button
+                type="link"
+                size="small"
+                onClick={() => add()}
+                style={{ marginRight: 8 }}
+              >
                 保存
               </Button>
               <Popconfirm title="确定取消吗？" onConfirm={() => cancel()}>

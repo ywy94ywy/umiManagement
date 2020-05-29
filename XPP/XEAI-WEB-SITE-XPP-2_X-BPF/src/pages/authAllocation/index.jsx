@@ -1,80 +1,21 @@
 /**
  * @module 权限管理-权限分配管理
- * @author DesYang
+ * @todo popConfirm 统一
  */
-import React from 'react';
-import { Form, Select, Popconfirm, Checkbox } from 'antd';
+import { Form, Select, Popconfirm, Row, Col, Card } from 'antd';
 import { CloseCircleFilled } from '@ant-design/icons';
-import { PageHeaderWrapper, LanLayout, Table, SearchTree, ButtonModal } from 'lanlinker';
-
+import { PageHeaderWrapper, useConstructTree, Table, SearchTree, ButtonModal } from 'lanlinker';
+import AuthCheckbox from './AuthCheckbox';
 import styles from './style.less';
 
 export default () => {
-  const treeData = [
-    {
-      id: 1,
-      a: '名字1',
-      b: '键1',
-      c: '图标',
-      pId: 0,
-    },
-    {
-      id: 2,
-      a: '名字2',
-      b: '键2',
-      c: '图标',
-      pId: 0,
-    },
-    {
-      id: 3,
-      a: '名字3333333333333333333333333333333333333333333333',
-      b: '键3',
-      c: '图标',
-      pId: 1,
-    },
-    {
-      id: 7,
-      a: '名字4',
-      b: '键7',
-      c: '图标',
-      pId: 1,
-    },
-    {
-      id: 8,
-      a: '名字',
-      b: '键8',
-      c: '图标',
-      pId: 1,
-    },
-    {
-      id: 5,
-      a: '名字',
-      b: '键5',
-      c: '图标',
-      pId: 2,
-    },
-    {
-      id: 4,
-      a: '名字',
-      b: '键4',
-      c: '图标',
-      pId: 3,
-    },
-    {
-      id: 6,
-      a: '名字',
-      b: '键6',
-      c: '图标',
-      pId: 3,
-    },
-    {
-      id: 9,
-      a: '名字9',
-      b: '键9',
-      c: '图标',
-      pId: 7,
-    },
-  ];
+  const [treeData] = useConstructTree(treeRawData, {
+    title: 'a',
+    key: 'id',
+    icon: 'c',
+    pId: 'pId',
+  });
+
   const authColumns = [
     {
       title: '模块权限标签编号',
@@ -93,6 +34,7 @@ export default () => {
     },
     {
       title: '用户权限操作',
+      align: 'center',
       render() {
         return (
           <>
@@ -110,8 +52,9 @@ export default () => {
                   style={{ width: '100%' }}
                   columns={relatedColumns}
                   dataSource={fakeData}
+                  rowSelection={{ onChange() {} }}
                   scroll={{
-                    x: 2000,
+                    x: 1650,
                   }}
                   actions={{
                     left: (
@@ -129,8 +72,8 @@ export default () => {
                     pageSize: 8,
                   }}
                 ></Table>
-                <Form.Item label="权限选择">
-                  <Checkbox.Group options={['全选', '增加', '删除', '修改', '查询']} />
+                <Form.Item name="c" label="权限选择">
+                  <AuthCheckbox></AuthCheckbox>
                 </Form.Item>
               </Form>
             </ButtonModal>
@@ -148,97 +91,105 @@ export default () => {
       },
     },
   ];
+
   return (
     <PageHeaderWrapper className={styles.moduleManagement}>
-      <LanLayout
-        siderWidth={300}
-        siderCardProps={{ title: '用户权限标签' }}
-        contentCardProps={{
-          title: '权限分配情况列表',
-        }}
-        sider={
-          <SearchTree
-            height={645}
-            treeProps={{
-              treeRawData: treeData,
-              reName: {
-                title: 'a',
-                key: 'id',
-                icon: 'c',
-                pId: 'pId',
-              },
-            }}
-          ></SearchTree>
-        }
-        content={
-          <Table
-            rowKey="id"
-            columns={authColumns}
-            dataSource={fakeData}
-            pagination={{
-              pageSize: 7,
-            }}
-          ></Table>
-        }
-      ></LanLayout>
+      <Row gutter={[24, 24]}>
+        <Col flex="0 0 350px" style={{ overflow: 'hidden' }}>
+          <Card title="用户权限标签">
+            <SearchTree
+              height={640}
+              treeProps={{
+                treeData,
+              }}
+            ></SearchTree>
+          </Card>
+        </Col>
+        <Col flex="1">
+          <Card title="权限分配情况列表">
+            <Table
+              rowKey="id"
+              columns={authColumns}
+              dataSource={fakeData}
+              pagination={{
+                pageSize: 8,
+              }}
+            ></Table>
+          </Card>
+        </Col>
+        <Col span={24}></Col>
+      </Row>
     </PageHeaderWrapper>
   );
 };
+
 const relatedColumns = [
   {
     title: '平台执照中文名称',
     dataIndex: 'a',
     width: 200,
+    ellipsis: true,
   },
   {
     title: '模块中文类型',
     dataIndex: 'b',
-    width: 200,
+    align: 'center',
+    width: 130,
+    ellipsis: true,
   },
   {
     title: '模块编号',
     dataIndex: 'c',
-    width: 200,
+    width: 120,
+    ellipsis: true,
   },
   {
     title: '模块中文名称',
     dataIndex: 'd',
-    width: 200,
+    width: 150,
+    ellipsis: true,
   },
   {
     title: '模块英文名称',
     dataIndex: 'e',
-    width: 200,
+    width: 150,
+    ellipsis: true,
   },
   {
     title: '模块元素中文名称',
     dataIndex: 'f',
-    width: 200,
+    width: 150,
+    ellipsis: true,
   },
   {
     title: '模块URI',
     dataIndex: 'g',
     width: 200,
+    ellipsis: true,
   },
   {
     title: '创建时间',
     dataIndex: 'h',
-    // width: 200,
+    width: 130,
+    ellipsis: true,
   },
   {
     title: '启用时间',
     dataIndex: 'i',
-    // width: 200,
+    width: 130,
+    ellipsis: true,
   },
   {
     title: '失效时间',
     dataIndex: 'j',
-    // width: 200,
+    width: 130,
+    ellipsis: true,
   },
   {
     title: '修改时间',
     dataIndex: 'g',
-    // width: 200,
+    width: 130,
+    ellipsis: true,
   },
 ];
 
@@ -259,3 +210,69 @@ for (let i = 0; i < 10; i++) {
     id: i,
   });
 }
+
+const treeRawData = [
+  {
+    id: 1,
+    a: '名字1',
+    b: '键1',
+    c: '图标',
+    pId: 0,
+  },
+  {
+    id: 2,
+    a: '名字2',
+    b: '键2',
+    c: '图标',
+    pId: 0,
+  },
+  {
+    id: 3,
+    a: '名字3333333333333333333333333333333333333333333333',
+    b: '键3',
+    c: '图标',
+    pId: 1,
+  },
+  {
+    id: 7,
+    a: '名字4',
+    b: '键7',
+    c: '图标',
+    pId: 1,
+  },
+  {
+    id: 8,
+    a: '名字',
+    b: '键8',
+    c: '图标',
+    pId: 1,
+  },
+  {
+    id: 5,
+    a: '名字',
+    b: '键5',
+    c: '图标',
+    pId: 2,
+  },
+  {
+    id: 4,
+    a: '名字',
+    b: '键4',
+    c: '图标',
+    pId: 3,
+  },
+  {
+    id: 6,
+    a: '名字',
+    b: '键6',
+    c: '图标',
+    pId: 3,
+  },
+  {
+    id: 9,
+    a: '名字9',
+    b: '键9',
+    c: '图标',
+    pId: 7,
+  },
+];

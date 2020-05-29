@@ -1,7 +1,7 @@
 ---
 group:
-  title: 布局(废弃)
-title: 特色布局
+  title: 布局
+title: 特色布局(废弃)
 ---
 
 ### 经典左树结构

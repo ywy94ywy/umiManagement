@@ -1,6 +1,5 @@
 /**
  * @module 首页
- * @author DesYang
  * @todo 图片更换
  */
 import { Card } from 'antd';

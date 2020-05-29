@@ -1,6 +1,6 @@
 /**
  * @module 安全数字输入框
- * @todo require验证 完善
+ * @todo 完整性验证、数字格式
  * @todo 依赖于antd-Form
  */
 import React, { useRef, forwardRef } from 'react';

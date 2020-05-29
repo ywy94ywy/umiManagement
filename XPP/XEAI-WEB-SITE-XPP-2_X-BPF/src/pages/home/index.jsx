@@ -1,18 +1,18 @@
 /**
  * @module 首页
  */
-import React from 'react';
 import { Col, Row } from 'antd';
 import { PageHeaderWrapper } from 'lanlinker';
 import IntroduceRow from './components/IntroduceRow';
 import UserActivity from './components/UserActivity';
 import SideProportion from './components/SideProportion';
+import Enterprise from './components/Enterprise';
 
 export default () => {
   return (
     <PageHeaderWrapper>
-      <IntroduceRow visitData={[]} />
-      <Row gutter={24} type="flex" style={{ marginTop: 24 }}>
+      <Row gutter={[24, 24]}>
+        <IntroduceRow visitData={[]} />
         <Col span={12}>
           <UserActivity data={data} />
         </Col>
@@ -20,6 +20,7 @@ export default () => {
           <SideProportion />
         </Col>
       </Row>
+      <Enterprise data={data} />
     </PageHeaderWrapper>
   );
 };
