@@ -2,13 +2,13 @@ import React from 'react';
 import { Tabs as AntdTabs } from 'antd';
 import {
   TabsProps as AntdTabsProps,
-  TabPaneProps as AntdTabPaneProps,
+  // TabPaneProps as AntdTabPaneProps, // antd版本更新4.3.0后这个没了，应该是个bug
 } from 'antd/es/tabs';
 import classNames from 'classnames';
 import styles from './style.less';
 
 interface ITabs extends React.FC<AntdTabsProps> {
-  TabPane: React.FC<AntdTabPaneProps>;
+  TabPane: React.FC<any>;
 }
 
 const Tabs: ITabs = ({ className, children, ...rest }) => {
@@ -19,7 +19,7 @@ const Tabs: ITabs = ({ className, children, ...rest }) => {
   );
 };
 
-const TabPane: React.FC<AntdTabPaneProps> = ({
+const TabPane: React.FC<any> = ({
   className,
   children,
   ...rest

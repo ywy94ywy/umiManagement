@@ -29,6 +29,8 @@ export default defineConfig({
           path: '/certificateManagement',
           component: './certificateManagement',
         },
+        // 业务查询
+        { path: '/cardRecords', component: './cardRecords' },
         // 基础统计
         { path: '/staffStatistics', component: './staffStatistics' },
         { path: '/cardStatistics', component: './cardStatistics' },

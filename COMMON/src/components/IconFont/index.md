@@ -16,9 +16,9 @@ import { IconFont } from 'lanlinker';
 export default () => {
   return (
     <div style={{ fontSize: 20 }}>
-      <IconFont type="icon-appstore" />
-      <IconFont type="icon-bank" />
-      <IconFont type="icon-info-circle" />
+      <IconFont type="&#xe77e;" />
+      <IconFont type="&#xe7c6;" />
+      <IconFont type="&#xe6ef;" />
     </div>
   );
 };

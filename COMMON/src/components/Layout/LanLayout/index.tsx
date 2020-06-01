@@ -1,7 +1,7 @@
 import React from 'react';
 import { Tabs, Layout } from 'antd';
 import { Card, CardProps } from '../../Card';
-import { TabsProps, TabPaneProps } from 'antd/es/tabs';
+import { TabsProps } from 'antd/es/tabs';
 import styles from './style.less';
 
 export interface LanLayoutProps {
@@ -11,7 +11,7 @@ export interface LanLayoutProps {
   contentCardProps?: CardProps;
   tabList?: string[];
   tabProps?: TabsProps;
-  tabPaneProps?: TabPaneProps;
+  tabPaneProps?: any;
   siderList?: React.ReactNode[];
   content?: React.ReactNode;
 }

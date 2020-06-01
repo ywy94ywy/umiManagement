@@ -31,32 +31,32 @@ export default () => {
 
 const systemsNav = [
   {
-    icon: 'icon-appstore',
+    icon: '&#xe792;',
     title: '物料',
     url: 'https://www.baidu.com',
   },
   {
-    icon: 'icon-appstore',
+    icon: '&#xe792;',
     title: '设备',
     url: '/header/switch-theme',
   },
   {
-    icon: 'icon-appstore',
+    icon: '&#xe792;',
     title: '质量',
     url: '/',
   },
   {
-    icon: 'icon-appstore',
+    icon: '&#xe792;',
     title: '视频',
     url: '/',
   },
   {
-    icon: 'icon-appstore',
+    icon: '&#xe792;',
     title: '综合',
     url: '/',
   },
   {
-    icon: 'icon-appstore',
+    icon: '&#xe792;',
     title: '环境',
     url: '/',
   },

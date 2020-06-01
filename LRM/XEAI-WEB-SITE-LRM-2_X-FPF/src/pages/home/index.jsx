@@ -2,8 +2,8 @@
  * @module 首页
  */
 import React, { useState, useRef } from 'react';
-import { Avatar, Col, Row, Typography, Statistic, Button } from 'antd';
-import { PageHeaderWrapper, Card, ButtonModal } from 'lanlinker';
+import { Avatar, Col, Row, Typography, Statistic, Button, Card } from 'antd';
+import { PageHeaderWrapper, ButtonModal } from 'lanlinker';
 import General from './components/General';
 import { Project, Training, Salary, Attendance } from './components/Statistics';
 import { Shortcuts, CheckableShortcuts } from './components/Shortcuts';
@@ -40,26 +40,20 @@ export default () => {
       }
       className={styles.homepage}
     >
-      <Row gutter={24}>
+      <Row gutter={[24, 24]}>
         <Col span={16}>
           <Card
             title="工程人员概况"
+            style={{ height: 280 }}
             extra={<Button type="link">查看更多</Button>}
           >
             <General list={people}></General>
-          </Card>
-          <Card
-            marginTop
-            tabList={STATISTICS_LIST}
-            activeTabKey={statistic}
-            onTabChange={key => setStatistic(key)}
-          >
-            <Switcher current={statistic}></Switcher>
           </Card>
         </Col>
         <Col span={8}>
           <Card
             title="快捷桌面"
+            style={{ height: 280 }}
             extra={
               <ButtonModal
                 buttonProps={{
@@ -68,8 +62,9 @@ export default () => {
                 }}
                 title="选择快捷桌面应用"
                 width={550}
-                onOk={() => {
+                onOk={(e, close) => {
                   setShortcutList(checks.current);
+                  close();
                 }}
               >
                 <CheckableShortcuts
@@ -84,11 +79,23 @@ export default () => {
               key={shortcutList}
             ></Shortcuts>
           </Card>
+        </Col>
+        <Col span={16}>
+          <Card
+            tabList={STATISTICS_LIST}
+            activeTabKey={statistic}
+            onTabChange={key => setStatistic(key)}
+            style={{ height: 550 }}
+          >
+            <Switcher current={statistic}></Switcher>
+          </Card>
+        </Col>
+        <Col span={8}>
           <Card
             title="现场工人岗位分布"
             extra={<Button type="link">查看更多</Button>}
-            marginTop
             className={styles.switchWorkers}
+            style={{ height: 550 }}
           >
             <Distribution
               managersData={managersData}
@@ -219,87 +226,87 @@ const laborsData = {
 const shortcuts = [
   {
     title: '人员管理',
-    icon: 'icon-appstore',
+    icon: '&#xe792;',
     check: true,
   },
   {
     title: '项目刷卡统计',
-    icon: 'icon-appstore',
+    icon: '&#xe792;',
     check: true,
   },
   {
     title: '人员管理',
-    icon: 'icon-appstore',
+    icon: '&#xe792;',
     check: true,
   },
   {
     title: '人员管理',
-    icon: 'icon-appstore',
+    icon: '&#xe792;',
     check: false,
   },
   {
     title: '人员管理',
-    icon: 'icon-appstore',
+    icon: '&#xe792;',
     check: false,
   },
   {
     title: '人员管理',
-    icon: 'icon-appstore',
+    icon: '&#xe792;',
     check: false,
   },
   {
     title: '人员管理',
-    icon: 'icon-appstore',
+    icon: '&#xe792;',
     check: false,
   },
   {
     title: '人员管理',
-    icon: 'icon-appstore',
+    icon: '&#xe792;',
     check: false,
   },
   {
     title: '人员管理',
-    icon: 'icon-appstore',
+    icon: '&#xe792;',
     check: false,
   },
   {
     title: '人员管理',
-    icon: 'icon-appstore',
+    icon: '&#xe792;',
     check: false,
   },
   {
     title: '人员管理',
-    icon: 'icon-appstore',
+    icon: '&#xe792;',
     check: false,
   },
   {
     title: '人员管理',
-    icon: 'icon-appstore',
+    icon: '&#xe792;',
     check: false,
   },
   {
     title: '人员管理',
-    icon: 'icon-appstore',
+    icon: '&#xe792;',
     check: false,
   },
   {
     title: '人员管理',
-    icon: 'icon-appstore',
+    icon: '&#xe792;',
     check: false,
   },
   {
     title: '人员管理',
-    icon: 'icon-appstore',
+    icon: '&#xe792;',
     check: false,
   },
   {
     title: '人员管理',
-    icon: 'icon-appstore',
+    icon: '&#xe792;',
     check: false,
   },
   {
     title: '人员管理',
-    icon: 'icon-appstore',
+    icon: '&#xe792;',
     check: false,
   },
 ];

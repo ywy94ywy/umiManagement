@@ -34,28 +34,28 @@ export default ({ children }) => {
 const fakeMenu = [
   {
     name: '行业业务管理',
-    icon: 'icon-appstore',
+    icon: '&#xe792;',
     children: [
       {
         name: '建筑行业管理',
-        icon: 'icon-appstore',
+        icon: '&#xe792;',
         children: [
           {
             path: '/project',
             name: '项目信息管理',
-            icon: 'icon-appstore',
+            icon: '&#xe792;',
             key: 'project',
           },
           {
             path: '/cooperative',
             name: '合作组织管理',
-            icon: 'icon-appstore',
+            icon: '&#xe792;',
             key: 'cooperative',
           },
           {
             path: '/position',
             name: '工程位置管理',
-            icon: 'icon-appstore',
+            icon: '&#xe792;',
             key: 'position',
           },
         ],

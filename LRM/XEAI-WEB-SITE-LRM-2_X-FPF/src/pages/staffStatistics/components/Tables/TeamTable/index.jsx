@@ -1,31 +1,36 @@
 /**
- * @module 劳务队伍
+ * @module 劳务队伍表格
  */
-import React from 'react';
 import { Table } from 'lanlinker';
-import { Button, Form, DatePicker, Input, Select } from 'antd';
 
-export default () => {
+export default ({
+  dataSource,
+  modalType,
+  setShowModal,
+  setModalInfo,
+  ...props
+}) => {
   return (
     <Table
+      rowKey="id"
+      dataSource={dataSource}
       columns={columns}
-      actions={{
-        right: (
-          <Form layout="inline">
-            <Form.Item label="统计维度">
-              <Select></Select>
-            </Form.Item>
-            <Form.Item label="统计月份">
-              <DatePicker></DatePicker>
-            </Form.Item>
-            <Form.Item>
-              <Input placeholder="请输入姓名或身份证号"></Input>
-            </Form.Item>
-            <Button type="primary">查询</Button>
-            <Button>重置</Button>
-          </Form>
-        ),
-      }}
+      onRow={record => ({
+        onClick() {
+          setShowModal(true);
+          setModalInfo({
+            type: modalType[0],
+            data: [
+              {
+                id: 'a',
+                a: '模态框班组',
+              },
+            ],
+            breadcrumb: ['XXX队伍'],
+          });
+        },
+      })}
+      {...props}
     ></Table>
   );
 };
@@ -34,7 +39,7 @@ const columns = [
   {
     title: '序号',
     render(t, r, i) {
-      return i;
+      return i + 1;
     },
   },
   {

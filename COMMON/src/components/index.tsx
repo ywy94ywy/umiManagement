@@ -1,12 +1,11 @@
 export { default as SystemsList } from './SystemsList';
 export { default as SwitchSystems } from './SwitchSystems';
-export { default as IconFont } from './IconFont';
 export { default as SystemsNav } from './SystemsNav';
 export { default as TimeWeather } from './TimeWeather';
+export { default as IconFont } from './IconFont';
 export { default as SwitchTheme } from './SwitchTheme';
 export { default as UserMenu } from './UserMenu';
 export { default as Notification } from './Notification';
-export { default as CardTabs } from './CardTabs';
 export { default as Row } from './Row';
 export { default as Tabs } from './Tabs';
 export { default as SafeInput } from './SafeInput';

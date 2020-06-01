@@ -1,37 +1,57 @@
 /**
- * @module 项目人员统计
+ * @module 工程人员统计
  */
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { PageHeaderWrapper } from 'lanlinker';
 import { Card } from 'antd';
-import Team from './Team';
-import Group from './Group';
-import Staff from './Staff';
+import Team from './components/Team';
+import Group from './components/Group';
+import Staff from './components/Staff';
+import DetailsModal from './components/Modal/details';
 
 const TAB = ['劳务队伍', '劳务班组', '劳务人员'];
+const MODAL_TYPE = ['group', 'staff'];
 const TAB_LIST = TAB.map(v => ({ key: v, tab: v }));
 
 export default () => {
-  const [tab, setTab] = useState(TAB[0]);
+  const [currentTab, setCurrentTab] = useState(TAB[0]);
+  const [showModal, setShowModal] = useState(false);
+  const [modalInfo, setModalInfo] = useState({
+    type: MODAL_TYPE[0],
+    data: [],
+    breadcrumb: ['', ''],
+  });
 
   return (
     <PageHeaderWrapper>
-      <Card tabList={TAB_LIST} activeTabKey={tab} onTabChange={key => setTab(key)}>
-        <Switcher current={tab}></Switcher>
+      <Card
+        tabList={TAB_LIST}
+        activeTabKey={currentTab}
+        onTabChange={key => setCurrentTab(key)}
+      >
+        {currentTab === TAB[0] && (
+          <Team
+            modalType={MODAL_TYPE}
+            setShowModal={setShowModal}
+            setModalInfo={setModalInfo}
+          ></Team>
+        )}
+        {currentTab === TAB[1] && (
+          <Group
+            modalType={MODAL_TYPE}
+            setShowModal={setShowModal}
+            setModalInfo={setModalInfo}
+          ></Group>
+        )}
+        {currentTab === TAB[2] && <Staff></Staff>}
       </Card>
+      <DetailsModal
+        visible={showModal}
+        modalInfo={modalInfo}
+        modalType={MODAL_TYPE}
+        setShowModal={setShowModal}
+        setModalInfo={setModalInfo}
+      />
     </PageHeaderWrapper>
   );
-};
-
-const Switcher = ({ current }) => {
-  switch (current) {
-    case TAB[0]:
-      return <Team></Team>;
-    case TAB[1]:
-      return <Group></Group>;
-    case TAB[2]:
-      return <Staff></Staff>;
-    default:
-      return null;
-  }
 };

@@ -7,15 +7,25 @@
  */
 import React, { useState } from 'react';
 import { PageHeaderWrapper, Card } from 'lanlinker';
-import { Modal, Cascader, DatePicker, Pagination, Row } from 'antd';
+import {
+  Modal,
+  Cascader,
+  // DatePicker,
+  Pagination,
+  Row,
+  Button,
+  Input,
+  Form,
+  Select,
+} from 'antd';
 import CheckableList from './components/CheckableList';
 import SearchBar from './components/SearchBar';
-import DropdownList from './components/DropdownList';
+// import DropdownList from './components/DropdownList';
 import profile from './profile.png';
 import classNames from 'classnames';
 import styles from './style.less';
 
-const { RangePicker } = DatePicker;
+// const { RangePicker } = DatePicker;
 
 export default () => {
   const [show, setShow] = useState(false);
@@ -25,6 +35,32 @@ export default () => {
   return (
     <PageHeaderWrapper className={styles.infoQuery}>
       <Card>
+        <Row justify="end" style={{ marginBottom: 16 }}>
+          <Form layout="inline" initialValues={{ b: '1' }}>
+            <Form.Item label="组织名称">
+              <Select></Select>
+            </Form.Item>
+            <Form.Item>
+              <Input
+                addonBefore={
+                  <Form.Item noStyle name="b">
+                    <Select style={{ width: 80 }}>
+                      <Select.Option value="1">姓名</Select.Option>
+                      <Select.Option value="2">身份证号</Select.Option>
+                    </Select>
+                  </Form.Item>
+                }
+              ></Input>
+            </Form.Item>
+            <Form.Item>
+              <Button type="primary">查询</Button>
+            </Form.Item>
+            <Form.Item>
+              <Button>重置</Button>
+            </Form.Item>
+          </Form>
+        </Row>
+
         <SearchBar label="员工岗位" extensible>
           <CheckableList data={tagsFromServer.slice(0, 50)}></CheckableList>
           <hr />
@@ -39,7 +75,7 @@ export default () => {
         <SearchBar label="政治面貌" extensible>
           <CheckableList data={tagsFromServer.slice(150, 200)}></CheckableList>
         </SearchBar>
-        <SearchBar label="高级选项">
+        {/* <SearchBar label="高级选项">
           <DropdownList
             title={[
               '资格证书',
@@ -90,7 +126,7 @@ export default () => {
               </SearchBar>,
             ]}
           ></DropdownList>
-        </SearchBar>
+        </SearchBar> */}
       </Card>
       <Card
         title={

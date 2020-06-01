@@ -25,20 +25,20 @@ export default () => {
           </div>
           <TextBlock
             title="用户综合管理"
-            iconFont="icon-appstore"
+            iconFont="&#xe792;"
             description="使用用户组别信息、用户详细列表 以及用户系统执照的导入导出记录"
             img="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1577359526865&di=d84c700d35c60d1608e84b26321de181&imgtype=0&src=http%3A%2F%2Fbpic.ooopic.com%2F14%2F05%2F35%2F79bOOOPIC53_1024.jpg%2521%2Ffw%2F780%2Fquality%2F90%2Funsharp%2Ftrue%2Fcompress%2Ftrue"
           ></TextBlock>
           <TextBlock
             reverse
             title="模块综合管理"
-            iconFont="icon-appstore"
+            iconFont="&#xe792;"
             description="模块组别管理、模块详细信息以及模块的精细化管理"
             img="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1577359526865&di=d84c700d35c60d1608e84b26321de181&imgtype=0&src=http%3A%2F%2Fbpic.ooopic.com%2F14%2F05%2F35%2F79bOOOPIC53_1024.jpg%2521%2Ffw%2F780%2Fquality%2F90%2Funsharp%2Ftrue%2Fcompress%2Ftrue"
           ></TextBlock>
           <TextBlock
             title="权限分配管理"
-            iconFont="icon-appstore"
+            iconFont="&#xe792;"
             description="使用用户权限标签、模块权限标签可以对用户组别及模块组别赋权"
             img="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1577359526865&di=d84c700d35c60d1608e84b26321de181&imgtype=0&src=http%3A%2F%2Fbpic.ooopic.com%2F14%2F05%2F35%2F79bOOOPIC53_1024.jpg%2521%2Ffw%2F780%2Fquality%2F90%2Funsharp%2Ftrue%2Fcompress%2Ftrue"
           ></TextBlock>

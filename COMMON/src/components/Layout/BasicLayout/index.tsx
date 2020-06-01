@@ -37,7 +37,7 @@ const MenuBreadcrumb = (
 const loopMenuItem = (menus: MenuDataItem[]): MenuDataItem[] =>
   menus.map(({ icon, children, ...item }) => ({
     ...item,
-    icon: icon && <IconFont type={icon as string} />,
+    icon: icon && <IconFont style={{ marginRight: 5 }} type={icon as string} />,
     children: children && loopMenuItem(children),
   }));
 
