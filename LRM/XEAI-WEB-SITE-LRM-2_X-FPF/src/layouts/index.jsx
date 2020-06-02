@@ -245,10 +245,10 @@ const fakeMenu = [
         icon: '&#xe792;',
         children: [
           {
-            path: '/staffStatistics',
+            path: '/projectStaff',
             name: '工程人员统计',
             icon: '&#xe792;',
-            key: 'staffStatistics',
+            key: 'projectStaff',
           },
           // {
           //   path: '/cardStatistics',
@@ -257,10 +257,10 @@ const fakeMenu = [
           //   key: 'cardStatistics',
           // },
           {
-            path: '/checkinStatistics',
+            path: '/projectAttendance',
             name: '工程考勤统计',
             icon: '&#xe792;',
-            key: 'checkinStatistics',
+            key: 'projectAttendance',
           },
           // {
           //   path: '/postStatistics',
@@ -301,10 +301,10 @@ const fakeMenu = [
           //   key: 'registerStatistics',
           // },
           {
-            path: '/attendanceStatistics',
+            path: '/attendanceInfo',
             name: '考勤信息统计',
             icon: '&#xe792;',
-            key: 'attendanceStatistics',
+            key: 'attendanceInfo',
           },
           // {
           //   path: '/enterExitStatistics',

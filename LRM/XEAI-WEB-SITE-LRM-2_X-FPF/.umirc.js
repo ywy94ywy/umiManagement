@@ -32,16 +32,16 @@ export default defineConfig({
         // 业务查询
         { path: '/cardRecords', component: './cardRecords' },
         // 基础统计
-        { path: '/staffStatistics', component: './staffStatistics' },
+        { path: '/projectStaff', component: './projectStaff' },
         { path: '/cardStatistics', component: './cardStatistics' },
-        { path: '/checkinStatistics', component: './checkinStatistics' },
+        { path: '/projectAttendance', component: './projectAttendance' },
         { path: '/postStatistics', component: './postStatistics' },
         { path: '/epidemicSearch', component: './epidemicSearch' },
         // 高级统计
         { path: '/infoQuery', component: './infoQuery' },
         { path: '/attributeStatistics', component: './attributeStatistics' },
         { path: '/registerStatistics', component: './registerStatistics' },
-        { path: '/attendanceStatistics', component: './attendanceStatistics' },
+        { path: '/attendanceInfo', component: './attendanceInfo' },
         { path: '/enterExitStatistics', component: './enterExitStatistics' },
         { path: '/riskStatistics', component: './riskStatistics' },
         { path: '/violationStatistics', component: './violationStatistics' },

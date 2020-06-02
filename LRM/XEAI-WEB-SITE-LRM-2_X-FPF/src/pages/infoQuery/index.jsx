@@ -205,7 +205,13 @@ export default () => {
 };
 
 const Personnel = ({ ...props }) => (
-  <Card bodyStyle={{ padding: 0 }} bordered={false} hoverable {...props}>
+  <Card
+    bodyStyle={{ padding: 0 }}
+    bordered={false}
+    hoverable
+    {...props}
+    style={{ marginBottom: 16 }}
+  >
     <table className={styles.card}>
       <tbody>
         <tr>
