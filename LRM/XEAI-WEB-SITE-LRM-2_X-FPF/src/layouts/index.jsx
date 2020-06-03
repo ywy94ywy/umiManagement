@@ -229,10 +229,10 @@ const fakeMenu = [
     icon: '&#xe792;',
     children: [
       {
-        path: '/cardRecords',
-        name: '刷卡流水查询',
+        path: '/commutingRecords',
+        name: '通勤流水查询',
         icon: '&#xe792;',
-        key: '/cardRecords',
+        key: 'commutingRecords',
       },
     ],
   },

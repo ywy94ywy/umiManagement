@@ -31,7 +31,6 @@ export default ({ record }) => {
           );
         })}
       </Descriptions>
-      ,
     </Space>
   );
 };

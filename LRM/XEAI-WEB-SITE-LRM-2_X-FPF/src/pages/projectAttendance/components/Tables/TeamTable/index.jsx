@@ -2,13 +2,8 @@
  * @module 劳务队伍表格
  */
 import { Table } from 'lanlinker';
-import { useModel } from 'umi';
 
-export default ({ dataSource, ...props }) => {
-  const { setModalInfo } = useModel('projectAttendance', model => ({
-    setModalInfo: model.setModalInfo,
-  }));
-
+export default ({ dataSource, setModalInfo, ...props }) => {
   return (
     <Table
       rowKey="id"

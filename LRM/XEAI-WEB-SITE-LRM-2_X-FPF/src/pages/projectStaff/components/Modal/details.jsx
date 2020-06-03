@@ -2,16 +2,11 @@
  * @module 班组人员模态框
  */
 import { Modal } from 'lanlinker';
-import { useModel } from 'umi';
 import { Breadcrumb } from 'antd';
 import GroupTable from '../Tables/GroupTable';
 import StaffTable from '../Tables/StaffTable';
 
-export default ({ children, ...props }) => {
-  const { modalInfo, setModalInfo } = useModel('projectStaff', model => ({
-    modalInfo: model.modalInfo,
-    setModalInfo: model.setModalInfo,
-  }));
+export default ({ children, modalInfo, setModalInfo, ...props }) => {
   const { id, type, breadcrumb } = modalInfo;
 
   return (
@@ -40,10 +35,7 @@ export default ({ children, ...props }) => {
   );
 };
 
-const GroupModal = ({ id, breadcrumb }) => {
-  const { orgName } = useModel('projectStaff', model => ({
-    orgName: model.orgName,
-  }));
+const GroupModal = ({ id, breadcrumb, setModalInfo }) => {
   // 接口
   const dataSource = [{ id: '12', a: '组模态框' }];
   return (
@@ -53,15 +45,12 @@ const GroupModal = ({ id, breadcrumb }) => {
           <a href="#">{breadcrumb[0]}</a>
         </Breadcrumb.Item>
       </Breadcrumb>
-      <GroupTable dataSource={dataSource} />
+      <GroupTable dataSource={dataSource} setModalInfo={setModalInfo} />
     </>
   );
 };
 
 const StaffModal = ({ id, breadcrumb, setModalInfo }) => {
-  const { orgName } = useModel('projectStaff', model => ({
-    orgName: model.orgName,
-  }));
   // 接口
   const dataSource = [{ id: '12', a: '人员模态框' }];
 
@@ -84,7 +73,7 @@ const StaffModal = ({ id, breadcrumb, setModalInfo }) => {
           <a href="#">{breadcrumb[1]}</a>
         </Breadcrumb.Item>
       </Breadcrumb>
-      <StaffTable dataSource={dataSource} />
+      <StaffTable dataSource={dataSource} setModalInfo={setModalInfo} />
     </>
   );
 };

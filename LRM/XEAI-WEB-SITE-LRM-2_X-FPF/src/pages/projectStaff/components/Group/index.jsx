@@ -3,16 +3,11 @@
  */
 import { useState } from 'react';
 import { Button, Form, DatePicker, Input, Select } from 'antd';
-import { useModel } from 'umi';
 import GroupTable from '../Tables/GroupTable';
 
 const { RangePicker } = DatePicker;
 
-export default () => {
-  const { orgName } = useModel('projectStaff', model => ({
-    orgName: model.orgName,
-  }));
-
+export default ({ setModalInfo }) => {
   // 接口
   const dataSource = [
     {
@@ -28,6 +23,7 @@ export default () => {
   return (
     <GroupTable
       dataSource={dataSource}
+      setModalInfo={setModalInfo}
       actions={{
         right: (
           <Form layout="inline" initialValues={{ a: '1' }}>

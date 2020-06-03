@@ -7,11 +7,7 @@ import { Breadcrumb } from 'antd';
 import GroupTable from '../Tables/GroupTable';
 import StaffTable from '../Tables/StaffTable';
 
-export default ({ children, ...props }) => {
-  const { modalInfo, setModalInfo } = useModel('projectAttendance', model => ({
-    modalInfo: model.modalInfo,
-    setModalInfo: model.setModalInfo,
-  }));
+export default ({ children, modalInfo, setModalInfo, ...props }) => {
   const { id, type, breadcrumb } = modalInfo;
 
   return (
@@ -40,7 +36,7 @@ export default ({ children, ...props }) => {
   );
 };
 
-const GroupModal = ({ id, breadcrumb }) => {
+const GroupModal = ({ id, breadcrumb, setModalInfo }) => {
   const { orgName } = useModel('projectAttendance', model => ({
     orgName: model.orgName,
   }));
@@ -53,7 +49,7 @@ const GroupModal = ({ id, breadcrumb }) => {
           <a href="#">{breadcrumb[0]}</a>
         </Breadcrumb.Item>
       </Breadcrumb>
-      <GroupTable dataSource={dataSource} />
+      <GroupTable dataSource={dataSource} setModalInfo={setModalInfo} />
     </>
   );
 };
@@ -84,7 +80,7 @@ const StaffModal = ({ id, breadcrumb, setModalInfo }) => {
           <a href="#">{breadcrumb[1]}</a>
         </Breadcrumb.Item>
       </Breadcrumb>
-      <StaffTable dataSource={dataSource} />
+      <StaffTable dataSource={dataSource} setModalInfo={setModalInfo} />
     </>
   );
 };

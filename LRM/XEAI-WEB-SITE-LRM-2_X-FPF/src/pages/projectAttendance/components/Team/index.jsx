@@ -3,16 +3,13 @@
  */
 import { useState } from 'react';
 import { Button, Form, DatePicker, Input, Select } from 'antd';
-import { useModel } from 'umi';
 import TeamTable from '../Tables/TeamTable';
 
 const { MonthPicker } = DatePicker;
 
-export default () => {
+export default ({ setModalInfo }) => {
   const [form] = Form.useForm();
-  const { orgName } = useModel('projectAttendance', model => ({
-    orgName: model.orgName,
-  }));
+
   // 接口
   const dataSource = [
     {
@@ -28,6 +25,7 @@ export default () => {
   return (
     <TeamTable
       dataSource={dataSource}
+      setModalInfo={setModalInfo}
       actions={{
         right: (
           <Form form={form} layout="inline" initialValues={{ a: '1', b: '1' }}>
