@@ -211,10 +211,10 @@ const fakeMenu = [
         key: 'evaluationManagement',
       },
       {
-        path: '/healthManagement',
+        path: '/medicalManagement',
         name: '体检管理',
         icon: '&#xe792;',
-        key: 'healthManagement',
+        key: 'medicalManagement',
       },
       {
         path: '/certificateManagement',

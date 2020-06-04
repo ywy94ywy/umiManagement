@@ -1,12 +1,12 @@
 /**
- * @module 证书管理
- * @todo 可编辑表格，删除按钮弹窗
+ * @module 体检管理
+ * @todo 高拍仪上传，体检报告附件
  */
 import { useState } from 'react';
-import { PageHeaderWrapper, Table } from 'lanlinker';
-import { Card, Input, Button, Select, TreeSelect, Row, Col, Form } from 'antd';
-import StaffCard from '@/components/StaffCard';
-import CertificateList from './components/CertificateList';
+import { PageHeaderWrapper } from 'lanlinker';
+import { Card, Input, Button, Select, Form, Row, Col, TreeSelect } from 'antd';
+import MedicalTable from './components/MedicalTable';
+import MedicalDetails from './components/MedicalDetails';
 
 export default () => {
   const [list, setList] = useState();
@@ -21,13 +21,11 @@ export default () => {
                 <Form.Item label="组织名称">
                   <TreeSelect></TreeSelect>
                 </Form.Item>
-                <Form.Item label="岗位">
-                  <Select></Select>
-                </Form.Item>
-                <Form.Item label="性别" name="b">
+                <Form.Item label="劳动合同状态" name="b">
                   <Select>
-                    <Select.Option value="1">男</Select.Option>
-                    <Select.Option value="2">女</Select.Option>
+                    <Select.Option value="1">全部人员</Select.Option>
+                    <Select.Option value="2">已体检</Select.Option>
+                    <Select.Option value="3">未体检</Select.Option>
                   </Select>
                 </Form.Item>
                 <Form.Item>
@@ -43,21 +41,10 @@ export default () => {
             </Row>
           </Col>
           <Col flex="1" style={{ overflow: 'hidden' }}>
-            <Table
-              rowKey="id"
-              onRow={record => ({
-                onClick() {
-                  setList(record);
-                },
-              })}
-              columns={columns}
-              dataSource={[{ id: 't', a: '3' }]}
-            ></Table>
+            <MedicalTable setList={setList} />
           </Col>
           <Col flex="340px" style={{ overflow: 'hidden' }}>
-            <StaffCard title="证书列表">
-              {list && <CertificateList />}
-            </StaffCard>
+            <MedicalDetails list={list} />
           </Col>
         </Row>
       </Card>
@@ -89,36 +76,3 @@ const InputWrapper = () => {
     ></Input>
   );
 };
-
-const columns = [
-  {
-    title: '姓名',
-    dataIndex: 'a',
-    width: 90,
-    ellipsis: true,
-  },
-  {
-    title: '身份证号',
-    dataIndex: 'd',
-    width: 120,
-    ellipsis: true,
-  },
-  {
-    title: '性别',
-    dataIndex: 'e',
-    width: 80,
-    ellipsis: true,
-  },
-  {
-    title: '岗位',
-    dataIndex: 'f',
-    width: 90,
-    ellipsis: true,
-  },
-  {
-    title: '证书数量',
-    dataIndex: 'df',
-    width: 80,
-    ellipsis: true,
-  },
-];

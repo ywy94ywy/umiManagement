@@ -15,9 +15,9 @@ export default [
       { path: '/checkinManagement', component: './checkinManagement' },
       { path: '/salaryManagement', component: './salaryManagement' },
       { path: '/evaluationManagement', component: './evaluationManagement' },
-      { path: '/healthManagement', component: './healthManagement' },
+      { path: '/medicalManagement', component: './medicalManagement' }, // 体检管理
       {
-        path: '/certificateManagement',
+        path: '/certificateManagement', // 证书管理
         component: './certificateManagement',
       },
       // 业务查询

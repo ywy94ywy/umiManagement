@@ -1,0 +1,32 @@
+@import '~lanlinker/es/style/index.less';
+
+.card {
+  min-height: 500px;
+  .listItem {
+    position: relative;
+    padding-top: 0;
+    border-bottom: @border-split;
+    margin-bottom: 12px;
+    :global {
+      .ant-list-item-meta-title {
+        .h4;
+      }
+    }
+
+    .detail {
+      width: 170px;
+      .ellipsis;
+    }
+    .profile {
+      width: 100px;
+      max-height: 125px;
+      overflow: hidden;
+    }
+
+    > .btn {
+      position: absolute;
+      top: 0px;
+      right: 0px;
+    }
+  }
+}
