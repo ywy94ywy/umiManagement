@@ -1,5 +1,5 @@
 /**
- * @module 体检管理
+ * @page 体检管理
  * @todo 高拍仪上传，体检报告附件
  */
 import { useState } from 'react';

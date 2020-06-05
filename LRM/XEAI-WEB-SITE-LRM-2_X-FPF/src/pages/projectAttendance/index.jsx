@@ -1,5 +1,5 @@
 /**
- * @module 工程考勤统计
+ * @page 工程考勤统计
  */
 import { useState } from 'react';
 import { PageHeaderWrapper } from 'lanlinker';

@@ -1,5 +1,5 @@
 /**
- * @module 证书管理
+ * @page 证书管理
  * @todo 可编辑表格，删除按钮弹窗
  */
 import { useState } from 'react';

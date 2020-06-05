@@ -108,6 +108,7 @@ export default () => {
       <Tree
         treeData={treeData}
         onRightClick={({ event, node }, close) => {
+          console.log(node, node.isLeaf);
           return (
             <TreeContextMenu
               closeOnClick={close}

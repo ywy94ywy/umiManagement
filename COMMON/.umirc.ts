@@ -8,4 +8,7 @@ export default {
   devServer: {
     port: 8080,
   },
+  nodeModulesTransform: {
+    type: 'none',
+  },
 };

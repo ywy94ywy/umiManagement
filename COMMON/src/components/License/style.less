@@ -1,24 +1,25 @@
+@img2: 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAscAAAAZAgMAAACgM2vLAAAABGdBTUEAALGPC/xhBQAAAAFzUkdCAK7OHOkAAAAMUExURfrz6rWdaPDn19fIqMKQXZkAAACDSURBVFjD7dfLDYAgEATQAdSD8UBJUoFe6MMiKMDYhiVwogNL8seRBiaZreCF7M6yWAAcMyhq8IBJYCSbuPKQ+xheMjwPubN8ZKdXFrlBnvjIqL3MlMtWZJEb5PH8yHFjWtjlIbt8EeVy/cntIovMTrbf+HGR/1wWWWR28pAD34Vd0g1neT2g/FNtYQAAAABJRU5ErkJggg==';
+
 .license {
   width: 580px;
-  height: 900px;
+  min-height: 700px;
   margin: 0 auto;
-  position: relative;
+  display: flex;
+  flex-direction: column;
+
   > img {
-    width: inherit;
-    height: inherit;
-    position: absolute;
+    width: 100%;
   }
-  > .content {
-    position: absolute;
-    width: 85%;
-    top: 35%;
-    left: 50%;
-    transform: translateX(-50%);
+  > .stretch {
+    flex: 1;
+    background: url(@img2) top/contain;
+    padding: 0 40px;
     .textArea {
       resize: none;
       display: -webkit-box;
+      /* autoprefixer: ignore next */
       -webkit-box-orient: vertical;
-      -webkit-line-clamp: 4;
+      -webkit-line-clamp: 3;
       overflow: hidden;
     }
     :global {
@@ -26,5 +27,10 @@
         margin-bottom: 10px;
       }
     }
+  }
+  .ellip {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
   }
 }

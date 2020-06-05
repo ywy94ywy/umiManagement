@@ -1,5 +1,5 @@
 /**
- * @module 员工信息查询
+ * @page 员工信息查询
  * @todo SearchBar类FORM封装
  * @todo checkableList自定义组件
  * @todo DropdownList任意点击关闭
