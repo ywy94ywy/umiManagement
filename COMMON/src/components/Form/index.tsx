@@ -2,6 +2,8 @@
  * @module Form(antd-Form)
  * @description
  * 1、多列布局、跨列占位
+ * @bug
+ * inline表型形式与原来不同
  */
 import React from 'react';
 import { Form as AntdForm } from 'antd';

@@ -6,15 +6,15 @@ export default [
       { path: '/', redirect: '/home' },
       { path: '/home', component: './home' },
       // 业务管理
-      { path: '/projectInfo', component: './projectInfo' },
+      { path: '/projectInfo', component: './projectInfo' }, // 工程信息
       { path: '/registerManagement', component: './registerManagement' },
       { path: '/contractManagement', component: './contractManagement' },
       { path: '/cardManagement', component: './cardManagement' },
       { path: '/dormManagement', component: './dormManagement' },
       { path: '/trainingManagement', component: './trainingManagement' },
       { path: '/checkinManagement', component: './checkinManagement' },
-      { path: '/salaryManagement', component: './salaryManagement' },
-      { path: '/evaluationManagement', component: './evaluationManagement' },
+      { path: '/salaryManagement', component: './salaryManagement' }, // 工资管理
+      { path: '/evaluationManagement', component: './evaluationManagement' }, // 评价管理
       { path: '/medicalManagement', component: './medicalManagement' }, // 体检管理
       {
         path: '/certificateManagement', // 证书管理

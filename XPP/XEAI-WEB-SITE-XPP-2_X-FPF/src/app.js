@@ -1,5 +1,5 @@
-const baseUrl = 'http://localhost:8001';
-const common = '/api';
+const baseUrl = 'http://192.168.1.115:10020/';
+const common = 'xeai-consumer-xbiz-xpp-fpf/oapi';
 
 export const request = {
   // timeout: 10000,

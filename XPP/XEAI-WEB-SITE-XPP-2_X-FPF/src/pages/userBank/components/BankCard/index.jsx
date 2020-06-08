@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { Modal, SafeInput } from 'lanlinker';
 import { Form, Input, message, Select, Checkbox, Row, Col } from 'antd';
 import nongye from './imgs/nongye.png';
@@ -96,10 +96,17 @@ export default ({ title, type, number, first = false }) => {
               <Input></Input>
             </Form.Item>
             <Form.Item label="银行名称">
-              <Select></Select>
+              <Select>
+                <Select.Option value="工商银行">工商银行</Select.Option>
+                <Select.Option value="建设银行">建设银行</Select.Option>
+              </Select>
             </Form.Item>
             <Form.Item label="支行名称">
-              <Row gutter={12}>
+              <Select>
+                <Select.Option value="名称1">名称1</Select.Option>
+                <Select.Option value="名称2">名称2</Select.Option>
+              </Select>
+              {/* <Row gutter={12}>
                 <Col span={8}>
                   <Select></Select>
                 </Col>
@@ -109,7 +116,7 @@ export default ({ title, type, number, first = false }) => {
                 <Col span={8}>
                   <Select></Select>
                 </Col>
-              </Row>
+              </Row> */}
             </Form.Item>
             <Form.Item wrapperCol={{ offset: 5 }}>
               <Checkbox>设为默认银行卡账号</Checkbox>
