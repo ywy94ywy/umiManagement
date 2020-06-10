@@ -8,7 +8,7 @@ export default [
       // 业务管理
       { path: '/projectInfo', component: './projectInfo' }, // 工程信息
       { path: '/registerManagement', component: './registerManagement' },
-      { path: '/contractManagement', component: './contractManagement' },
+      { path: '/contractManagement', component: './contractManagement' }, // 合同管理
       { path: '/cardManagement', component: './cardManagement' },
       { path: '/dormManagement', component: './dormManagement' },
       { path: '/trainingManagement', component: './trainingManagement' },

@@ -17,14 +17,14 @@ const Table: React.FC<TableProps<any>> = ({ actions, alert, ...props }) => {
       {actions && (
         <Row
           justify="space-between"
-          style={{ marginBottom: 10 }}
+          style={{ marginBottom: 12 }}
           className={styles.tableActions}
         >
           <div className={styles.left}>{actions.left}</div>
           <div className={styles.right}>{actions.right}</div>
         </Row>
       )}
-      {alert && <div style={{ marginBottom: 10 }}>{alert}</div>}
+      {alert && <div style={{ marginBottom: 12 }}>{alert}</div>}
       <AntdTable bordered {...props} />
     </>
   );

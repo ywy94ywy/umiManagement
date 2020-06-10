@@ -14,7 +14,7 @@ export default () => {
   return (
     <PageHeaderWrapper>
       <Card>
-        <Row gutter={[24, 24]}>
+        <Row gutter={[24, 12]}>
           <Col span={24}>
             <Row justify="end">
               <Form layout="inline" initialValues={{ a: '1', b: '1' }}>
