@@ -23,12 +23,12 @@ export default ({ data, loading, runFetch }) => {
           first={v.userBankAccountNumberIsDefault}
         ></BankCard>
       ))}
-      <ADDCard runFetch={runFetch} />
+      <AddCard runFetch={runFetch} />
     </div>
   );
 };
 
-const ADDCard = ({ runFetch }) => {
+const AddCard = ({ runFetch }) => {
   const [add, showAdd] = useState(false);
   const [form] = Form.useForm();
   const { run: runCreate } = useRequest(createBankCard, {

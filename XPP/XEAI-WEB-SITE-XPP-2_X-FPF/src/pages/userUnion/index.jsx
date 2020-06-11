@@ -1,7 +1,7 @@
 /**
  * @module 用户联合登录管理
  */
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { PageHeaderWrapper, Form, SafeInput, BindInput } from 'lanlinker';
 import { Card, Skeleton } from 'antd';
 import { useRequest } from 'umi';
@@ -126,7 +126,12 @@ const Union = () => {
 };
 
 const BindInputWrapper = props => (
-  <BindInput activeTitle="绑定" inactiveTitle="解绑" showModal {...props}></BindInput>
+  <BindInput
+    activeTitle="绑定"
+    inactiveTitle="解绑"
+    showModal
+    {...props}
+  ></BindInput>
 );
 
 export default Union;

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import {
   BasicLayout,
   SwitchSystems,
@@ -7,6 +7,7 @@ import {
   SwitchTheme,
   Notification,
   UserMenu,
+  IconFont,
 } from 'lanlinker';
 import { history } from 'umi';
 
@@ -16,6 +17,8 @@ const Layout = ({ children }) => {
 
   return (
     <BasicLayout
+      logo={<IconFont type="&#xe65b;" />}
+      title="劳务实名管理系统"
       headerLeft={
         <>
           <SwitchSystems

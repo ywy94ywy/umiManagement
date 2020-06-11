@@ -87,7 +87,7 @@ const columns = [
     dataIndex: 'd',
   },
   {
-    title: '姓名',
+    title: '持卡人姓名',
     dataIndex: 'd',
   },
   {
@@ -99,7 +99,7 @@ const columns = [
     dataIndex: 'f',
   },
   {
-    title: '制卡操作人',
+    title: '操作人姓名',
     dataIndex: 'g',
   },
   {

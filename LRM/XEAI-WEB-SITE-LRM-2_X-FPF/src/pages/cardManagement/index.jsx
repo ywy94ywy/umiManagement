@@ -1,10 +1,13 @@
 /**
  * @page 卡片管理
+ * @todo 门区组件 必选验证
  */
 import { useState } from 'react';
 import { PageHeaderWrapper } from 'lanlinker';
 import { Card } from 'antd';
-import { Staff, Temp, RecordsQuery } from './components/TabCards';
+import Staff from './components/Staff';
+import Temp from './components/Temp';
+import RecordsQuery from './components/RecordsQuery';
 
 const CARDS = ['员工卡片授权', '临时卡片授权', '卡片记录查询'];
 const CARDS_LIST = CARDS.map(v => ({ key: v, tab: v }));
@@ -19,8 +22,8 @@ export default () => {
       onTabChange={key => setTab(key)}
     >
       <Card>
-        {tab === CARDS[0] && null}
-        {tab === CARDS[1] && null}
+        {tab === CARDS[0] && <Staff />}
+        {tab === CARDS[1] && <Temp />}
         {tab === CARDS[2] && <RecordsQuery />}
       </Card>
     </PageHeaderWrapper>
