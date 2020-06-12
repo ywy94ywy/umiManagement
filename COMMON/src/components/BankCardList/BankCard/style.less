@@ -1,0 +1,82 @@
+@import '../../style/index.less';
+
+.card() {
+  width: 270px;
+  height: 152px;
+  overflow: hidden;
+}
+.bankCard {
+  .card;
+  display: flex;
+  flex-direction: column;
+  > header {
+    color: white;
+    padding: 16px;
+    height: 120px;
+    background-size: cover;
+    background-color: gainsboro;
+    border-radius: 4px 4px 0 0;
+    > .title {
+      display: flex;
+      > .logo {
+        width: 48px;
+        height: 48px;
+        margin-right: 10px;
+        overflow: hidden;
+      }
+      .name {
+        width: 130px;
+        white-space: nowrap;
+        text-overflow: ellipsis;
+        overflow: hidden;
+        font-size: @fs-lg;
+        .ellipsis;
+      }
+      .type {
+        font-size: @fs-sm;
+      }
+      > .default {
+        margin-left: auto;
+        font-size: @fs-sm;
+        height: fit-content;
+        padding: 0 7px;
+        background-color: rgba(255, 255, 255, 0.3);
+      }
+    }
+    > .number {
+      font-size: @fs-lg;
+      margin-top: 10px;
+      text-align: center;
+      .ellipsis;
+    }
+  }
+  > footer {
+    flex: 1;
+    display: flex;
+    > span {
+      flex: 1;
+      .center;
+      cursor: pointer;
+      transition: background-color 0.2s;
+      box-sizing: border-box;
+      &:first-child {
+        border-left: 1px solid rgba(0, 0, 0, 0.05);
+        border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+        color: rgba(0, 0, 0, 0.45);
+        border-bottom-left-radius: 4px;
+        &:hover {
+          background-color: rgba(0, 0, 0, 0.1);
+        }
+      }
+      &:last-child {
+        border: 1px solid rgba(0, 0, 0, 0.05);
+        border-top: none;
+        color: @primary-color;
+        border-bottom-right-radius: 4px;
+        &:hover {
+          background: rgba(@primary-color, 0.1);
+        }
+      }
+    }
+  }
+}

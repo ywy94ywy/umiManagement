@@ -2,7 +2,7 @@
  * @module 心知天气
  */
 
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import moment from 'moment';
 import classNames from 'classnames';
 import {
@@ -10,6 +10,7 @@ import {
   ClockCircleOutlined,
   EnvironmentOutlined,
 } from '@ant-design/icons';
+import { ThemeContext } from '../Context/theme';
 import styles from './style.less';
 
 moment.locale('zh-cn');
@@ -21,6 +22,7 @@ const TimeWeather: React.FC<{
   className?: string;
 }> = ({ style, className }) => {
   const [calendar, setCalendar] = useState(new Date());
+  const { fs } = useContext(ThemeContext);
 
   useEffect(() => {
     // 心知天气初始化
@@ -73,7 +75,7 @@ const TimeWeather: React.FC<{
 
   return (
     <div className={classNames(styles.timeWeather, className)} style={style}>
-      <div className={styles.wrapper}>
+      <div className={styles.wrapper} style={{ fontSize: fs }}>
         <div className={styles.iconWrapper}>
           <ScheduleOutlined />
           <span>{week}</span>

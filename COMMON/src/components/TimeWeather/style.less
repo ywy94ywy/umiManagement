@@ -6,9 +6,7 @@
 
   .wrapper {
     position: absolute;
-    width: calc(
-      500px + (var(--fontSize, @header-font-size) - @header-font-size) * 25
-    );
+    width: 540px;
     height: 32px;
     border-radius: 16px;
     line-height: 30px;
@@ -17,10 +15,10 @@
     transform: translateY(-50%);
     border: 1px solid @header-font-color-secondary;
     padding: 0 30px;
-    font-size: var(--fontSize, @header-font-size);
     color: @header-font-color-secondary;
     display: flex;
     justify-content: space-around;
+    transition: all 0.2s;
     span:not(:last-child) {
       margin-right: 8px;
     }
@@ -36,7 +34,7 @@
         .sw-container {
           color: @header-font-color-secondary;
           .sw-typography {
-            font-size: var(--fontSize, @header-font-size);
+            // font-size:14px;
           }
         }
       }

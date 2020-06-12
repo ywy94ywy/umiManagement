@@ -1,12 +1,10 @@
 @import '../style/index.less';
 
 .switchTheme {
+  width: 40px;
   padding: @header-icon-padding;
   .background-dark-hover;
   .center;
-  > span {
-    font-size: calc(var(--fontSize, @header-font-size) + 2px);
-  }
 }
 
 .themePanel {
@@ -17,17 +15,16 @@
     }
   }
   .wrapper {
-    padding: 8px 0;
-    .header-panel;
+    padding: 16px 12px;
     .title {
       .h4;
-      padding-top: 16px;
-      padding-left: 16px;
+    }
+    .divider {
+      margin: 0 0 12px;
     }
     .list() {
-      padding: 16px 40px;
+      padding: 16px 24px;
       display: flex;
-      // border-bottom: @border-normal;
     }
     .fontList {
       .list;
@@ -38,7 +35,8 @@
     }
     .bgList {
       .list;
-      justify-content: space-between;
+      margin-bottom: 0;
+      justify-content: space-around;
       &:last-child {
         border-bottom: none;
       }

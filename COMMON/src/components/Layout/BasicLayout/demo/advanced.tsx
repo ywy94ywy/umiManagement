@@ -2,7 +2,7 @@
  * compact: true
  * transform: true
  */
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import {
   BasicLayout,
   BasicLayoutProps,
@@ -14,7 +14,7 @@ import {
   Notification,
   UserMenu,
 } from 'lanlinker';
-import { Button, Card, Modal } from 'antd';
+import { Button, Card } from 'antd';
 
 const Layout: React.FC<BasicLayoutProps> = () => {
   const [messages, setMessages] = useState(fakeMessages);
@@ -98,13 +98,7 @@ const Layout: React.FC<BasicLayoutProps> = () => {
       {/* 下面是假页面 */}
       <PageHeaderWrapper>
         <Card>
-          <p
-            onClick={() => {
-              Modal.confirm({});
-            }}
-          >
-            假页面
-          </p>
+          <p>假页面</p>
           <Button
             onClick={() => {
               setNav(nav === 'weather' ? 'nav' : 'weather');

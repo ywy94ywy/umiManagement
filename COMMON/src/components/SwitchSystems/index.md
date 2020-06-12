@@ -16,8 +16,7 @@ export default () => {
   return (
     <div
       style={{
-        background: 'var(--background, #1c1f87)',
-        backgroundSize: 'cover',
+        background: '#1c1f87',
         height: 64,
         lineHeight: '64px',
         display: 'flex',

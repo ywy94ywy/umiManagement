@@ -51,7 +51,7 @@
     "@types/classnames": "^2.2.9",
     "@types/node": "^13.11.0",
     "@types/styled-components": "^5.0.1",
-    "dumi": "^1.0.1",
+    "dumi": "^1.0.31",
     "father-build": "^1.17.2"
   }
 }

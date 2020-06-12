@@ -3,11 +3,12 @@
  * @todo 消息详情
  * @todo 多行省略
  */
-import React from 'react';
+import React, { useContext } from 'react';
 import { Badge, Popover, Tabs, List, Avatar } from 'antd';
-import { BellOutlined } from "@ant-design/icons";
+import { BellOutlined } from '@ant-design/icons';
 import classNames from 'classnames';
 import clear from './clear.svg';
+import { ThemeContext } from '../Context/theme';
 import styles from './style.less';
 
 export interface IMessage {
@@ -35,6 +36,7 @@ export interface NotificationProps {
 }
 
 const Notification: React.FC<NotificationProps> = ({ ...props }) => {
+  const { icFs } = useContext(ThemeContext);
   const { messages = [], prompts = [] } = props;
 
   const UnreadedMessage = messages.filter(v => !v.readed).length;
@@ -55,7 +57,7 @@ const Notification: React.FC<NotificationProps> = ({ ...props }) => {
     >
       <div className={styles.notification}>
         <Badge count={UnreadedMessage + UnreadedPrompts}>
-          <BellOutlined />
+          <BellOutlined style={{ fontSize: icFs, transition: 'all 0.2s' }} />
         </Badge>
       </div>
     </Popover>
@@ -88,7 +90,10 @@ const Content: React.FC<ContentProps> = ({
           size="small"
           renderItem={item => (
             <List.Item
-              className={classNames(styles.listItem, item.readed && styles.itemReaded)}
+              className={classNames(
+                styles.listItem,
+                item.readed && styles.itemReaded,
+              )}
               onClick={() => {
                 readMessage && readMessage(item);
               }}
@@ -127,12 +132,18 @@ const Content: React.FC<ContentProps> = ({
           }}
           renderItem={item => (
             <List.Item
-              className={classNames(styles.listItem, item.readed && styles.itemReaded)}
+              className={classNames(
+                styles.listItem,
+                item.readed && styles.itemReaded,
+              )}
               onClick={() => {
                 readPrompt && readPrompt(item);
               }}
             >
-              <List.Item.Meta title={item.description} description={item.time} />
+              <List.Item.Meta
+                title={item.description}
+                description={item.time}
+              />
             </List.Item>
           )}
         />

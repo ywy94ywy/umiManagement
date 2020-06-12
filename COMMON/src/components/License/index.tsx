@@ -6,8 +6,7 @@ import React from 'react';
 import { Form, Input, Select, Space, DatePicker, ConfigProvider } from 'antd';
 import { FormProps } from 'antd/es/form';
 import classNames from 'classnames';
-import img1 from './img1';
-import img3 from './img3';
+import { STATIC_IMAGE } from '../../config';
 import moment from 'moment';
 import styles from './style.less';
 
@@ -47,8 +46,13 @@ const License: React.FC<LicenseProps> = ({
         }}
         {...props}
       >
-        <img src={img1} alt="" />
-        <div className={styles.stretch}>
+        <img src={STATIC_IMAGE + '/license/license_1.png'} alt="" />
+        <div
+          className={styles.stretch}
+          style={{
+            background: `url(${STATIC_IMAGE}/license/license_2.png) top/contain`,
+          }}
+        >
           <Form.Item
             name="a"
             label="统一社会信用代码"
@@ -133,7 +137,7 @@ const License: React.FC<LicenseProps> = ({
             )}
           </Form.Item>
         </div>
-        <img src={img3} alt="" />
+        <img src={STATIC_IMAGE + '/license/license_3.png'} alt="" />
       </Form>
     </ConfigProvider>
   );

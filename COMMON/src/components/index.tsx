@@ -15,6 +15,7 @@ export { default as HighSpeedScanner } from './HighSpeedScanner';
 export { default as TreeContextMenu } from './TreeContextMenu';
 export { default as License } from './License';
 export { default as Province } from './Province';
+export { default as BankCardList } from './BankCardList';
 
 export * from './Table';
 export * from './Card';

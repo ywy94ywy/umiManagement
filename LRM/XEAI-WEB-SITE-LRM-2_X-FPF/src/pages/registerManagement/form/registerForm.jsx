@@ -1,3 +1,4 @@
+import { BankCardList } from 'lanlinker';
 import { Input, Select, Button, DatePicker, Radio, TreeSelect } from 'antd';
 
 export default ({ editing = true } = {}) => {
@@ -208,17 +209,6 @@ export default ({ editing = true } = {}) => {
       colSpan: 2,
       component: <h3>劳务信息</h3>,
     },
-    // {
-    //   name: '21',
-    //   label: (
-    //     <Select defaultValue="管理标签">
-    //       <Select.Option value="管理标签">管理标签</Select.Option>
-    //       <Select.Option value="劳务标签">劳务标签</Select.Option>
-    //     </Select>
-    //   ),
-    //   component: <Input></Input>,
-    //   required: true,
-    // },
     {
       name: '21',
       label: '工号',
@@ -303,7 +293,19 @@ export default ({ editing = true } = {}) => {
     },
     {
       colSpan: 2,
-      component: <h3>bank</h3>,
+      component: (
+        <BankCardList
+          data={[
+            {
+              userBankName: 'asf',
+              code: 'a',
+              userBankAccountNumber: '1234214',
+            },
+          ]}
+          disabled={disabled}
+          maxLength={1}
+        />
+      ),
     },
     {
       colSpan: 2,

@@ -2,7 +2,7 @@
  * @module 蓝瓴后台管理统一布局
  * @description 主题切换、全局配置
  */
-import React, { useMemo } from 'react';
+import React, { useMemo, useState } from 'react';
 import ProLayout, {
   BasicLayoutProps as ProLayoutProps,
   PageHeaderWrapper,
@@ -15,6 +15,8 @@ import classNames from 'classnames';
 import { Link } from 'umi';
 import zhCN from 'antd/es/locale/zh_CN';
 import styles from './style.less';
+import { ThemeContext } from '../../Context/theme';
+import { THEME_CONFIG } from '../../../config';
 
 // 面包屑处理（由菜单生成）
 const breadcrumb: any = {};
@@ -34,11 +36,16 @@ const MenuBreadcrumb = (
 };
 
 // 菜单栏的IconFont设置
-const loopMenuItem = (menus: MenuDataItem[]): MenuDataItem[] =>
+const loopMenuItem = (menus: MenuDataItem[], icFs: string): MenuDataItem[] =>
   menus.map(({ icon, children, ...item }) => ({
     ...item,
-    icon: icon && <IconFont style={{ marginRight: 5 }} type={icon as string} />,
-    children: children && loopMenuItem(children),
+    icon: icon && (
+      <IconFont
+        style={{ marginRight: 5, fontSize: icFs, transition: 'all 0.2s' }}
+        type={icon as string}
+      />
+    ),
+    children: children && loopMenuItem(children, icFs),
   }));
 
 export interface BasicLayoutProps extends ProLayoutProps {
@@ -57,59 +64,88 @@ const BasicLayout: React.FC<BasicLayoutProps> = ({
   configProviderProps,
   ...props
 }) => {
+  const [fs, setFs] = useState(THEME_CONFIG.fontSize[0].value);
+  const [bg, setBg] = useState(THEME_CONFIG.background.pure.value[0]);
+  const icFs = parseInt(fs) + 2 + 'px';
+
   useMemo(() => MenuBreadcrumb(menuData), [menuData]);
 
   return (
-    <ConfigProvider locale={zhCN} {...configProviderProps}>
-      <div className={styles.themeWrapper}>
-        <div className={styles.bgwrapper}>
-          <div className={styles.bg}></div>
-        </div>
-        <ProLayout
-          className={classNames(styles.basicLayout, className)}
-          collapsed={false}
-          onCollapse={() => {}}
-          // 侧边栏宽度
-          siderWidth={230}
-          // 头部渲染简化
-          headerRender={() => {
-            return (
-              <div className={styles.headerContent}>
-                <div className={styles.left}>{headerLeft}</div>
-                <div className={styles.right}>{headerRight}</div>
+    <ThemeContext.Provider value={{ fs, icFs, bg, setFs, setBg }}>
+      <ConfigProvider locale={zhCN} {...configProviderProps}>
+        <div className={styles.themeWrapper}>
+          {useMemo(
+            () => (
+              <div className={styles.bgwrapper}>
+                <div
+                  style={{
+                    background: bg + ' center/cover',
+                    height: 'inherit',
+                    transition: 'all 0.3s',
+                  }}
+                ></div>
               </div>
-            );
-          }}
-          // 菜单数据
-          menuDataRender={() => loopMenuItem(menuData)}
-          // 面包屑数据
-          breadcrumbRender={(routers = []) => {
-            if (routers[0]) {
-              const path = breadcrumb[routers[0].path] || [];
-              return [...path];
+            ),
+            [bg],
+          )}
+          <ProLayout
+            className={classNames(styles.basicLayout, className)}
+            collapsed={false}
+            onCollapse={() => {}}
+            // 侧边栏宽度
+            siderWidth={230}
+            // 头部渲染简化
+            headerRender={() => {
+              return (
+                <div className={styles.headerContent} style={{ fontSize: fs }}>
+                  <div className={styles.left}>{headerLeft}</div>
+                  <div className={styles.right}>{headerRight}</div>
+                </div>
+              );
+            }}
+            // 菜单数据
+            menuDataRender={() => loopMenuItem(menuData, icFs)}
+            // 面包屑数据
+            breadcrumbRender={(routers = []) => {
+              if (routers[0]) {
+                const path = breadcrumb[routers[0].path] || [];
+                return [...path];
+              }
+              return [];
+            }}
+            // 面包屑渲染
+            itemRender={route => <span>{route.breadcrumbName}</span>}
+            // 菜单渲染
+            subMenuItemRender={(_, defaultDom) => {
+              return (
+                <div style={{ fontSize: fs, transition: 'font-size 0.2s' }}>
+                  {defaultDom}
+                </div>
+              );
+            }}
+            menuItemRender={(menuItemProps, defaultDom) =>
+              menuItemProps.isUrl ? (
+                { defaultDom }
+              ) : (
+                <Link
+                  to={menuItemProps.path || '/'}
+                  style={{ fontSize: fs, transition: 'font-size 0.2s' }}
+                >
+                  {defaultDom}
+                </Link>
+              )
             }
-            return [];
-          }}
-          // 面包屑渲染
-          itemRender={route => <span>{route.breadcrumbName}</span>}
-          // 菜单渲染
-          menuItemRender={(menuItemProps, defaultDom) =>
-            menuItemProps.isUrl ? (
-              defaultDom
-            ) : (
-              <Link to={menuItemProps.path || '/'}>{defaultDom}</Link>
-            )
-          }
-          // 默认展开所有
-          menu={{ defaultOpenAll: true }}
-          disableMobile
-          disableContentMargin
-          {...props}
-        >
-          {children}
-        </ProLayout>
-      </div>
-    </ConfigProvider>
+            // 默认展开所有
+            menu={{ defaultOpenAll: true }}
+            disableMobile
+            disableContentMargin
+            {...props}
+          >
+            {children}
+          </ProLayout>
+        </div>
+      </ConfigProvider>
+    </ThemeContext.Provider>
   );
 };
 
