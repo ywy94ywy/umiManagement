@@ -4,7 +4,7 @@
 import { useEffect } from 'react';
 import { Form, Table } from 'lanlinker';
 import LicenseWrapper from '../LicenseWrapper';
-import { Tabs } from 'antd';
+import { Tabs, Button } from 'antd';
 
 const { TabPane } = Tabs;
 
@@ -18,7 +18,16 @@ export default () => {
   return (
     <Tabs type="card">
       <TabPane key="劳务分包单位" tab="劳务分包单位">
-        <Table columns={columns1} />
+        <Table
+          rowKey="id"
+          columns={columns1}
+          dataSource={[
+            {
+              id: '1',
+              a: '213',
+            },
+          ]}
+        />
         <LicenseWrapper form={form} />
       </TabPane>
       <TabPane key="劳务专业分包单位" tab="劳务专业分包单位">

@@ -6,3 +6,4 @@ title: 高拍仪
 ---
 
 <code src="./index" />
+<code src="./index" />

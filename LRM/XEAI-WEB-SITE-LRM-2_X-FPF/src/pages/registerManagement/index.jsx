@@ -1,8 +1,9 @@
 /**
  * @module 登记管理
  */
-import { PageHeaderWrapper, ButtonModal, Form } from 'lanlinker';
-import { Card, Row, Col } from 'antd';
+import { useState } from 'react';
+import { PageHeaderWrapper, Modal, Form } from 'lanlinker';
+import { Card, Row, Col, Button } from 'antd';
 import EnteredTree from './components/EnteredTree';
 import EnteredTable from './components/EnteredTable';
 import PendingTree from './components/PendingTree';
@@ -10,6 +11,9 @@ import PendingTable from './components/PendingTable';
 import registerForm from './form/registerForm';
 
 export default () => {
+  const [form] = Form.useForm();
+  const [modalInfo, setModalInfo] = useState({ visible: false, info: {} });
+
   return (
     <PageHeaderWrapper>
       <Row gutter={[24, 24]}>
@@ -17,25 +21,16 @@ export default () => {
           <Card title="待进场员工信息">
             <Row gutter={12}>
               <Col flex="250px" style={{ overflow: 'hidden' }}>
-                <ButtonModal
-                  title="手工登记员工信息"
-                  width={1200}
-                  centered
-                  bodyStyle={{ maxHeight: 700, overflow: 'auto' }}
-                  buttonProps={{
-                    text: '手工登记',
-                    type: 'primary',
-                    block: true,
+                <Button
+                  type="primary"
+                  block
+                  onClick={() => {
+                    setModalInfo({ ...modalInfo, visible: true });
+                    form.resetFields();
                   }}
                 >
-                  <Form
-                    columns={2}
-                    initialValues={{ 4: '1', 10: '1' }}
-                    labelCol={{ flex: '130px' }}
-                    style={{ width: '80%', margin: '0 auto' }}
-                    configForm={registerForm()}
-                  />
-                </ButtonModal>
+                  手工登记
+                </Button>
                 <Card
                   size="small"
                   bodyStyle={{ paddingTop: 0 }}
@@ -65,6 +60,26 @@ export default () => {
           </Card>
         </Col>
       </Row>
+      <Modal
+        title="手工登记员工信息"
+        width={1200}
+        centered
+        bodyStyle={{ maxHeight: 700, overflow: 'auto' }}
+        visible={modalInfo.visible}
+        onOk={async () => {
+          const res = await form.validateFields();
+        }}
+        onCancel={() => setModalInfo({ ...modalInfo, visible: false })}
+      >
+        <Form
+          form={form}
+          columns={2}
+          initialValues={{ 4: '1' }}
+          labelCol={{ flex: '130px' }}
+          style={{ width: '80%', margin: '0 auto' }}
+          configForm={registerForm({ form })}
+        />
+      </Modal>
     </PageHeaderWrapper>
   );
 };

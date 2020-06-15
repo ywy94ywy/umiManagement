@@ -1,12 +1,20 @@
 import { BankCardList } from 'lanlinker';
-import { Input, Select, Button, DatePicker, Radio, TreeSelect } from 'antd';
+import { Input, Select, DatePicker, Radio, TreeSelect, Divider } from 'antd';
+import ReadID from './ReadID';
+import PhotoPicker from './PhotoPicker';
+import Profile from './Profile';
 
-export default ({ editing = true } = {}) => {
+export default ({ editing = true, form } = {}) => {
   const disabled = !editing;
   return [
     {
       colSpan: 2,
-      component: <h3>综合信息</h3>,
+      component: (
+        <>
+          <h3>综合信息</h3>
+          <Dvd />
+        </>
+      ),
     },
     {
       name: '1',
@@ -17,21 +25,17 @@ export default ({ editing = true } = {}) => {
     {
       name: '2',
       label: '身份证号',
-      component: (
-        <Input.Search
-          placeholder="请输入身份证号"
-          disabled={disabled}
-          enterButton="读身份证"
-          onSearch={() => {
-            console.log('read');
-          }}
-        />
-      ),
+      component: <ReadID disabled={disabled} form={form} />,
       rules: [{ required: true }],
     },
     {
       colSpan: 2,
-      component: <h3>证件信息</h3>,
+      component: (
+        <>
+          <h3>证件信息</h3>
+          <Dvd />
+        </>
+      ),
     },
     {
       name: '3',
@@ -60,13 +64,13 @@ export default ({ editing = true } = {}) => {
     {
       name: '6',
       label: '证件照（正面）',
-      component: <Input></Input>,
+      component: <PhotoPicker />,
       rules: [{ required: true }],
     },
     {
       name: '7',
       label: '证件照（反面）',
-      component: <Input></Input>,
+      component: <PhotoPicker />,
       rules: [{ required: true }],
     },
     {
@@ -91,15 +95,20 @@ export default ({ editing = true } = {}) => {
     },
     {
       colSpan: 2,
-      component: <h3>扩展信息</h3>,
+      component: (
+        <>
+          <h3>扩展信息</h3>
+          <Dvd />
+        </>
+      ),
     },
     {
       name: '10',
       label: '性别',
       component: (
         <Radio.Group disabled={disabled}>
-          <Radio value="1">男</Radio>
-          <Radio value="2">女</Radio>
+          <Radio value="男">男</Radio>
+          <Radio value="女">女</Radio>
         </Radio.Group>
       ),
       rules: [{ required: true }],
@@ -140,7 +149,12 @@ export default ({ editing = true } = {}) => {
     { component: null },
     {
       colSpan: 2,
-      component: <h3>综合信息</h3>,
+      component: (
+        <>
+          <h3>综合信息</h3>
+          <Dvd />
+        </>
+      ),
     },
     {
       name: '17',
@@ -151,35 +165,8 @@ export default ({ editing = true } = {}) => {
     {
       name: '18',
       label: '身份证件照',
-      component: (
-        <div style={{ position: 'relative', height: 32 }}>
-          <div style={{ position: 'absolute', top: 0, zIndex: 2 }}>img</div>
-          <Button
-            type="primary"
-            style={{
-              position: 'absolute',
-              top: 50,
-              left: 100,
-              zIndex: 2,
-            }}
-          >
-            高拍仪
-          </Button>
-
-          <Button
-            type="primary"
-            style={{
-              position: 'absolute',
-              top: 100,
-              left: 100,
-              zIndex: 2,
-            }}
-          >
-            本地上传
-          </Button>
-        </div>
-      ),
-      required: true,
+      component: <Profile />,
+      rules: [{ required: true }],
     },
     {
       name: '19',
@@ -207,7 +194,12 @@ export default ({ editing = true } = {}) => {
     },
     {
       colSpan: 2,
-      component: <h3>劳务信息</h3>,
+      component: (
+        <>
+          <h3>劳务信息</h3>
+          <Dvd />
+        </>
+      ),
     },
     {
       name: '21',
@@ -289,7 +281,12 @@ export default ({ editing = true } = {}) => {
     },
     {
       colSpan: 2,
-      component: <h3>银行信息</h3>,
+      component: (
+        <>
+          <h3>银行信息</h3>
+          <Dvd />
+        </>
+      ),
     },
     {
       colSpan: 2,
@@ -309,11 +306,23 @@ export default ({ editing = true } = {}) => {
     },
     {
       colSpan: 2,
-      component: <h3>联系人信息</h3>,
+      component: (
+        <>
+          <h3>联系人信息</h3>
+          <Dvd />
+        </>
+      ),
     },
     {
       colSpan: 2,
-      component: <h3>table</h3>,
+      component: (
+        <>
+          <h3>table</h3>
+          <Dvd />
+        </>
+      ),
     },
   ];
 };
+
+const Dvd = () => <Divider style={{ margin: 0 }} />;

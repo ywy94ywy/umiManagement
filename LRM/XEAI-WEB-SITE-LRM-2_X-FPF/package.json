@@ -29,6 +29,7 @@
     "antd": "^4.3.0",
     "bizcharts": "^4.0.4",
     "lint-staged": "^10.0.7",
+    "moment": "^2.26.0",
     "prettier": "^1.19.1",
     "react": "^16.13.0",
     "react-dom": "^16.13.0",

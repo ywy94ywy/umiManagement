@@ -8,12 +8,12 @@ export interface SafeInputProps {
   onChange?: (value: Array<string>) => void;
 }
 
-const webSocket = new WebSocket('ws://localhost:1818');
-
 const HighSpeedScanner: React.FC<SafeInputProps> = ({
   value = '',
   onChange,
 }) => {
+  const webSocket = new WebSocket('ws://localhost:1818');
+
   const imgRef = useRef<HTMLImageElement>(null);
   const cameraRef = useRef<HTMLImageElement>(null);
 

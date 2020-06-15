@@ -140,48 +140,44 @@ const companys = [
 ];
 const fakeMenu = [
   {
-    path: '/homeManagement',
     name: '主页管理',
     icon: '&#xe792;',
-    key: 'homeManagement',
     children: [
       {
         path: '/home',
         name: '首页',
         icon: '&#xe792;',
-        key: 'home',
+      },
+      {
+        path: '/manual',
+        name: '操作手册',
+        icon: '&#xe792;',
       },
     ],
   },
   {
-    path: '/businessManagement',
     name: '业务管理',
     icon: '&#xe792;',
-    key: 'businessManagement',
     children: [
       {
         path: '/projectInfo',
         name: '工程信息',
         icon: '&#xe792;',
-        key: 'projectInfo',
       },
       {
         path: '/registerManagement',
         name: '登记管理',
         icon: '&#xe792;',
-        key: 'registerManagement',
       },
       {
         path: '/contractManagement',
         name: '合同管理',
         icon: '&#xe792;',
-        key: 'contractManagement',
       },
       {
         path: '/cardManagement',
         name: '卡片管理',
         icon: '&#xe792;',
-        key: 'cardManagement',
       },
       // {
       //   path: '/dormManagement',
@@ -193,7 +189,6 @@ const fakeMenu = [
         path: '/trainingManagement',
         name: '培训管理',
         icon: '&#xe792;',
-        key: 'trainingManagement',
       },
       // {
       //   path: '/checkinManagement',
@@ -205,25 +200,21 @@ const fakeMenu = [
         path: '/salaryManagement',
         name: '工资管理',
         icon: '&#xe792;',
-        key: 'salaryManagement',
       },
       {
         path: '/evaluationManagement',
         name: '评价管理',
         icon: '&#xe792;',
-        key: 'evaluationManagement',
       },
       {
         path: '/medicalManagement',
         name: '体检管理',
         icon: '&#xe792;',
-        key: 'medicalManagement',
       },
       {
         path: '/certificateManagement',
         name: '证书管理',
         icon: '&#xe792;',
-        key: 'certificateManagement',
       },
     ],
   },
@@ -251,7 +242,6 @@ const fakeMenu = [
             path: '/projectStaff',
             name: '工程人员统计',
             icon: '&#xe792;',
-            key: 'projectStaff',
           },
           // {
           //   path: '/cardStatistics',
@@ -263,7 +253,6 @@ const fakeMenu = [
             path: '/projectAttendance',
             name: '工程考勤统计',
             icon: '&#xe792;',
-            key: 'projectAttendance',
           },
           // {
           //   path: '/postStatistics',
@@ -280,16 +269,13 @@ const fakeMenu = [
         ],
       },
       {
-        path: '/advancedStatistic',
         name: '高级统计',
         icon: '&#xe792;',
-        key: 'advancedStatistic',
         children: [
           {
             path: '/infoQuery',
             name: '员工信息查询',
             icon: '&#xe792;',
-            key: 'infoQuery',
           },
           // {
           //   path: '/attributeStatistics',
@@ -307,7 +293,6 @@ const fakeMenu = [
             path: '/attendanceInfo',
             name: '考勤信息统计',
             icon: '&#xe792;',
-            key: 'attendanceInfo',
           },
           // {
           //   path: '/enterExitStatistics',

@@ -4,7 +4,8 @@ export default [
     component: '../layouts',
     routes: [
       { path: '/', redirect: '/home' },
-      { path: '/home', component: './home' },
+      { path: '/home', component: './home' }, // 首页
+      { path: '/manual', component: './manual' }, // 操作手册
       // 业务管理
       { path: '/projectInfo', component: './projectInfo' }, // 工程信息
       { path: '/registerManagement', component: './registerManagement' },
