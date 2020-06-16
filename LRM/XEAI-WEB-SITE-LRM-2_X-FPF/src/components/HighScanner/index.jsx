@@ -3,10 +3,11 @@
  */
 import { useEffect, useRef } from 'react';
 import { ButtonModal } from 'lanlinker';
-import { Button, Row, Col } from 'antd';
+import { Button, Row, Col, message } from 'antd';
 
-export default ({ value, onOk }) => {
-  const base64Head = 'data:image/jpeg;base64,';
+const base64Head = 'data:image/jpeg;base64,';
+
+export default ({ value, onOk, disabled, buttonProps }) => {
   const webSocket = new WebSocket('ws://localhost:1818');
 
   const imgRef = useRef();
@@ -22,7 +23,7 @@ export default ({ value, onOk }) => {
   };
 
   webSocket.onerror = e => {
-    console.log('websocket-error');
+    console.log('websocket-error', e);
   };
 
   webSocket.onopen = e => {
@@ -44,13 +45,6 @@ export default ({ value, onOk }) => {
     }
   };
 
-  useEffect(() => {
-    return () => {
-      webSocket.send('bStopPlay');
-      webSocket.send('bStopPlay4');
-    };
-  });
-
   return (
     <ButtonModal
       title="高拍仪上传"
@@ -58,12 +52,18 @@ export default ({ value, onOk }) => {
       buttonProps={{
         text: '高拍仪',
         type: 'primary',
-        onClick() {
-          webSocket.send('bStartPlay');
-          webSocket.send('bSetMode(2)');
+        disabled,
+        onClick(e) {
+          try {
+            webSocket.send('bStartPlay');
+            webSocket.send('bSetMode(2)');
+          } catch (err) {
+            message.error('请先启动高拍仪插件！');
+          }
         },
+        ...buttonProps,
       }}
-      onOk={(_, close) => {
+      onOk={(e, close) => {
         onOk(imgRef.current.src);
         close();
       }}

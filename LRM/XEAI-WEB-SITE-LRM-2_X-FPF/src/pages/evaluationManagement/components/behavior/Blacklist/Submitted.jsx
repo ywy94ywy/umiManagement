@@ -8,6 +8,7 @@ import { misConductColumns } from '../../config';
 export default props => {
   return (
     <Table
+      rowKey="id"
       {...props}
       dataSource={[
         {

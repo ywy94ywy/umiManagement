@@ -10,7 +10,7 @@ import ContractCard from './components/ContractCard';
 import StaffCard from '@/components/StaffCard';
 
 export default () => {
-  const [contract, setContract] = useState();
+  const [contract, setContract] = useState('123');
   const [editing, setEditing] = useState(false);
 
   return (

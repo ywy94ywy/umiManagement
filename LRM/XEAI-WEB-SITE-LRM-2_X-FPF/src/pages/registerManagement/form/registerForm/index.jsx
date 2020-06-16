@@ -1,8 +1,9 @@
-import { BankCardList } from 'lanlinker';
 import { Input, Select, DatePicker, Radio, TreeSelect, Divider } from 'antd';
+import BankCard from './BankCard';
 import ReadID from './ReadID';
 import PhotoPicker from './PhotoPicker';
 import Profile from './Profile';
+import EditTable from './EditTable';
 
 export default ({ editing = true, form } = {}) => {
   const disabled = !editing;
@@ -41,14 +42,14 @@ export default ({ editing = true, form } = {}) => {
       name: '3',
       label: '证件地区',
       colSpan: 2,
-      component: <Input></Input>,
+      component: <Input disabled={disabled}></Input>,
       rules: [{ required: true }],
     },
     {
       name: '4',
       label: '证件类型',
       component: (
-        <Select>
+        <Select disabled={disabled}>
           <Select.Option value="1">居民身份证</Select.Option>
           <Select.Option value="2">护照</Select.Option>
         </Select>
@@ -58,19 +59,19 @@ export default ({ editing = true, form } = {}) => {
     {
       name: '5',
       label: '证件地址',
-      component: <Input placeholder="请输入身份证地址" />,
+      component: <Input placeholder="请输入身份证地址" disabled={disabled} />,
       rules: [{ required: true }],
     },
     {
       name: '6',
       label: '证件照（正面）',
-      component: <PhotoPicker />,
+      component: <PhotoPicker disabled={disabled} />,
       rules: [{ required: true }],
     },
     {
       name: '7',
       label: '证件照（反面）',
-      component: <PhotoPicker />,
+      component: <PhotoPicker disabled={disabled} />,
       rules: [{ required: true }],
     },
     {
@@ -277,7 +278,7 @@ export default ({ editing = true, form } = {}) => {
     {
       name: '29',
       label: '社会保障卡号',
-      component: <Input />,
+      component: <Input disabled={disabled} />,
     },
     {
       colSpan: 2,
@@ -289,20 +290,9 @@ export default ({ editing = true, form } = {}) => {
       ),
     },
     {
+      name: 'card',
       colSpan: 2,
-      component: (
-        <BankCardList
-          data={[
-            {
-              userBankName: 'asf',
-              code: 'a',
-              userBankAccountNumber: '1234214',
-            },
-          ]}
-          disabled={disabled}
-          maxLength={1}
-        />
-      ),
+      component: <BankCard disabled={disabled} />,
     },
     {
       colSpan: 2,
@@ -314,13 +304,9 @@ export default ({ editing = true, form } = {}) => {
       ),
     },
     {
+      name: 'table',
       colSpan: 2,
-      component: (
-        <>
-          <h3>table</h3>
-          <Dvd />
-        </>
-      ),
+      component: <EditTable disabled={disabled} />,
     },
   ];
 };

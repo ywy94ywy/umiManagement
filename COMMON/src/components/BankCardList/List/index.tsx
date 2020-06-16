@@ -4,6 +4,7 @@ import { PlusOutlined } from '@ant-design/icons';
 import styles from './style.less';
 
 const List: React.FC<{
+  value: any[];
   data: any[];
   onDelete: (e: React.MouseEvent) => void; // 删除按钮
   onUpdate: (e: React.MouseEvent) => void; // 修改按钮
@@ -11,6 +12,7 @@ const List: React.FC<{
   disabled: boolean;
   maxLength: number; // 卡片最多数量
 }> = ({
+  value,
   data = [],
   onDelete,
   onUpdate,
@@ -18,11 +20,12 @@ const List: React.FC<{
   disabled = false,
   maxLength = 1000,
 }) => {
-  let defaultCard = data.sort(
+  const d = value || data;
+  let defaultCard = d.sort(
     (a, b) =>
       b.userBankAccountNumberIsDefault - a.userBankAccountNumberIsDefault,
   );
-  if (maxLength < data.length) {
+  if (maxLength < d.length) {
     // 超出部分隐藏
     defaultCard = defaultCard.slice(0, maxLength);
   }
@@ -41,7 +44,7 @@ const List: React.FC<{
           disabled={disabled}
         />
       ))}
-      {maxLength > data.length && (
+      {maxLength > d.length && (
         <div
           className={styles.empty}
           onClick={e => !disabled && onCreate && onCreate(e)}

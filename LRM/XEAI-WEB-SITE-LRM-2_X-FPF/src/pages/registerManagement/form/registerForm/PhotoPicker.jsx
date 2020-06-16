@@ -6,7 +6,7 @@ import { ButtonModal } from 'lanlinker';
 import { Button, Row, Upload } from 'antd';
 import HighScanner from '@/components/HighScanner';
 
-export default ({ value, onChange }) => {
+export default ({ value, onChange, disabled }) => {
   const [img, setImg] = useState(null);
 
   return (
@@ -31,6 +31,7 @@ export default ({ value, onChange }) => {
       </div>
       <Row justify="space-around" style={{ width: 220, marginTop: 12 }}>
         <HighScanner
+          disabled={disabled}
           onOk={img => {
             setImg(img);
             onChange(img);
@@ -41,6 +42,7 @@ export default ({ value, onChange }) => {
           buttonProps={{
             text: '本地上传',
             type: 'primary',
+            disabled,
           }}
         >
           <Upload

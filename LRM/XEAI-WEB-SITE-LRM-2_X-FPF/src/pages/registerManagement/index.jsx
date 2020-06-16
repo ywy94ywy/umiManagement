@@ -67,17 +67,32 @@ export default () => {
         bodyStyle={{ maxHeight: 700, overflow: 'auto' }}
         visible={modalInfo.visible}
         onOk={async () => {
-          const res = await form.validateFields();
+          console.log(form.getFieldsValue());
+          // const res = await form.validateFields();
         }}
         onCancel={() => setModalInfo({ ...modalInfo, visible: false })}
       >
         <Form
           form={form}
           columns={2}
-          initialValues={{ 4: '1' }}
+          initialValues={{
+            4: '1',
+            table: new Array(1).fill(1).map((v, i) => ({
+              id: i,
+              a: '123',
+              b: '11',
+            })),
+            // card: [
+            //   {
+            //     userBankName: 'asf',
+            //     code: 'a',
+            //     userBankAccountNumber: '1234214',
+            //   },
+            // ],
+          }}
           labelCol={{ flex: '130px' }}
           style={{ width: '80%', margin: '0 auto' }}
-          configForm={registerForm({ form })}
+          configForm={registerForm({ form, editing: true })}
         />
       </Modal>
     </PageHeaderWrapper>
