@@ -1,14 +1,14 @@
-import { useState } from 'react';
+import { useState, forwardRef } from 'react';
 import classNames from 'classnames';
 import { Row, Col } from 'antd';
 import styles from './style.less';
 
 const AREA = ['宿舍区南门', '宿舍区北门', '施工区南门', '施工区北门'];
 
-export default ({ value = [], onChange } = {}) => {
+export default forwardRef(({ value, onChange } = {}, ref) => {
   const [activeList, setActiveList] = useState(value || []);
   const controll = value || activeList;
-  
+
   return (
     <Row gutter={[24, 24]}>
       {AREA.map((v, i) => {
@@ -27,7 +27,8 @@ export default ({ value = [], onChange } = {}) => {
                   temp = [...controll, v];
                 }
                 setActiveList(temp);
-                onChange(temp);
+                ref && (ref.current = temp);
+                onChange && onChange(temp);
               }}
             >
               {v}
@@ -37,4 +38,4 @@ export default ({ value = [], onChange } = {}) => {
       })}
     </Row>
   );
-};
+});

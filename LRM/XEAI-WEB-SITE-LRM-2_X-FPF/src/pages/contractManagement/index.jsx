@@ -1,6 +1,5 @@
 /**
  * @page 合同管理
- * @todo 高拍仪上传
  */
 import { useState } from 'react';
 import { Select, Card, Input, Button, Row, Col, Form, TreeSelect } from 'antd';
@@ -10,7 +9,7 @@ import ContractCard from './components/ContractCard';
 import StaffCard from '@/components/StaffCard';
 
 export default () => {
-  const [contract, setContract] = useState('123');
+  const [contract, setContract] = useState();
   const [editing, setEditing] = useState(false);
 
   return (

@@ -82,13 +82,13 @@ export default () => {
               a: '123',
               b: '11',
             })),
-            // card: [
-            //   {
-            //     userBankName: 'asf',
-            //     code: 'a',
-            //     userBankAccountNumber: '1234214',
-            //   },
-            // ],
+            card: [
+              {
+                userBankName: 'asf',
+                code: 'a',
+                userBankAccountNumber: '1234214',
+              },
+            ],
           }}
           labelCol={{ flex: '130px' }}
           style={{ width: '80%', margin: '0 auto' }}

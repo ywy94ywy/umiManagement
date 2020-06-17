@@ -1,13 +1,15 @@
 /**
  * @module 照片采集
  */
-import { useState } from 'react';
-import { ButtonModal } from 'lanlinker';
-import { Button, Row, Upload } from 'antd';
+import { useState, useRef } from 'react';
+import { ButtonModal, Modal } from 'lanlinker';
+import { Button, Row, Upload, message } from 'antd';
 import HighScanner from '@/components/HighScanner';
 
 export default ({ value, onChange, disabled }) => {
-  const [img, setImg] = useState(null);
+  const [uploadModal, setUploadModal] = useState(false);
+  const imgRef = useRef();
+  const isImg = imgRef.current?.src.includes('base64');
 
   return (
     <>
@@ -23,20 +25,22 @@ export default ({ value, onChange, disabled }) => {
           color: 'rgba(0,0,0,0.2)',
         }}
       >
-        {img ? (
-          <img src={value || img} width={220} height={140} />
+        {isImg ? (
+          <img src={value || imgRef.current.src} width={220} height={140} />
         ) : (
           '身份证图片'
         )}
       </div>
       <Row justify="space-around" style={{ width: 220, marginTop: 12 }}>
-        <HighScanner
+        <Button
           disabled={disabled}
-          onOk={img => {
-            setImg(img);
-            onChange(img);
+          type="primary"
+          onClick={e => {
+            setUploadModal(true);
           }}
-        />
+        >
+          高拍仪上传
+        </Button>
         <ButtonModal
           title="本地上传"
           buttonProps={{
@@ -50,7 +54,9 @@ export default ({ value, onChange, disabled }) => {
             onChange={info => {
               if (info.file.status === 'done') {
                 const reader = new FileReader();
-                reader.addEventListener('load', () => setImg(reader.result));
+                reader.addEventListener('load', () => {
+                  imgRef.current.src = reader.result;
+                });
                 reader.readAsDataURL(info.file.originFileObj);
               }
             }}
@@ -58,6 +64,22 @@ export default ({ value, onChange, disabled }) => {
             <Button type="primary">选择本地文件</Button>
           </Upload>
         </ButtonModal>
+        <Modal
+          title="高拍仪上传"
+          width={700}
+          visible={uploadModal}
+          onOk={() => {
+            if (isImg) {
+              onChange(imgRef.current.src);
+              setUploadModal(false);
+            } else {
+              message.error('拍照未完成！');
+            }
+          }}
+          onCancel={() => setUploadModal(false)}
+        >
+          <HighScanner ref={imgRef} />
+        </Modal>
       </Row>
     </>
   );

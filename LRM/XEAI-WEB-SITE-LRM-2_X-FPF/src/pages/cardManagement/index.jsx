@@ -1,6 +1,7 @@
 /**
  * @page 卡片管理
- * @todo 门区组件 必选验证
+ * @todo 人脸识别拍照
+ * @todo 组件必选验证
  */
 import { useState } from 'react';
 import { PageHeaderWrapper } from 'lanlinker';

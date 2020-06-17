@@ -1,5 +1,7 @@
 import { IconFont } from 'lanlinker';
-import { List, Button, Space } from 'antd';
+import { List, Space } from 'antd';
+import ICCardAction from './ICCardAction';
+import AFRAction from './AFRAction';
 import styles from './style.less';
 
 export default () => {
@@ -11,31 +13,13 @@ export default () => {
           title: 'IC卡',
           icon: '&#xe835;',
           desc: '卡号：124125',
-          actions: (
-            <>
-              <Button type="primary" size="small">
-                制卡
-              </Button>
-            </>
-          ),
+          actions: <ICCardAction status="1" />,
         },
         {
           title: '人脸识别',
           icon: '&#xe662;',
           desc: '卡号：124125',
-          actions: (
-            <>
-              <Button type="primary" size="small" danger>
-                退卡
-              </Button>
-              <Button danger size="small">
-                冻结
-              </Button>
-              <Button type="primary" size="small">
-                修改
-              </Button>
-            </>
-          ),
+          actions: <AFRAction status="1" />,
         },
       ]}
       className={styles.cardsList}
