@@ -1,7 +1,7 @@
-import React, { useState } from 'react';
-import { IconFont } from 'lanlinker';
+import { useState } from 'react';
 import { Typography, Button } from 'antd';
 import classNames from 'classnames';
+import { DownOutlined, UpOutlined } from '@ant-design/icons';
 import styles from './style.less';
 
 const SearchBar = ({ label, extensible, bordered = true, children }) => {
@@ -27,8 +27,17 @@ const SearchBar = ({ label, extensible, bordered = true, children }) => {
               setExpanded(!expanded);
             }}
           >
-            {expanded ? '收起 ' : '更多 '}
-            <IconFont type={`icon-${expanded ? 'up' : 'down'}`}></IconFont>
+            {expanded ? (
+              <>
+                <span>收起</span>
+                <UpOutlined />
+              </>
+            ) : (
+              <>
+                <span>更多</span>
+                <DownOutlined />
+              </>
+            )}
           </Button>
         )}
       </div>

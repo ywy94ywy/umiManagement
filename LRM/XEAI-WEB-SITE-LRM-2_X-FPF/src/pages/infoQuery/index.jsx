@@ -3,14 +3,15 @@
  * @todo SearchBar类FORM封装
  * @todo checkableList自定义组件
  * @todo DropdownList任意点击关闭
+ * @todo 政治面貌单选
  * @todo 排序
  */
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { PageHeaderWrapper, Card } from 'lanlinker';
 import {
   Modal,
   Cascader,
-  // DatePicker,
+  DatePicker,
   Pagination,
   Row,
   Button,
@@ -20,12 +21,13 @@ import {
 } from 'antd';
 import CheckableList from './components/CheckableList';
 import SearchBar from './components/SearchBar';
-// import DropdownList from './components/DropdownList';
+import DropdownList from './components/DropdownList';
+
 import profile from './profile.png';
 import classNames from 'classnames';
 import styles from './style.less';
 
-// const { RangePicker } = DatePicker;
+const { RangePicker } = DatePicker;
 
 export default () => {
   const [show, setShow] = useState(false);
@@ -75,7 +77,7 @@ export default () => {
         <SearchBar label="政治面貌" extensible>
           <CheckableList data={tagsFromServer.slice(150, 200)}></CheckableList>
         </SearchBar>
-        {/* <SearchBar label="高级选项">
+        <SearchBar label="高级选项">
           <DropdownList
             title={[
               '资格证书',
@@ -126,7 +128,7 @@ export default () => {
               </SearchBar>,
             ]}
           ></DropdownList>
-        </SearchBar> */}
+        </SearchBar>
       </Card>
       <Card
         title={
@@ -141,7 +143,7 @@ export default () => {
                 }
               }}
             >
-              <span>最新排序</span>
+              <span>次序排序</span>
               <span className={styles.sort}>
                 <div
                   className={classNames(

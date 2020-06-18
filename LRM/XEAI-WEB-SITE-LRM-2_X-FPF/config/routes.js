@@ -8,11 +8,11 @@ export default [
       { path: '/manual', component: './manual' }, // 操作手册
       // 业务管理
       { path: '/projectInfo', component: './projectInfo' }, // 工程信息
-      { path: '/registerManagement', component: './registerManagement' },
+      { path: '/registerManagement', component: './registerManagement' }, // 登记管理
       { path: '/contractManagement', component: './contractManagement' }, // 合同管理
-      { path: '/cardManagement', component: './cardManagement' },
+      { path: '/cardManagement', component: './cardManagement' }, // 卡片管理
       { path: '/dormManagement', component: './dormManagement' },
-      { path: '/trainingManagement', component: './trainingManagement' },
+      { path: '/trainingManagement', component: './trainingManagement' }, // 培训管理
       { path: '/checkinManagement', component: './checkinManagement' },
       { path: '/salaryManagement', component: './salaryManagement' }, // 工资管理
       { path: '/evaluationManagement', component: './evaluationManagement' }, // 评价管理
@@ -30,7 +30,7 @@ export default [
       { path: '/postStatistics', component: './postStatistics' },
       { path: '/epidemicSearch', component: './epidemicSearch' },
       // 高级统计
-      { path: '/infoQuery', component: './infoQuery' },
+      { path: '/infoQuery', component: './infoQuery' }, // 员工信息查询
       { path: '/attributeStatistics', component: './attributeStatistics' },
       { path: '/registerStatistics', component: './registerStatistics' },
       { path: '/attendanceInfo', component: './attendanceInfo' }, // 考勤信息统计

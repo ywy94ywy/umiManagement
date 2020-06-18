@@ -40,7 +40,7 @@ const configForm = type => {
       component: (
         <Space>
           <Input disabled />
-          <span>小时</span>
+          <span style={{ whiteSpace: 'nowrap' }}>小时</span>
         </Space>
       ),
     },

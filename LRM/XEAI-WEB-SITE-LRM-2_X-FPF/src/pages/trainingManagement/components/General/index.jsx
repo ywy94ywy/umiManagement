@@ -1,12 +1,19 @@
 /**
  * @module 培训汇总管理
  */
-import { useState } from 'react';
-import { ButtonModal, Table } from 'lanlinker';
+import { useState, useRef } from 'react';
+import { ButtonModal, Table, Modal } from 'lanlinker';
 import { Button, Form, DatePicker, Input, Select } from 'antd';
 import GeneralModal from './GeneralModal';
+import SignModal from './SignModal';
+import EvaluateModal from './EvaluateModal';
 
 export default () => {
+  const [uploadModal, setUploadModal] = useState(false);
+  const [signModal, setSignModal] = useState(false);
+  const [gradeModal, setGradeModal] = useState(false);
+  const gradeRef = useRef();
+
   const columns = [
     {
       title: '培训名称',
@@ -41,13 +48,21 @@ export default () => {
       render() {
         return (
           <>
-            <Button type="link" size="small">
+            <Button
+              type="link"
+              size="small"
+              onClick={() => setUploadModal(true)}
+            >
               修改
             </Button>
-            <Button type="link" size="small">
+            <Button type="link" size="small" onClick={() => setSignModal(true)}>
               签到
             </Button>
-            <Button type="link" size="small">
+            <Button
+              type="link"
+              size="small"
+              onClick={() => setGradeModal(true)}
+            >
               评分
             </Button>
           </>
@@ -57,55 +72,87 @@ export default () => {
   ];
 
   return (
-    <Table
-      rowKey="id"
-      columns={columns}
-      dataSource={[
-        {
-          id: '123',
-          a: '23',
-        },
-      ]}
-      rowSelection={{
-        onSelect() {},
-      }}
-      actions={{
-        left: (
-          <>
-            <ButtonModal
-              title="新增培训记录"
-              width={1200}
-              buttonProps={{ text: '新增', type: 'primary' }}
-              bodyStyle={{ height: 700, overflow: 'auto' }}
-            >
-              <GeneralModal />
-            </ButtonModal>
-            <Button type="primary" danger>
-              批量删除
-            </Button>
-          </>
-        ),
-        right: (
-          <Form layout="inline" initialValues={{ a: '1' }}>
-            <Form.Item label="培训日期">
-              <DatePicker></DatePicker>
-            </Form.Item>
-            <Form.Item label="培训类型">
-              <Select></Select>
-            </Form.Item>
-            <Form.Item>
-              <InputWrapper />
-            </Form.Item>
-            <Form.Item>
-              <Button type="primary">查询</Button>
-            </Form.Item>
-            <Form.Item>
-              <Button>重置</Button>
-            </Form.Item>
-          </Form>
-        ),
-      }}
-    ></Table>
+    <>
+      <Table
+        rowKey="id"
+        columns={columns}
+        dataSource={[
+          {
+            id: '123',
+            a: '23',
+          },
+        ]}
+        rowSelection={{
+          onSelect() {},
+        }}
+        actions={{
+          left: (
+            <>
+              <ButtonModal
+                title="新增培训记录"
+                width={1200}
+                buttonProps={{ text: '新增', type: 'primary' }}
+                bodyStyle={{ height: 700, overflow: 'auto' }}
+              >
+                <GeneralModal />
+              </ButtonModal>
+              <Button type="primary" danger>
+                批量删除
+              </Button>
+            </>
+          ),
+          right: (
+            <Form layout="inline" initialValues={{ a: '1' }}>
+              <Form.Item label="培训日期">
+                <DatePicker></DatePicker>
+              </Form.Item>
+              <Form.Item label="培训类型">
+                <Select></Select>
+              </Form.Item>
+              <Form.Item>
+                <InputWrapper />
+              </Form.Item>
+              <Form.Item>
+                <Button type="primary">查询</Button>
+              </Form.Item>
+              <Form.Item>
+                <Button>重置</Button>
+              </Form.Item>
+            </Form>
+          ),
+        }}
+      />
+      <Modal
+        title="修改培训记录"
+        width={1200}
+        visible={uploadModal}
+        bodyStyle={{ height: 700, overflow: 'auto' }}
+        onCancel={() => setUploadModal(false)}
+      >
+        <GeneralModal />
+      </Modal>
+      <Modal
+        title="培训签到"
+        width={1200}
+        visible={signModal}
+        bodyStyle={{ height: 700, overflow: 'auto' }}
+        onCancel={() => setSignModal(false)}
+      >
+        <SignModal />
+      </Modal>
+      <Modal
+        title="培训评分"
+        width={1200}
+        visible={gradeModal}
+        bodyStyle={{ height: 700, overflow: 'auto' }}
+        onOk={() => {
+          console.log(gradeRef.current);
+        }}
+        onCancel={() => setGradeModal(false)}
+      >
+        <EvaluateModal ref={gradeRef} />
+      </Modal>
+    </>
   );
 };
 

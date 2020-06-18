@@ -47,7 +47,7 @@ export default () => {
       ellipsis: true,
     },
     {
-      title: '培训得分',
+      title: '培训评分',
       dataIndex: 'f',
       ellipsis: true,
     },
@@ -111,7 +111,7 @@ export default () => {
       ></Table>
       <Modal
         title="修改评分"
-        width={800}
+        width={850}
         visible={updateModal.visible}
         onCancel={() => setUpdateModal({ ...updateModal, visible: false })}
       >
@@ -119,7 +119,7 @@ export default () => {
       </Modal>
       <Modal
         title="查看详情"
-        width={800}
+        width={850}
         footer={null}
         visible={detailModal.visible}
         onCancel={() => setDetailModal({ ...detailModal, visible: false })}

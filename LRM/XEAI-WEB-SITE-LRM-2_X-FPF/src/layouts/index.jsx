@@ -9,95 +9,89 @@ import {
   UserMenu,
   IconFont,
 } from 'lanlinker';
+import { ConfigProvider } from 'antd';
 import { history } from 'umi';
+import zhCN from 'antd/es/locale/zh_CN';
 
 const Layout = ({ children }) => {
   const [messages, setMessages] = useState(fakeMessages);
   const [prompts, setPrompts] = useState(fakePrompts);
 
   return (
-    <BasicLayout
-      logo={<IconFont type="&#xe65b;" />}
-      title="劳务实名管理系统"
-      headerLeft={
-        <>
-          <SwitchSystems
-            companys={companys}
-            systems={fakeSystems}
-            currentProject="吾悦广场1～7号楼住宅楼项目"
-            searchTreeProps={{
-              treeProps: {
-                treeRawData: treeData,
-                reName: {
-                  titleName: 'a',
-                  keyName: 'id',
-                  iconName: 'c',
-                  pIdName: 'pId',
+    <ConfigProvider locale={zhCN}>
+      <BasicLayout
+        logo={<IconFont type="&#xe65b;" />}
+        title="劳务实名管理系统"
+        headerLeft={
+          <>
+            <SwitchSystems
+              list={list}
+              height={400}
+              onSelect={value => {
+                console.log(value);
+              }}
+            />
+            {/* <SystemsNav systemsNav={systemsNav} /> */}
+            <TimeWeather style={{ marginLeft: 50 }} />
+          </>
+        }
+        headerRight={
+          <>
+            <SwitchTheme />
+            <Notification
+              messages={messages}
+              prompts={prompts}
+              readMessage={item => {
+                setMessages(
+                  messages.map(v => {
+                    if (v.id !== item.id) {
+                      return v;
+                    } else {
+                      v.readed = true;
+                      return v;
+                    }
+                  }),
+                );
+              }}
+              readPrompt={item => {
+                setPrompts(
+                  prompts.map(v => {
+                    if (v.id !== item.id) {
+                      return v;
+                    } else {
+                      v.readed = true;
+                      return v;
+                    }
+                  }),
+                );
+              }}
+              clearMessages={() => {
+                setMessages([]);
+              }}
+              clearPrompts={() => {
+                setPrompts([]);
+              }}
+            ></Notification>
+            <UserMenu
+              userName="贾亚军"
+              profile="https://gw.alipayobjects.com/zos/antfincdn/XAosXuNZyF/BiazfanxmamNRoxxVxka.png"
+              logout={() => {
+                history.push('/');
+              }}
+              menu={[
+                {
+                  title: 'XXXXXXXXXX系统',
+                  url: '/',
                 },
-              },
-              height: 500,
-            }}
-          ></SwitchSystems>
-          {/* <SystemsNav systemsNav={systemsNav} /> */}
-          <TimeWeather />
-        </>
-      }
-      headerRight={
-        <>
-          <SwitchTheme />
-          <Notification
-            messages={messages}
-            prompts={prompts}
-            readMessage={item => {
-              setMessages(
-                messages.map(v => {
-                  if (v.id !== item.id) {
-                    return v;
-                  } else {
-                    v.readed = true;
-                    return v;
-                  }
-                }),
-              );
-            }}
-            readPrompt={item => {
-              setPrompts(
-                prompts.map(v => {
-                  if (v.id !== item.id) {
-                    return v;
-                  } else {
-                    v.readed = true;
-                    return v;
-                  }
-                }),
-              );
-            }}
-            clearMessages={() => {
-              setMessages([]);
-            }}
-            clearPrompts={() => {
-              setPrompts([]);
-            }}
-          ></Notification>
-          <UserMenu
-            userName="贾亚军"
-            profile="https://gw.alipayobjects.com/zos/antfincdn/XAosXuNZyF/BiazfanxmamNRoxxVxka.png"
-            logout={() => {
-              history.push('/');
-            }}
-            menu={[
-              {
-                title: 'XXXXXXXXXX系统',
-                url: '/',
-              },
-            ]}
-          />
-        </>
-      }
-      menuData={fakeMenu}
-    >
-      {children}
-    </BasicLayout>
+              ]}
+            />
+          </>
+        }
+        menuData={fakeMenu}
+      >
+        {children}
+      </BasicLayout>
+    </ConfigProvider>
   );
 };
 
@@ -546,5 +540,35 @@ const fakePrompts = [
     description: '张然  的合同已经到期，请及时处理',
     time: '10分钟前',
     readed: true,
+  },
+];
+
+const list = [
+  {
+    title: '通行证管理系统',
+  },
+  {
+    title: '项目综合管理系统',
+  },
+  {
+    title: '劳务实名制管理系统',
+  },
+  {
+    title: '视频监控管理系统',
+  },
+  {
+    title: '物料管理系统',
+  },
+  {
+    title: '质量安全监管系统',
+  },
+  {
+    title: '设备管理系统',
+  },
+  {
+    title: '项目进度管理系统',
+  },
+  {
+    title: '环境管理系统',
   },
 ];

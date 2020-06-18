@@ -1,6 +1,7 @@
-import React, { useState, Fragment } from 'react';
+import { useState, Fragment } from 'react';
 import { IconFont } from 'lanlinker';
 import { Card, Row } from 'antd';
+import { DownOutlined, UpOutlined } from '@ant-design/icons';
 import classNames from 'classnames';
 import styles from './style.less';
 
@@ -19,11 +20,8 @@ const DropdownList = ({ title = [], content = [] }) => {
               }}
               className={classNames(styles.label, current && styles.active)}
             >
-              {title[i]}
-              <IconFont
-                type={`icon-${current ? 'up' : 'down'}`}
-                style={{ marginLeft: 5 }}
-              ></IconFont>
+              {title[i]}&nbsp;
+              {current === 'up' ? <UpOutlined /> : <DownOutlined />}
             </div>
             <Card
               bodyStyle={{ padding: 0 }}

@@ -1,7 +1,7 @@
 /**
- * @module 首页
+ * @page 首页
  */
-import React, { useState, useRef } from 'react';
+import { useState, useRef } from 'react';
 import { Avatar, Col, Row, Typography, Statistic, Button, Card } from 'antd';
 import { PageHeaderWrapper, ButtonModal } from 'lanlinker';
 import General from './components/General';
