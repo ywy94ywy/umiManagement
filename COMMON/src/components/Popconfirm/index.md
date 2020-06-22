@@ -19,9 +19,7 @@ export default () => {
       <br></br>
       <br></br>
       <br></br>
-      <br></br>
       <Popconfirm
-        style={{ width: 500 }}
         title="测试测试测试测试测试测试测试测试测试"
         onConfirm={e => {
           console.log('确定', e);
@@ -37,6 +35,7 @@ export default () => {
 };
 ```
 
+<!--
 ```tsx
 /**
  * title: 删除气泡确认框
@@ -65,4 +64,4 @@ export default () => {
     </>
   );
 };
-```
+``` -->

@@ -9,12 +9,21 @@ import { fetchBankCards } from './servers';
 import BankCardList from './components/BankCardList';
 
 export default () => {
-  const { data, loading, run: runFetch } = useRequest(fetchBankCards(1));
+  const { data, loading, run } = useRequest(fetchBankCards(1), {
+    manual: true,
+  });
 
   return (
     <PageHeaderWrapper>
       <Card style={{ minHeight: 600 }}>
-        <BankCardList data={data} loading={loading} runFetch={runFetch} />
+        <div
+          onClick={() => {
+            run();
+          }}
+        >
+          123
+        </div>
+        {/* <BankCardList data={data} loading={loading} runFetch={run} /> */}
       </Card>
     </PageHeaderWrapper>
   );

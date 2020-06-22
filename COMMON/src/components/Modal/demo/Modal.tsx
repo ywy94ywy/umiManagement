@@ -4,14 +4,38 @@
  */
 import React, { useState } from 'react';
 import { Modal } from 'lanlinker';
-import { Button } from 'antd';
+import { Button, Space } from 'antd';
 
 export default () => {
   const [modal, showModal] = useState(false);
 
   return (
-    <>
+    <Space>
       <Button onClick={() => showModal(true)}>模态框</Button>
+      <Button
+        onClick={() => {
+          Modal.confirm({
+            title: '测试',
+            onOk: () => {
+              console.log('确定');
+            },
+            oncancel: () => {
+              console.log('取消');
+            },
+          });
+        }}
+      >
+        确认框
+      </Button>
+      <Button
+        onClick={() => {
+          Modal.error({
+            title: '123',
+          });
+        }}
+      >
+        错误确认框
+      </Button>
       <Modal
         title="标题"
         visible={modal}
@@ -22,6 +46,6 @@ export default () => {
       >
         内容
       </Modal>
-    </>
+    </Space>
   );
 };

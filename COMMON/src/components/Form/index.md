@@ -19,7 +19,7 @@ import { Input } from 'antd';
 
 export default () => {
   return (
-    <Form layout="horizontal" columns={3}>
+    <Form columns={3}>
       <Form.Item label="名称">
         <Input></Input>
       </Form.Item>

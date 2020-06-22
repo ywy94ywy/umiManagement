@@ -14,13 +14,11 @@ import styles from './style.less';
 
 export default () => {
   const [form] = Form.useForm();
-  const loginRequest = useRequest(fetchLogin, {
+  const { loading, run } = useRequest(fetchLogin, {
     manual: true,
     onSuccess(res, params) {
-      Cookies.set('token', '1');
-      Cookies.set('type', 'person');
-      // Cookies.set('isLog', 'true');
-      const redirect = window.location.pathname.match(/\?redirect=(\S*)/);
+      Cookies.set('TOKEN', res);
+      const redirect = window.location.href.match(/\?redirect=(\S*)/);
       if (redirect) {
         window.location.href = decodeURIComponent(redirect[1]);
       } else {
@@ -29,17 +27,20 @@ export default () => {
     },
   });
 
+  // console.log(data, error, loading);
   useEffect(() => {
-    const expire = Cookies.get('expire');
-    if (expire) {
-      message.error('登录超时！');
-      Cookies.remove('expire');
+    const timeout = Cookies.get('timeout');
+
+    if (timeout) {
+      message.error('登录已超时！');
+      Cookies.remove('token');
+      Cookies.remove('timeout');
     }
   }, []);
 
   // 提交表单
   const onFinish = value => {
-    loginRequest.run(value);
+    run(value);
   };
 
   return (
@@ -50,7 +51,7 @@ export default () => {
         </header>
         <Form form={form} onFinish={onFinish} className={styles.log}>
           <Form.Item
-            name="user"
+            name="userTypelessAccountName"
             className={styles.item}
             rules={[
               {
@@ -62,7 +63,7 @@ export default () => {
             <Input prefix={<UserOutlined />} placeholder="请输入用户名"></Input>
           </Form.Item>
           <Form.Item
-            name="password"
+            name="userLoginPassword"
             className={styles.item}
             rules={[
               {
@@ -71,11 +72,14 @@ export default () => {
               },
             ]}
           >
-            <Input.Password prefix={<LockOutlined />} placeholder="请输入密码"></Input.Password>
+            <Input.Password
+              prefix={<LockOutlined />}
+              placeholder="请输入密码"
+            ></Input.Password>
           </Form.Item>
           <Form.Item noStyle>
             <Button
-              loading={loginRequest.loading}
+              loading={loading}
               block
               type="primary"
               className={styles.btn}
@@ -108,7 +112,8 @@ export default () => {
       </section>
 
       <footer>
-        Copyright @Lanlinker Information Technology (Shanghai) Co.,Ltd.All Rights Reserved
+        Copyright @Lanlinker Information Technology (Shanghai) Co.,Ltd.All
+        Rights Reserved
       </footer>
     </div>
   );

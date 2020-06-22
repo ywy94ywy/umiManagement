@@ -15,19 +15,21 @@ import { message, Spin } from 'antd';
 const Layout = ({ children, location }) => {
   const [messages, setMessages] = useState(fakeMessages);
   const [prompts, setPrompts] = useState(fakePrompts);
-  const { data = {}, loading } = useRequest(fetchUser);
-  const { user = {}, menu = [], systems = [] } = data;
+  // const { data = {}, error, loading } = useRequest(fetchUser);
+  const { user = {}, menu = [], systems = [] } = {};
 
-  const token = Cookies.get('token');
+  const token = Cookies.get('TOKEN');
 
   useEffect(() => {
-    window.scrollTo(0, 0);
+    window.screenTop = 0;
   }, [location]);
 
   if (!token) {
+    Cookies.set('timeout', true);
     window.location.href =
-      'http://localhost:8001/login?redirect=' + encodeURIComponent(window.location.href);
-    // Cookies.set('expire', true);
+      'http://localhost:8001/login?redirect=' +
+      encodeURIComponent(window.location.href);
+
     return (
       <div style={{ textAlign: 'center', paddingTop: 200 }}>
         <Spin size="large" />
@@ -43,13 +45,13 @@ const Layout = ({ children, location }) => {
   //   }
   // }, []);
 
-  if (loading) {
-    return (
-      <div style={{ textAlign: 'center', paddingTop: 200 }}>
-        <Spin size="large" />
-      </div>
-    );
-  }
+  // if (loading) {
+  //   return (
+  //     <div style={{ textAlign: 'center', paddingTop: 200 }}>
+  //       <Spin size="large" />
+  //     </div>
+  //   );
+  // }
 
   return (
     <BasicLayout
@@ -141,42 +143,50 @@ const companys = [
 const fakeSystems = [
   {
     icon: '&#xe792;',
-    background: 'linear-gradient(180deg,rgba(113,187,255,1) 0%,rgba(24,144,255,1) 100%)',
+    background:
+      'linear-gradient(180deg,rgba(113,187,255,1) 0%,rgba(24,144,255,1) 100%)',
     title: '项目综合管理系统',
   },
   {
     icon: '&#xe792;',
-    background: 'linear-gradient(180deg,rgba(255,188,190,1) 0%,rgba(247,121,125,1) 100%)',
+    background:
+      'linear-gradient(180deg,rgba(255,188,190,1) 0%,rgba(247,121,125,1) 100%)',
     title: '通行证管理系统',
   },
   {
     icon: '&#xe792;',
-    background: 'linear-gradient(180deg,rgba(95,226,255,1) 0%,rgba(18,194,233,1) 100%)',
+    background:
+      'linear-gradient(180deg,rgba(95,226,255,1) 0%,rgba(18,194,233,1) 100%)',
     title: '视频监控管理系统',
   },
   {
     icon: '&#xe792;',
-    background: 'linear-gradient(180deg,rgba(181,181,255,1) 0%,rgba(127,127,213,1) 100%)',
+    background:
+      'linear-gradient(180deg,rgba(181,181,255,1) 0%,rgba(127,127,213,1) 100%)',
     title: '质量安全监管系统',
   },
   {
     icon: '&#xe792;',
-    background: 'linear-gradient(180deg,rgba(255,224,153,1) 0%,rgba(254,182,20,1) 100%)',
+    background:
+      'linear-gradient(180deg,rgba(255,224,153,1) 0%,rgba(254,182,20,1) 100%)',
     title: '物料管理系统',
   },
   {
     icon: '&#xe792;',
-    background: 'linear-gradient(180deg,rgba(148,148,148,1) 0%,rgba(51,51,51,1) 100%)',
+    background:
+      'linear-gradient(180deg,rgba(148,148,148,1) 0%,rgba(51,51,51,1) 100%)',
     title: '设备管理系统',
   },
   {
     icon: '&#xe792;',
-    background: 'linear-gradient(180deg,rgba(61,243,87,1) 0%,rgba(39,198,62,1) 100%)',
+    background:
+      'linear-gradient(180deg,rgba(61,243,87,1) 0%,rgba(39,198,62,1) 100%)',
     title: '环境管理系统',
   },
   {
     icon: '&#xe792;',
-    background: 'linear-gradient(180deg,rgba(180,255,250,1) 0%,rgba(111,216,209,1) 100%)',
+    background:
+      'linear-gradient(180deg,rgba(180,255,250,1) 0%,rgba(111,216,209,1) 100%)',
     title: '项目进度管理系统',
   },
 ];
@@ -184,7 +194,8 @@ const fakeSystems = [
 const fakeMessages = [
   {
     id: 1,
-    avatar: 'https://gw.alipayobjects.com/zos/antfincdn/XAosXuNZyF/BiazfanxmamNRoxxVxka.png',
+    avatar:
+      'https://gw.alipayobjects.com/zos/antfincdn/XAosXuNZyF/BiazfanxmamNRoxxVxka.png',
     title: '您提交的评价已通过审核',
     name: '赵某人',
     event: '多次违反工地规定，并拒不悔改…',
@@ -193,7 +204,8 @@ const fakeMessages = [
   },
   {
     id: 2,
-    avatar: 'https://gw.alipayobjects.com/zos/antfincdn/XAosXuNZyF/BiazfanxmamNRoxxVxka.png',
+    avatar:
+      'https://gw.alipayobjects.com/zos/antfincdn/XAosXuNZyF/BiazfanxmamNRoxxVxka.png',
     title: '您提交的评价已通过审核',
     name: '赵某人',
     event: '多次违反工地规定，并拒不悔改…',
@@ -202,7 +214,8 @@ const fakeMessages = [
   },
   {
     id: 3,
-    avatar: 'https://gw.alipayobjects.com/zos/antfincdn/XAosXuNZyF/BiazfanxmamNRoxxVxka.png',
+    avatar:
+      'https://gw.alipayobjects.com/zos/antfincdn/XAosXuNZyF/BiazfanxmamNRoxxVxka.png',
     title: '您提交的评价已通过审核',
     name: '赵某人',
     event: '多次违反工地规定，并拒不悔改…',
@@ -211,7 +224,8 @@ const fakeMessages = [
   },
   {
     id: 4,
-    avatar: 'https://gw.alipayobjects.com/zos/antfincdn/XAosXuNZyF/BiazfanxmamNRoxxVxka.png',
+    avatar:
+      'https://gw.alipayobjects.com/zos/antfincdn/XAosXuNZyF/BiazfanxmamNRoxxVxka.png',
     title: '您提交的评价已通过审核',
     name: '赵某人',
     event:

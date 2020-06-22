@@ -2,8 +2,6 @@
  * @module Form(antd-Form)
  * @description
  * 1、多列布局、跨列占位
- * @bug
- * inline表型形式与原来不同
  */
 import React from 'react';
 import { Form as AntdForm } from 'antd';
@@ -32,6 +30,7 @@ interface ItemWrapperProps {
   columns: number;
   gutter: number;
   colSpan?: number;
+  layout?: string;
 }
 
 const Form: IForm = ({
@@ -39,15 +38,16 @@ const Form: IForm = ({
   columns = 1,
   gutter = 24,
   children,
+  layout,
   ...formProps
 }) => {
   return (
-    <AntdForm {...formProps}>
+    <AntdForm layout={layout} {...formProps}>
       <div
         style={{
           display: 'flex',
           flexWrap: 'wrap',
-          margin: `0 -${gutter / 2}px`,
+          margin: layout !== 'inline' ? `0 -${gutter / 2}px` : undefined,
         }}
       >
         {configForm.length > 0
@@ -64,6 +64,7 @@ const Form: IForm = ({
               const { component, colSpan, ...formItemProps } = item;
               return (
                 <ItemWrapper
+                  layout={layout}
                   columns={columns}
                   colSpan={colSpan}
                   gutter={gutter}
@@ -83,6 +84,7 @@ const Form: IForm = ({
                 const { colSpan = 1 } = props;
                 return (
                   <ItemWrapper
+                    layout={layout}
                     columns={columns}
                     colSpan={colSpan}
                     gutter={gutter}
@@ -101,6 +103,7 @@ const Form: IForm = ({
 };
 
 const ItemWrapper: React.FC<ItemWrapperProps> = ({
+  layout,
   children,
   gutter,
   columns,
@@ -110,10 +113,14 @@ const ItemWrapper: React.FC<ItemWrapperProps> = ({
 
   return (
     <div
-      style={{
-        width: (100 * span) / columns + '%',
-        padding: `0 ${gutter / 2}px`,
-      }}
+      style={
+        layout !== 'inline'
+          ? {
+              width: (100 * span) / columns + '%',
+              padding: `0 ${gutter / 2}px`,
+            }
+          : {}
+      }
     >
       {children}
     </div>

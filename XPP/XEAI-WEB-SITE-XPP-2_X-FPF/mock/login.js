@@ -36,19 +36,19 @@ export default {
             {
               path: '/homeManagement',
               name: '主页管理',
-              icon: 'icon-poweroff',
+              icon: '&#xe792;',
               key: 'homeManagement',
               children: [
                 {
                   path: '/home',
                   name: '首页',
-                  icon: 'icon-poweroff',
+                  icon: '&#xe792;',
                   key: 'home',
                 },
                 {
                   path: '/manual',
                   name: '操作手册',
-                  icon: 'icon-poweroff',
+                  icon: '&#xe792;',
                   key: 'manual',
                 },
               ],
@@ -56,43 +56,43 @@ export default {
             {
               path: '/businessManagement',
               name: '业务管理',
-              icon: 'icon-poweroff',
+              icon: '&#xe792;',
               key: 'businessManagement',
               children: [
                 {
                   path: '/userInfo',
                   name: '用户信息管理',
-                  icon: 'icon-poweroff',
+                  icon: '&#xe792;',
                   key: 'userInfo',
                 },
                 {
                   path: '/userUnion',
                   name: '用户联合登录管理',
-                  icon: 'icon-poweroff',
+                  icon: '&#xe792;',
                   key: 'userUnion',
                 },
                 {
                   path: '/userBank',
                   name: '用户银行信息管理',
-                  icon: 'icon-poweroff',
+                  icon: '&#xe792;',
                   key: 'userBank',
                 },
                 {
                   path: '/userSecurity',
                   name: '用户安全管理',
-                  icon: 'icon-poweroff',
+                  icon: '&#xe792;',
                   key: 'userSecurity',
                 },
                 {
                   path: '/userAuth',
                   name: '用户认证管理',
-                  icon: 'icon-poweroff',
+                  icon: '&#xe792;',
                   key: 'userAuth',
                 },
                 {
                   path: '/userLicense',
                   name: '用户执照管理',
-                  icon: 'icon-poweroff',
+                  icon: '&#xe792;',
                   key: 'userLicense',
                 },
               ],

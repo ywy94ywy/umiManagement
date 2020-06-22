@@ -1,5 +1,6 @@
 export const fetchLogin = user => ({
-  url: '/api/login',
+  url:
+    '/aggregate/common/login/agg-user-login/create-one-by-user-typeless-account-name-and-user-login-password',
   method: 'post',
-  data: user,
+  params: user,
 });

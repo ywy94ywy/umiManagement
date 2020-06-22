@@ -11,4 +11,5 @@ export default {
   nodeModulesTransform: {
     type: 'none',
   },
+  esbuild: {},
 };
