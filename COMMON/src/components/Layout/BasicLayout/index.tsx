@@ -138,7 +138,6 @@ const BasicLayout: React.FC<BasicLayoutProps> = ({
             // 默认展开所有
             menu={{ defaultOpenAll: true }}
             disableMobile
-            disableContentMargin
             {...props}
           >
             {children}

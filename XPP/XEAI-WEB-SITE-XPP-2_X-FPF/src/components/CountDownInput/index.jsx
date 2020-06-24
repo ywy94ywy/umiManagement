@@ -1,14 +1,19 @@
 /**
  * @module 短信验证
- * @todo onclick
  */
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { Input, Button, Row, Col } from 'antd';
 
 export default ({
   value,
   onChange,
-  buttonProps: { className: buttonClassName, text, span: buttonSpan = 10, ...restButton } = {},
+  buttonProps: {
+    className: buttonClassName,
+    text,
+    span: buttonSpan = 10,
+    ...restButton
+  } = {},
+  maxLength = 6,
   ...props
 }) => {
   return (
@@ -16,19 +21,18 @@ export default ({
       <Col span={14}>
         <Input
           value={value}
-          onChange={e => {
-            try {
-              onChange(e.target.value);
-            } catch (err) {
-              console.log(err, '可能未赋予Form.Item以name');
-            }
-          }}
+          maxLength={maxLength}
+          onChange={onChange}
           placeholder="请输入验证码"
           {...props}
-        ></Input>
+        />
       </Col>
       <Col span={buttonSpan}>
-        <CountDownButton type="primary" className={buttonClassName} {...restButton}>
+        <CountDownButton
+          type="primary"
+          className={buttonClassName}
+          {...restButton}
+        >
           {text || '获取验证码'}
         </CountDownButton>
       </Col>
@@ -61,9 +65,8 @@ const CountDownButton = ({ className, children, onClick, ...rest }) => {
     </Button>
   ) : (
     <Button
-      onClick={() => {
-        onClick && onClick();
-        setCounting(true);
+      onClick={e => {
+        onClick && onClick(e, () => setCounting(true));
       }}
       className={className}
       block

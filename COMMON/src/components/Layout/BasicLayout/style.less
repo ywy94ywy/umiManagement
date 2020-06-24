@@ -86,13 +86,25 @@
         }
         > div {
           flex: 1;
-          min-height: calc(100% - @header-height) !important;
+          min-height: unset !important;
+          background: @content-background;
           > .ant-layout-content {
-            background: @content-background;
             height: 100%;
+            margin-bottom: 0;
+            padding-bottom: @layout-padding;
+
             > .ant-pro-basicLayout-children-content-wrap {
-              > .ant-pro-page-header-wrap {
-                padding-bottom: @layout-padding;
+              height: inherit;
+              > .ant-pro-grid-content {
+                height: inherit;
+                > .ant-pro-page-header-wrap {
+                  height: inherit;
+                  display: flex;
+                  flex-direction: column;
+                  > .ant-pro-page-header-wrap-children-content {
+                    flex: 1;
+                  }
+                }
               }
             }
           }

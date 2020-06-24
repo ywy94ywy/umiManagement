@@ -97,7 +97,7 @@ const Layout: React.FC<BasicLayoutProps> = () => {
       {/* {children} */}
       {/* 下面是假页面 */}
       <PageHeaderWrapper>
-        <Card>
+        <Card style={{ height: '100%' }}>
           <p>假页面</p>
           <Button
             onClick={() => {

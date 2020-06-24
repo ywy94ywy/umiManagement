@@ -7,11 +7,23 @@ const baseUrl = devUrl;
 
 export const request = {
   // timeout: 1000,
+  errorHandler(err) {
+    const errMsg = err?.info?.errorMessage;
+    if (errMsg) {
+      message.error(errMsg);
+      return Promise.reject({
+        status: err.info.resultStatusId,
+        message: errMsg,
+      });
+    } else {
+      return err;
+    }
+  },
   errorConfig: {
     adaptor: resData => {
       return {
         ...resData,
-        success: resData.resultStatusId === 200,
+        success: resData.resultSuccess,
         showType: 0,
         errorMessage: resData.resultStatusContent,
       };
@@ -68,16 +80,16 @@ export const request = {
           return res;
         }
 
-        // 需要显示的后端错误码
-        const codeMaps = {
-          '9999': '9999错误',
-          '8888': resultStatusContent,
-        };
-        const err = codeMaps[resultStatusId];
+        // // 需要显示的后端错误码
+        // const codeMaps = {
+        //   '9999': '9999错误',
+        //   '8888': resultStatusContent,
+        // };
+        // const err = codeMaps[resultStatusId];
 
-        if (err) {
-          message.error(err);
-        }
+        // if (err) {
+        //   message.error(err);
+        // }
       } catch (err) {
         console.log('error:', err);
       }

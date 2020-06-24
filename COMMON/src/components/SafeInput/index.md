@@ -18,14 +18,15 @@ export default () => {
   const [form] = Form.useForm();
 
   return (
-    <Form form={form}>
-      <Form.Item name="safe">
+    <Form form={form} validateTrigger="onBlur">
+      <Form.Item name="safe" rules={[{ required: true }]}>
         <SafeInput />
       </Form.Item>
       <Form.Item>
         <Button
-          onClick={() => {
-            console.log(form.getFieldsValue());
+          onClick={async () => {
+            const res = await form.validateFields();
+            console.log(res);
           }}
         >
           获取数据
@@ -35,7 +36,7 @@ export default () => {
         <Button
           onClick={() => {
             form.setFieldsValue({
-              safe: [1, 2, 3, 4, 5, 6],
+              safe: '123456',
             });
           }}
         >

@@ -1,13 +1,12 @@
 /**
- * @module 登录界面
+ * @page 登录
  */
-import React, { useEffect } from 'react';
+import { useEffect } from 'react';
 import { Input, Button, Form, message } from 'antd';
 import { UserOutlined, LockOutlined } from '@ant-design/icons';
 import { useRequest, history } from 'umi';
 import { fetchLogin } from './servers.js';
 import Cookies from 'js-cookie';
-
 import logo from './logo.png';
 import qrcode from './qrcode.png';
 import styles from './style.less';
@@ -25,16 +24,18 @@ export default () => {
         history.push('/');
       }
     },
+    onError(err) {
+      message.error(err.message);
+    },
   });
 
-  // console.log(data, error, loading);
   useEffect(() => {
     const timeout = Cookies.get('timeout');
 
     if (timeout) {
-      message.error('登录已超时！');
       Cookies.remove('token');
       Cookies.remove('timeout');
+      message.error('登录已超时！');
     }
   }, []);
 
@@ -60,7 +61,7 @@ export default () => {
               },
             ]}
           >
-            <Input prefix={<UserOutlined />} placeholder="请输入用户名"></Input>
+            <Input prefix={<UserOutlined />} placeholder="请输入用户名" />
           </Form.Item>
           <Form.Item
             name="userLoginPassword"
@@ -75,7 +76,7 @@ export default () => {
             <Input.Password
               prefix={<LockOutlined />}
               placeholder="请输入密码"
-            ></Input.Password>
+            />
           </Form.Item>
           <Form.Item noStyle>
             <Button
@@ -110,7 +111,6 @@ export default () => {
           <img src={qrcode} alt="qrcode" />
         </div>
       </section>
-
       <footer>
         Copyright @Lanlinker Information Technology (Shanghai) Co.,Ltd.All
         Rights Reserved
