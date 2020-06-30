@@ -3,7 +3,7 @@ import Cookies from 'js-cookie';
 
 const devUrl = 'http://192.168.1.115:10020/xeai-consumer-xbiz-xpp-fpf/oapi';
 const mockUrl = '/api';
-const baseUrl = devUrl;
+const baseUrl = mockUrl;
 
 export const request = {
   // timeout: 1000,

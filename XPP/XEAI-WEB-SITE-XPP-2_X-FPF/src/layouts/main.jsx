@@ -15,8 +15,8 @@ import { message, Spin } from 'antd';
 const Layout = ({ children, location }) => {
   const [messages, setMessages] = useState(fakeMessages);
   const [prompts, setPrompts] = useState(fakePrompts);
-  // const { data = {}, error, loading } = useRequest(fetchUser);
-  const { user = {}, menu = [], systems = [] } = {};
+  const { data = {}, error, loading } = useRequest(fetchUser);
+  const { user = {}, menu = [], systems = [] } = data;
 
   const token = Cookies.get('TOKEN');
 
@@ -45,13 +45,13 @@ const Layout = ({ children, location }) => {
   //   }
   // }, []);
 
-  // if (loading) {
-  //   return (
-  //     <div style={{ textAlign: 'center', paddingTop: 200 }}>
-  //       <Spin size="large" />
-  //     </div>
-  //   );
-  // }
+  if (loading) {
+    return (
+      <div style={{ textAlign: 'center', paddingTop: 200 }}>
+        <Spin size="large" />
+      </div>
+    );
+  }
 
   return (
     <BasicLayout
