@@ -3,22 +3,23 @@
  */
 import { Input, DatePicker, Form, Select, Space } from 'antd';
 import { BindInput } from 'lanlinker';
+import { USER_TYPE } from '@/config/enum';
 import User from '../../User';
 
 const { Option } = Select;
 
-export default ({ disabled, type } = {}) => [
+export default ({ disabled, userType } = {}) => [
   {
-    name: 'a',
+    name: 'userOftenTelephone',
     label: '用户常用电话',
     component: <Input disabled={disabled}></Input>,
   },
   {
     name: 'aaa',
-    component: <User disabled={disabled}></User>,
+    // component: <User disabled={disabled}></User>,
   },
   {
-    name: 'b',
+    name: 'userQq',
     label: '用户QQ账号',
     component: <BindInput disabled active></BindInput>,
   },
@@ -26,7 +27,7 @@ export default ({ disabled, type } = {}) => [
     component: null,
   },
   {
-    name: 'c',
+    name: 'userWechat',
     label: '用户微信账号',
     component: <BindInput disabled></BindInput>,
   },
@@ -34,7 +35,7 @@ export default ({ disabled, type } = {}) => [
     component: null,
   },
   {
-    name: 'Dd',
+    name: 'userOftenAddressZipCode',
     label: '用户常用邮编',
     component: <Input disabled={disabled}></Input>,
   },
@@ -42,7 +43,7 @@ export default ({ disabled, type } = {}) => [
     component: null,
   },
   {
-    name: 'E',
+    name: 'userOftenAddress',
     label: '用户常用地址',
     component: (
       <Input
@@ -54,7 +55,7 @@ export default ({ disabled, type } = {}) => [
     colSpan: 2,
   },
   {
-    name: 'F',
+    name: 'userOftenAddressGuidAreaCode',
     label: '用户住址地区',
     component: (
       <Space>
@@ -74,27 +75,27 @@ export default ({ disabled, type } = {}) => [
     ),
     colSpan: 2,
   },
-  type === 'person'
+  userType === USER_TYPE[0]
     ? {
-        name: 'D',
+        name: 'userBirthday',
         label: '用户出生日期',
         component: <DatePicker disabled={disabled}></DatePicker>,
       }
     : 1,
   {
-    name: 'H',
+    name: 'userIntroduce',
     label: '用户简介',
     component: (
       <Input
         disabled={disabled}
         maxLength={50}
         placeholder="最长可输入50个字符"
-      ></Input>
+      />
     ),
     colSpan: 2,
   },
   {
-    name: 'Hsd',
+    name: 'userDescription',
     label: '用户描述',
     component: (
       <Input.TextArea
@@ -106,7 +107,7 @@ export default ({ disabled, type } = {}) => [
     colSpan: 2,
   },
   {
-    name: 'Hsdf',
+    name: 'userMemo',
     label: '用户备注',
     component: (
       <Input.TextArea
@@ -118,7 +119,7 @@ export default ({ disabled, type } = {}) => [
     colSpan: 2,
   },
   {
-    name: 'Hadfgdf',
+    name: 'userWebsite',
     label: '用户网址',
     component: (
       <Input

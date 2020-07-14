@@ -3,32 +3,31 @@ import { Input } from 'antd';
 export default [
   {
     label: '原登录密码',
-    name: 'a',
+    name: 'sourceUserLoginPassword',
     rules: [{ required: true }],
-    component: <Input placeholder="请输入原登录密码"></Input>,
+    component: <Input placeholder="请输入原登录密码" />,
   },
   {
     label: '新登录密码',
-    name: 'b',
+    name: 'targetUserLoginPassword',
     rules: [{ required: true }],
-    component: <Input placeholder="请输入新登录密码"></Input>,
+    component: <Input placeholder="请输入新登录密码" />,
   },
   {
     label: '新登录密码确认',
-    dependencies: ['b'],
-    validateTrigger: 'onBlur',
-    name: 'c',
+    dependencies: ['targetUserLoginPassword'],
+    name: 'targetUserLoginPasswordConfirm',
     rules: [
       { required: true },
       ({ getFieldValue }) => ({
-        validator(rule, value) {
-          if (!value || getFieldValue('b') === value) {
+        validator(_, value) {
+          if (!value || getFieldValue('targetUserLoginPassword') === value) {
             return Promise.resolve();
           }
           return Promise.reject('两次输入的密码不一致！');
         },
       }),
     ],
-    component: <Input placeholder="请重新输入新登录密码"></Input>,
+    component: <Input placeholder="请重新输入新登录密码" />,
   },
 ];

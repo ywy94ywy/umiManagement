@@ -8,26 +8,30 @@ import styles from './style.less';
 
 // 为表单添加修改功能
 export default ({
+  form,
   template,
-  type = 'person',
   authorized = false,
   saveData,
+  userType,
   ...props
 }) => {
   const [disabled, setDisabled] = useState(true);
-  const configForm = useMemo(() => template({ disabled, type, authorized }), [
-    disabled,
-    template,
-  ]);
-
+  const configForm =
+    // useMemo(
+    //   () =>
+    template({ disabled, userType, authorized, form });
+  //   ,
+  //   [disabled, template],
+  // );
   return (
     <div className={styles.formWrapper}>
       <Form
+        form={form}
         configForm={configForm}
         className={styles.formStyle}
         gutter={70}
         {...props}
-      ></Form>
+      />
       <Row justify="end" className={styles.footer}>
         {disabled ? (
           <Button

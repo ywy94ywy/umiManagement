@@ -133,14 +133,38 @@ export default () => {
   const [form] = Form.useForm();
   const data = [];
 
+  data.push({
+    label: '名称',
+    name: '1',
+    component: <Input />,
+    rules: [{ required: true }],
+  });
+  data.push({
+    label: '名称',
+    name: '2',
+    dependencies: ['1'],
+    component: <Input />,
+    rules: [
+      { required: true },
+      ({ getFieldValue }) => ({
+        validator(_, value) {
+          console.log(getFieldValue('1'), value);
+          if (!value || getFieldValue('1') === value) {
+            return Promise.resolve();
+          }
+          return Promise.reject('两次输入的密码不一致！');
+        },
+      }),
+    ],
+  });
   for (let i = 1; i < 5; i++) {
     data.push({
       label: '名称' + i,
       name: 'filed' + i,
       component: <Input />,
-      rules: [{ required: true }],
     });
   }
+
   data.push({
     label: 'test',
     component: <Input />,
@@ -157,7 +181,7 @@ export default () => {
 
   return (
     <>
-      <Form form={form} configForm={data} layout="horizontal" columns={3} />
+      <Form form={form} configForm={data} layout="horizontal" columns={3} validateTrigger="onBlur"/>
       <Button
         onClick={async () => {
           const data = await form.validateFields();
@@ -165,6 +189,14 @@ export default () => {
         }}
       >
         验证表单
+      </Button>
+      <Button
+        onClick={() => {
+          const data = form.getFieldsValue();
+          console.log(data);
+        }}
+      >
+        获取数据
       </Button>
     </>
   );

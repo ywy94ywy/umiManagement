@@ -135,6 +135,7 @@ const companys = [
 const fakeMenu = [
   {
     name: '主页管理',
+    path: '/主页管理',
     icon: '&#xe792;',
     children: [
       {
@@ -151,6 +152,7 @@ const fakeMenu = [
   },
   {
     name: '业务管理',
+    path: '/业务管理',
     icon: '&#xe792;',
     children: [
       {
@@ -214,6 +216,7 @@ const fakeMenu = [
   },
   {
     name: '业务查询',
+    path: '/业务查询',
     icon: '&#xe792;',
     children: [
       {
@@ -226,10 +229,12 @@ const fakeMenu = [
   },
   {
     name: '统计分析',
+    path: '/统计分析',
     icon: '&#xe792;',
     children: [
       {
         name: '基础统计',
+        path: '/基础统计',
         icon: '&#xe792;',
         children: [
           {

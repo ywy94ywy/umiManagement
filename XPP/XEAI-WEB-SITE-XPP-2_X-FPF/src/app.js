@@ -1,22 +1,24 @@
 import { message } from 'antd';
 import Cookies from 'js-cookie';
+import { XPP_FPF_URL, XPP_FPF_DEV_API } from '@/config/host';
 
-const devUrl = 'http://192.168.1.115:10020/xeai-consumer-xbiz-xpp-fpf/oapi';
-const mockUrl = '/api';
-const baseUrl = mockUrl;
+const baseUrl = XPP_FPF_DEV_API;
 
 export const request = {
   // timeout: 1000,
   errorHandler(err) {
     const errMsg = err?.info?.errorMessage;
     if (errMsg) {
-      message.error(errMsg);
+      // message.error(errMsg);
       return Promise.reject({
         status: err.info.resultStatusId,
         message: errMsg,
       });
     } else {
-      return err;
+      return Promise.reject({
+        status: err.data.status,
+        message: err.data.message,
+      });
     }
   },
   errorConfig: {
@@ -63,7 +65,7 @@ export const request = {
         503: '服务不可用，服务器暂时过载或维护。',
         504: '网关超时。',
       };
-      message.error(httpCodeMaps[status]);
+      // message.error(httpCodeMaps[status]);
       return res;
     },
     async (res, options) => {
@@ -75,7 +77,8 @@ export const request = {
         if (resultStatusId === 401 || resultStatusId === 403) {
           Cookies.set('timeout', true);
           window.location =
-            'http://localhost:8001/login?redirect=' +
+            XPP_FPF_URL +
+            '/login?redirect=' +
             encodeURIComponent(window.location.href);
           return res;
         }

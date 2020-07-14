@@ -16,12 +16,12 @@ export default ({ disabled = true, authorized } = {}) => [
     component: <h1>附加信息</h1>,
   },
   {
-    name: 'a',
+    name: 'userSex',
     label: '用户性别',
     component: (
       <Radio.Group
         disabled={authorized ? true : disabled}
-        style={{ width: '100%' }}
+        // style={{ width: '100%' }}
       >
         <Radio value={1}>男</Radio>
         <Radio value={2}>女</Radio>
@@ -30,7 +30,7 @@ export default ({ disabled = true, authorized } = {}) => [
     rules: [{ required: true, message: '请选择用户性别' }],
   },
   {
-    name: 'b',
+    name: 'userNation',
     label: '用户民族',
     component: (
       <Select disabled={disabled}>
@@ -43,7 +43,7 @@ export default ({ disabled = true, authorized } = {}) => [
     ),
   },
   {
-    name: 'c',
+    name: 'unifyEducationTypeCode',
     label: '用户学历',
     component: (
       <Select disabled={disabled}>
@@ -56,7 +56,7 @@ export default ({ disabled = true, authorized } = {}) => [
     ),
   },
   {
-    name: 'd',
+    name: 'userNativePlace',
     label: '用户籍贯',
     component: <Input disabled={disabled}></Input>,
   },

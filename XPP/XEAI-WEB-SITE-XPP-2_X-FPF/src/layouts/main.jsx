@@ -8,15 +8,16 @@ import {
   UserMenu,
 } from 'lanlinker';
 import Cookies from 'js-cookie';
-import { useRequest } from 'umi';
-import { fetchUser } from './servers';
+// import { useRequest } from 'umi';
+// import { fetchUser } from './servers';
+import { XPP_FPF_URL } from '@/config/host';
 import { message, Spin } from 'antd';
 
 const Layout = ({ children, location }) => {
   const [messages, setMessages] = useState(fakeMessages);
   const [prompts, setPrompts] = useState(fakePrompts);
-  const { data = {}, error, loading } = useRequest(fetchUser);
-  const { user = {}, menu = [], systems = [] } = data;
+  // const { data = {}, error, loading } = useRequest(fetchUser);
+  const { user = {}, menu = [], systems = [] } = {};
 
   const token = Cookies.get('TOKEN');
 
@@ -25,9 +26,11 @@ const Layout = ({ children, location }) => {
   }, [location]);
 
   if (!token) {
-    Cookies.set('timeout', true);
+    // Cookies.set('timeout', true);
+    alert(token);
     window.location.href =
-      'http://localhost:8001/login?redirect=' +
+      XPP_FPF_URL +
+      '/login?redirect=' +
       encodeURIComponent(window.location.href);
 
     return (
@@ -45,13 +48,13 @@ const Layout = ({ children, location }) => {
   //   }
   // }, []);
 
-  if (loading) {
-    return (
-      <div style={{ textAlign: 'center', paddingTop: 200 }}>
-        <Spin size="large" />
-      </div>
-    );
-  }
+  // if (loading) {
+  //   return (
+  //     <div style={{ textAlign: 'center', paddingTop: 200 }}>
+  //       <Spin size="large" />
+  //     </div>
+  //   );
+  // }
 
   return (
     <BasicLayout
@@ -109,9 +112,9 @@ const Layout = ({ children, location }) => {
             userName={user.userName}
             profile={user.profile}
             logout={() => {
-              Cookies.remove('token');
-              Cookies.remove('type');
-              window.location.href = 'http://localhost:8000/login';
+              Cookies.remove('TOKEN');
+              Cookies.remove('u_inf');
+              window.location.href = XPP_FPF_URL + '/login';
             }}
             menu={[
               {

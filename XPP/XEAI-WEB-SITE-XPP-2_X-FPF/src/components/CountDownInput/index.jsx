@@ -7,6 +7,7 @@ import { Input, Button, Row, Col } from 'antd';
 export default ({
   value,
   onChange,
+  loading,
   buttonProps: {
     className: buttonClassName,
     text,
@@ -31,6 +32,7 @@ export default ({
         <CountDownButton
           type="primary"
           className={buttonClassName}
+          loading={loading}
           {...restButton}
         >
           {text || '获取验证码'}
@@ -41,7 +43,13 @@ export default ({
 };
 
 // 倒计时按钮
-const CountDownButton = ({ className, children, onClick, ...rest }) => {
+const CountDownButton = ({
+  className,
+  children,
+  onClick,
+  loading,
+  ...rest
+}) => {
   const [counting, setCounting] = useState(false);
   const [time, setTime] = useState(59);
 
@@ -68,6 +76,7 @@ const CountDownButton = ({ className, children, onClick, ...rest }) => {
       onClick={e => {
         onClick && onClick(e, () => setCounting(true));
       }}
+      loading={loading}
       className={className}
       block
       {...rest}

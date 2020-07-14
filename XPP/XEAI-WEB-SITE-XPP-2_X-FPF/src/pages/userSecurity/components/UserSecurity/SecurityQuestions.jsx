@@ -3,13 +3,26 @@
  */
 import { useState } from 'react';
 import { Form, ButtonModal } from 'lanlinker';
-import { Button, Steps, Result } from 'antd';
+import { Button, Steps, Result, message } from 'antd';
+import { useRequest } from 'umi';
 import { questionForm0, questionForm1, questionForm2 } from './forms/questions';
+import { validateSafePassword } from '../../services';
+import { getUserId } from '@/utils';
 import styles from '../style.less';
 
 export default ({ modalStyle, layout }) => {
+  const userId = getUserId();
   const [currentQuestion, setCurrentQuestion] = useState(0);
   const [modal, setModal] = useState(false);
+  const validateSafePasswordRequest = useRequest(validateSafePassword, {
+    onSuccess() {
+      setCurrentQuestion(c => c + 1);
+    },
+    onError(err) {
+      message.error(err.message);
+    },
+    manual: true,
+  });
   const [formQuestion0] = Form.useForm();
   const [formQuestion1] = Form.useForm();
   const [formQuestion2] = Form.useForm();
@@ -36,10 +49,10 @@ export default ({ modalStyle, layout }) => {
         <>
           {currentQuestion === 0 && (
             <Next
+              loading={validateSafePasswordRequest.loading}
               onClick={async () => {
                 const res = await formQuestion0.validateFields();
-
-                setCurrentQuestion(c => c + 1);
+                validateSafePasswordRequest.run({ userId, ...res });
               }}
             />
           )}
@@ -119,7 +132,9 @@ export default ({ modalStyle, layout }) => {
           {currentQuestion === 2 && (
             <Form form={formQuestion2} configForm={questionForm2} {...layout} />
           )}
-          {currentQuestion === 3 && <Result status="success" title="操作成功" />}
+          {currentQuestion === 3 && (
+            <Result status="success" title="操作成功" />
+          )}
         </div>
       </div>
     </ButtonModal>

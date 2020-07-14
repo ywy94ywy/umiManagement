@@ -1,6 +1,4 @@
-import { IBundleOptions } from 'father-build';
-
-const options: IBundleOptions = {
+const options = {
   esm: {
     type: 'rollup',
   },

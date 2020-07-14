@@ -16,7 +16,9 @@ export default () => {
   const { loading, run } = useRequest(fetchLogin, {
     manual: true,
     onSuccess(res, params) {
-      Cookies.set('TOKEN', res);
+      Cookies.set('TOKEN', res.token);
+      Cookies.set('u_inf', JSON.stringify(res?.loginUser));
+
       const redirect = window.location.href.match(/\?redirect=(\S*)/);
       if (redirect) {
         window.location.href = decodeURIComponent(redirect[1]);
@@ -29,15 +31,15 @@ export default () => {
     },
   });
 
-  useEffect(() => {
-    const timeout = Cookies.get('timeout');
+  // useEffect(() => {
+  //   const timeout = Cookies.get('timeout');
 
-    if (timeout) {
-      Cookies.remove('token');
-      Cookies.remove('timeout');
-      message.error('登录已超时！');
-    }
-  }, []);
+  //   if (timeout) {
+  //     Cookies.remove('token');
+  //     Cookies.remove('timeout');
+  //     message.error('登录已超时！');
+  //   }
+  // }, []);
 
   // 提交表单
   const onFinish = value => {

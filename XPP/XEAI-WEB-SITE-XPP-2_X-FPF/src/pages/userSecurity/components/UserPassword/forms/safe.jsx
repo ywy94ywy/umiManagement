@@ -3,31 +3,31 @@ import { SafeInput } from 'lanlinker';
 export default [
   {
     label: '原安全密码',
-    name: 'a',
+    name: 'userSafePasswordSource',
     rules: [{ required: true }],
-    component: <SafeInput></SafeInput>,
+    component: <SafeInput />,
   },
   {
     label: '新安全密码',
-    name: 'b',
+    name: 'userSafePasswordTarget',
     rules: [{ required: true }],
-    component: <SafeInput></SafeInput>,
+    component: <SafeInput />,
   },
   {
     label: '新安全密码确认',
-    name: 'c',
-    validateTrigger: 'onBlur',
+    name: 'userSafePasswordTargetConfirm',
+    dependencies: ['userSafePasswordTarget'],
     rules: [
       { required: true },
       ({ getFieldValue }) => ({
-        validator(rule, value) {
-          if (!value || getFieldValue('b').join('') === value.join('')) {
+        validator(_, value) {
+          if (!value || getFieldValue('userSafePasswordTarget') === value) {
             return Promise.resolve();
           }
           return Promise.reject('两次输入的密码不一致！');
         },
       }),
     ],
-    component: <SafeInput></SafeInput>,
+    component: <SafeInput />,
   },
 ];

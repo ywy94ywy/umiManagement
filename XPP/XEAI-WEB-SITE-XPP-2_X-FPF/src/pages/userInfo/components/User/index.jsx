@@ -22,7 +22,7 @@ export default ({ disabled = false }) => {
       <Avatar
         src="https://gw.alipayobjects.com/zos/antfincdn/XAosXuNZyF/BiazfanxmamNRoxxVxka.png"
         size={150}
-      ></Avatar>
+      />
       <ButtonModal
         buttonProps={{
           text: '更换头像',

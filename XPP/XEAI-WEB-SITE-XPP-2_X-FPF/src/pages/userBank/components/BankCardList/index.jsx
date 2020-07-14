@@ -21,7 +21,7 @@ export default ({ data, loading, runFetch }) => {
           type={v.type}
           number={v.userBankAccountNumber}
           first={v.userBankAccountNumberIsDefault}
-        ></BankCard>
+        />
       ))}
       <AddCard runFetch={runFetch} />
     </div>

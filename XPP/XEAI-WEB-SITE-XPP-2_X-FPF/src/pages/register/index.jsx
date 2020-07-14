@@ -24,18 +24,24 @@ const TABS = ['手机注册', '邮箱注册'];
 export default () => {
   const [tab, setTab] = useState(TABS[0]);
   const [form] = Form.useForm();
-  const { run: runSendMessage } = useRequest(sendMessage, {
-    manual: true,
-    onSuccess() {
-      message.success('手机验证码已发送，请注意查收！');
+  const { run: runSendMessage, loading: sendMessageLoading } = useRequest(
+    sendMessage,
+    {
+      manual: true,
+      onSuccess() {
+        message.success('手机验证码已发送，请注意查收！');
+      },
     },
-  });
-  const { run: runSendEmail } = useRequest(sendEmail, {
-    manual: true,
-    onSuccess() {
-      message.success('邮箱验证码已发送，请注意查收！');
+  );
+  const { run: runSendEmail, loading: sendEmailLoading } = useRequest(
+    sendEmail,
+    {
+      manual: true,
+      onSuccess() {
+        message.success('邮箱验证码已发送，请注意查收！');
+      },
     },
-  });
+  );
   const { run: runMobileRegister, loading: mobileLoading } = useRequest(
     mobileRegister,
     {
@@ -62,7 +68,6 @@ export default () => {
     tab === TABS[1] && runEmailRegister(values);
   };
 
-  console.log('render');
   return (
     <Form
       form={form}
@@ -107,6 +112,7 @@ export default () => {
             <CountDownInput
               placeholder="请输入手机短信验证码"
               tabIndex="2"
+              loading={sendMessageLoading}
               buttonProps={{
                 onClick: async (_, count) => {
                   try {
@@ -150,6 +156,7 @@ export default () => {
             <CountDownInput
               placeholder="请输入邮箱验证码"
               tabIndex="2"
+              loading={sendEmailLoading}
               buttonProps={{
                 onClick: async (_, count) => {
                   try {

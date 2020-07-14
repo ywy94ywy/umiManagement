@@ -12,7 +12,7 @@ title: 安全数字输入框
  */
 import React from 'react';
 import { SafeInput } from 'lanlinker';
-import { Form, Button } from 'antd';
+import { Form, Button, Input } from 'antd';
 
 export default () => {
   const [form] = Form.useForm();

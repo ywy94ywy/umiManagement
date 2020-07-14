@@ -1,8 +1,7 @@
 /**
  * @module 安全数字输入框
- * @todo 依赖于antd-Form
  */
-import React, { useRef, forwardRef } from 'react';
+import React, { useRef, useState, forwardRef } from 'react';
 import { Input } from 'antd';
 
 export interface SafeInputProps {
@@ -12,40 +11,37 @@ export interface SafeInputProps {
 }
 
 const SafeInput: React.FC<SafeInputProps> = ({
-  value = '',
+  value,
   onChange,
   number = 6,
   ...props
 }) => {
   const inputRef = useRef([]);
-  const valueRef = useRef<string[]>(new Array(number).fill(''));
+  const [valueArr, setValueArr] = useState(new Array(number).fill(''));
 
   return (
     <Input.Group>
       <InputGenerate
-        value={value}
+        valueArr={valueArr}
+        setValueArr={setValueArr}
         onChange={onChange}
         number={number}
         ref={inputRef}
-        valueRef={valueRef}
         {...props}
       />
     </Input.Group>
   );
 };
 
-interface InputGenerateProps extends SafeInputProps {
-  valueRef: React.RefObject<string[]>;
+interface InputGenerateProps {
+  number?: number;
+  valueArr: string[];
+  onChange?: any;
+  setValueArr: (valueArr: string[]) => void;
 }
 
 const InputGenerate = forwardRef<any, InputGenerateProps>(
-  ({ value = '', onChange, number = 6, valueRef, ...props }, ref: any) => {
-    const onTrigger = () => {
-      if (valueRef.current) {
-        onChange && onChange(valueRef.current.join(''));
-      }
-    };
-
+  ({ number = 6, valueArr, setValueArr, onChange, ...props }, ref: any) => {
     return (
       <>
         {new Array(number).fill('').map((_, i) => (
@@ -55,20 +51,24 @@ const InputGenerate = forwardRef<any, InputGenerateProps>(
             maxLength={1}
             ref={e => (ref.current[i] = e)}
             key={i}
-            value={valueRef.current?.[i] || ''}
+            value={valueArr[i]}
             onKeyPress={e => {
-              valueRef.current && (valueRef.current[i] = e.key);
-              onTrigger();
+              const newArr = [...valueArr];
+              newArr[i] = e.key;
+              setValueArr(newArr);
+              onChange && onChange(newArr.join(''));
               i < number - 1 && ref.current[i + 1].focus();
             }}
             onKeyUp={e => {
               if (e.keyCode === 8) {
-                if (valueRef.current) {
-                  valueRef.current[i] === '' && i > 0
-                    ? (valueRef.current[i - 1] = '')
-                    : (valueRef.current[i] = '');
+                const newArr = [...valueArr];
+                if (newArr[i] === '' && i > 0) {
+                  newArr[i - 1] = '';
+                } else {
+                  newArr[i] = '';
                 }
-                onTrigger();
+                setValueArr(newArr);
+                onChange && onChange(newArr.join(''));
                 i > 0 && ref.current[i - 1].focus();
               }
             }}
