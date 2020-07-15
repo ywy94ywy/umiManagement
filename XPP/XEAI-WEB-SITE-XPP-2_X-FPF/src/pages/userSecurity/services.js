@@ -45,6 +45,22 @@ export const validateSafePassword = ({ userId, userSafePassword }) => {
   };
 };
 
+// 用户密保问题管理-确认新密保问题
+export const confirmQuestions = ({
+  userId,
+  UserSelfExtendAccountProtectCatalogBO,
+}) => {
+  return {
+    url:
+      '/foundation/xpassport/user/account/user-self-extend-account-protect-catalog/update-one',
+    method: 'post',
+    params: {
+      userId,
+    },
+    data: UserSelfExtendAccountProtectCatalogBO,
+  };
+};
+
 // 用户密保手机管理-发送验证码
 export const sendMobileMessage = userMobile => {
   return {

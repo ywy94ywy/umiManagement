@@ -2,7 +2,7 @@
  * @module 用户密保管理
  */
 import ListWrapper from '../ListWrapper';
-import SecurityQuestions from './SecurityQuestions';
+import Questions from './Questions';
 import Mobile from './Mobile';
 import Email from './Email';
 
@@ -14,7 +14,7 @@ export default () => {
     {
       title: '用户密保问题管理',
       description: '未设置密保问题，密保问题可有效保护帐户安全', //todo 动态
-      actions: [<SecurityQuestions modalStyle={modalStyle} layout={layout} />],
+      actions: [<Questions modalStyle={modalStyle} layout={layout} />],
     },
     {
       title: '用户密保手机管理',

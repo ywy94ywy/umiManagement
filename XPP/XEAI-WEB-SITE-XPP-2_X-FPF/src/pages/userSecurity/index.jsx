@@ -1,7 +1,7 @@
 /**
  * @module 用户安全管理
  */
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { PageHeaderWrapper } from 'lanlinker';
 import { Menu, Layout, Card } from 'antd';
 import UserPassword from './components/UserPassword';
@@ -41,7 +41,8 @@ export default () => {
 };
 
 // 左侧菜单
-const getMenu = menuList => menuList.map(item => <Menu.Item key={item}>{item}</Menu.Item>);
+const getMenu = menuList =>
+  menuList.map(item => <Menu.Item key={item}>{item}</Menu.Item>);
 
 // 右侧内容
 const renderChildren = (selectKey, menuList) => {

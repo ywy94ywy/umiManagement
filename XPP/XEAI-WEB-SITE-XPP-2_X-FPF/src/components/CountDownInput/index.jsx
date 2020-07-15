@@ -1,46 +1,52 @@
 /**
  * @module 短信验证
  */
-import { useState, useEffect } from 'react';
+import { useState, useEffect, forwardRef } from 'react';
 import { Input, Button, Row, Col } from 'antd';
 
-export default ({
-  value,
-  onChange,
-  loading,
-  buttonProps: {
-    className: buttonClassName,
-    text,
-    span: buttonSpan = 10,
-    ...restButton
-  } = {},
-  maxLength = 6,
-  ...props
-}) => {
-  return (
-    <Row gutter={10}>
-      <Col span={14}>
-        <Input
-          value={value}
-          maxLength={maxLength}
-          onChange={onChange}
-          placeholder="请输入验证码"
-          {...props}
-        />
-      </Col>
-      <Col span={buttonSpan}>
-        <CountDownButton
-          type="primary"
-          className={buttonClassName}
-          loading={loading}
-          {...restButton}
-        >
-          {text || '获取验证码'}
-        </CountDownButton>
-      </Col>
-    </Row>
-  );
-};
+export default forwardRef(
+  (
+    {
+      value,
+      onChange,
+      loading,
+      buttonProps: {
+        className: buttonClassName,
+        text,
+        span: buttonSpan = 10,
+        ...restButton
+      } = {},
+      maxLength = 6,
+      ...props
+    },
+    ref,
+  ) => {
+    return (
+      <Row gutter={10}>
+        <Col span={14}>
+          <Input
+            ref={ref}
+            value={value}
+            maxLength={maxLength}
+            onChange={onChange}
+            placeholder="请输入验证码"
+            {...props}
+          />
+        </Col>
+        <Col span={buttonSpan}>
+          <CountDownButton
+            type="primary"
+            className={buttonClassName}
+            loading={loading}
+            {...restButton}
+          >
+            {text || '获取验证码'}
+          </CountDownButton>
+        </Col>
+      </Row>
+    );
+  },
+);
 
 // 倒计时按钮
 const CountDownButton = ({

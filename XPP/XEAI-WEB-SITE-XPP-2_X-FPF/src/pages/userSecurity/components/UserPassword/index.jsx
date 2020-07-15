@@ -18,7 +18,6 @@ const passwordStrength = {
   medium: <span className="medium">中</span>,
   weak: <span className="weak">弱</span>,
 };
-
 const layout = { labelCol: { span: 9 }, wrapperCol: { span: 10 } };
 const modalStyle = { width: 700, bodyStyle: { minHeight: 300 } };
 
