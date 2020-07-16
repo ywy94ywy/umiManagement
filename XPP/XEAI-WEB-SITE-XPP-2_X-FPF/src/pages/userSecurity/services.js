@@ -1,4 +1,6 @@
-// 用户登录密码管理-修改密码
+/** --- 用户密码管理模块 ---  */
+
+// 用户登录密码管理-修改
 export const updateLoginPassword = ({
   userId,
   sourceUserLoginPassword,
@@ -15,7 +17,7 @@ export const updateLoginPassword = ({
   };
 };
 
-// 用户安全密码管理-修改密码
+// 用户安全密码管理-修改
 export const updateSafePassword = ({
   userId,
   userSafePasswordSource,
@@ -31,6 +33,89 @@ export const updateSafePassword = ({
     },
   };
 };
+
+// 用户安全密码管理-重置-发送短信
+export const sendResetMobile = userMobile => {
+  return {
+    url:
+      '/foundation/xpassport/user/account/user-protect-mobile/send-reset-mobile-code',
+    method: 'post',
+    params: {
+      userMobile,
+    },
+  };
+};
+
+// 用户安全密码管理-重置-校验手机验证码
+export const validateMobileCaptcha = ({
+  userMobile,
+  userMobileCaptchaTarget,
+}) => {
+  return {
+    url:
+      '/foundation/xpassport/user/account/user-protect-mobile/reset-safe-password-mobile-verify',
+    method: 'post',
+    params: {
+      userMobile,
+      userMobileCaptchaTarget,
+    },
+  };
+};
+
+// 用户安全密码管理-重置-发送邮件
+export const sendResetEmail = userEmail => {
+  return {
+    url:
+      '/foundation/xpassport/user/account/user-protect-email/send-reset-email-code',
+    method: 'post',
+    params: {
+      userEmail,
+    },
+  };
+};
+
+// 用户安全密码管理-重置-校验邮箱验证码
+export const validateEmailCaptcha = ({ userEmail, userEmailCaptchaTarget }) => {
+  return {
+    url:
+      '/foundation/xpassport/user/account/user-protect-email/reset-safe-password-email-verify',
+    method: 'post',
+    params: {
+      userEmail,
+      userEmailCaptchaTarget,
+    },
+  };
+};
+
+// 用户安全密码管理-重置-校验密保问题
+export const validateResetSecurity = ({
+  userId,
+  UserSelfExtendAccountProtectCatalogBO,
+}) => {
+  return {
+    url:
+      '/foundation/xpassport/user/account/user-self-extend-account-protect-catalog/retrieve-verify-one',
+    method: 'post',
+    params: {
+      userId,
+    },
+    data: UserSelfExtendAccountProtectCatalogBO,
+  };
+};
+
+// 用户安全密码管理-重置-新安全密码
+export const updateSecurityPassword = userSafePassword => {
+  return {
+    url:
+      '/foundation/xpassport/user/account/user-safe-password/reset-safe-password',
+    method: 'post',
+    params: {
+      userSafePassword,
+    },
+  };
+};
+
+/** --- 用户密保管理模块 ---  */
 
 // 用户密保问题管理-验证安全密码
 export const validateSafePassword = ({ userId, userSafePassword }) => {

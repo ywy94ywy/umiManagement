@@ -45,17 +45,22 @@ export default ({ modalStyle, layout }) => {
         title="用户密保邮箱修改"
         {...modalStyle}
         visible={modal}
-        afterClose={() => {
-          formEmail.resetFields();
-          setSendDisabled(true);
-        }}
+        destroyOnClose
         onOk={async () => {
           const res = await formEmail.validateFields();
           updateEmailRequest.run({ userId, ...res });
         }}
+        afterClose={() => {
+          setSendDisabled(true);
+        }}
         onCancel={() => setModal(false)}
       >
-        <Form form={formEmail} className={styles.form} {...layout}>
+        <Form
+          form={formEmail}
+          className={styles.form}
+          {...layout}
+          preserve={false}
+        >
           <Form.Item
             name="userSafePassword"
             label="安全密码"

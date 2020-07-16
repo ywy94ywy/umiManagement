@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { Form, Select, Input } from 'antd';
-import { questions } from './question';
+import { PASSWORD_QUESTIONS } from '@/config/enum';
 
 export default ({ form, layout }) => {
   const [fields, setFields] = useState([1, 2, 3]);
@@ -21,10 +21,11 @@ export default ({ form, layout }) => {
         3: 2,
         5: 3,
       }}
+      preserve={false}
     >
       <Form.Item label="密保问题01" name="1" rules={[{ required: true }]}>
         <Select onChange={e => changeFileds(0, e)}>
-          {questions.map(v => (
+          {PASSWORD_QUESTIONS.map(v => (
             <Select.Option
               value={v.key}
               key={v.key}
@@ -40,7 +41,7 @@ export default ({ form, layout }) => {
       </Form.Item>
       <Form.Item label="密保问题02" name="3" rules={[{ required: true }]}>
         <Select onChange={e => changeFileds(1, e)}>
-          {questions.map(v => (
+          {PASSWORD_QUESTIONS.map(v => (
             <Select.Option
               value={v.key}
               key={v.key}
@@ -56,7 +57,7 @@ export default ({ form, layout }) => {
       </Form.Item>
       <Form.Item label="密保问题03" name="5" rules={[{ required: true }]}>
         <Select onChange={e => changeFileds(2, e)}>
-          {questions.map(v => (
+          {PASSWORD_QUESTIONS.map(v => (
             <Select.Option
               value={v.key}
               key={v.key}

@@ -45,17 +45,22 @@ export default ({ modalStyle, layout }) => {
         title="用户密保手机修改"
         {...modalStyle}
         visible={modal}
-        afterClose={() => {
-          formPhone.resetFields();
-          setSendDisabled(true);
-        }}
+        destroyOnClose
         onOk={async () => {
           const res = await formPhone.validateFields();
           updateMobileRequest.run({ userId, ...res });
         }}
+        afterClose={() => {
+          setSendDisabled(true);
+        }}
         onCancel={() => setModal(false)}
       >
-        <Form form={formPhone} className={styles.form} {...layout}>
+        <Form
+          form={formPhone}
+          className={styles.form}
+          {...layout}
+          preserve={false}
+        >
           <Form.Item
             name="userSafePassword"
             label="安全密码"

@@ -54,17 +54,21 @@ export const request = {
   // 响应拦截
   responseInterceptors: [
     async (res, options) => {
+      if (!res) {
+        message.error('响应超时！');
+        return;
+      }
       const { status } = res;
       if (status === 200) {
         return res;
       }
       // HTTP错误码
-      const httpCodeMaps = {
-        404: '请求地址错误。',
-        502: '网关错误。',
-        503: '服务不可用，服务器暂时过载或维护。',
-        504: '网关超时。',
-      };
+      // const httpCodeMaps = {
+      //   404: '请求地址错误。',
+      //   502: '网关错误。',
+      //   503: '服务不可用，服务器暂时过载或维护。',
+      //   504: '网关超时。',
+      // };
       // message.error(httpCodeMaps[status]);
       return res;
     },
@@ -75,7 +79,7 @@ export const request = {
 
         // token不存在或者过期
         if (resultStatusId === 401 || resultStatusId === 403) {
-          Cookies.set('timeout', true);
+          // Cookies.set('timeout', true);
           window.location =
             XPP_FPF_URL +
             '/login?redirect=' +

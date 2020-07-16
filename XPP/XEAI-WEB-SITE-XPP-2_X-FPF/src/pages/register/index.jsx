@@ -3,69 +3,65 @@
  */
 import { useState } from 'react';
 import { SafeInput, ButtonModal } from 'lanlinker';
-import CountDownInput from '@/components/CountDownInput';
 import { useRequest, history } from 'umi';
 import { Tabs, Input, Button, Checkbox, Form, message } from 'antd';
-import {
-  sendMessage,
-  sendEmail,
-  mobileRegister,
-  emailRegister,
-} from './servers';
+import { mobileRegister, emailRegister } from './servers';
 import Agreement from './Agreement';
-import {
-  MOBILE_VALIDATOR,
-  EMAIL_VALIDATOR,
-  NICK_VALIDATOR,
-} from '@/config/reg';
+import Mobile from './Mobile';
+import Email from './Email';
+import Nickname from './Nickname';
 
 const TABS = ['手机注册', '邮箱注册'];
 
 export default () => {
   const [tab, setTab] = useState(TABS[0]);
   const [form] = Form.useForm();
-  const { run: runSendMessage, loading: sendMessageLoading } = useRequest(
-    sendMessage,
-    {
-      manual: true,
-      onSuccess() {
-        message.success('手机验证码已发送，请注意查收！');
-      },
+  const mobileRegisterRequest = useRequest(mobileRegister, {
+    manual: true,
+    onSuccess() {
+      history.push('/login');
+      message.success('注册成功！');
     },
-  );
-  const { run: runSendEmail, loading: sendEmailLoading } = useRequest(
-    sendEmail,
-    {
-      manual: true,
-      onSuccess() {
-        message.success('邮箱验证码已发送，请注意查收！');
-      },
+    onError(err) {
+      message.error(err.message);
     },
-  );
-  const { run: runMobileRegister, loading: mobileLoading } = useRequest(
-    mobileRegister,
-    {
-      manual: true,
-      onSuccess(res) {
-        history.push('/login');
-        message.success('注册成功！');
-      },
+  });
+  const emailRegisterRequest = useRequest(emailRegister, {
+    manual: true,
+    onSuccess() {
+      history.push('/login');
+      message.success('注册成功！');
     },
-  );
-  const { run: runEmailRegister, loading: emailLoading } = useRequest(
-    emailRegister,
-    {
-      manual: true,
-      onSuccess() {
-        history.push('/login');
-        message.success('注册成功！');
-      },
+    onError(err) {
+      message.error(err.message);
     },
-  );
+  });
 
-  const onFinish = values => {
-    tab === TABS[0] && runMobileRegister(values);
-    tab === TABS[1] && runEmailRegister(values);
+  const onSubmit = async () => {
+    const fields = [
+      'userNickname',
+      'userLoginPassword',
+      'userLoginPasswordConfirm',
+      'userSafePassword',
+      'userSafePasswordConfirm',
+      'agree',
+    ];
+    if (tab === TABS[0]) {
+      const res = await form.validateFields([
+        'userMobile',
+        'userMobileCaptchaTarget',
+        ...fields,
+      ]);
+      mobileRegisterRequest.run(res);
+    }
+    if (tab === TABS[1]) {
+      const res = await form.validateFields([
+        'userEmail',
+        'userEmailCaptchaTarget',
+        ...fields,
+      ]);
+      emailRegisterRequest.run(res);
+    }
   };
 
   return (
@@ -77,7 +73,6 @@ export default () => {
       wrapperCol={{ span: 20 }}
       validateTrigger="onBlur"
       style={{ width: 400 }}
-      onFinish={onFinish}
     >
       <Tabs
         activekey={tab}
@@ -86,107 +81,13 @@ export default () => {
         tabBarStyle={{ marginLeft: 69 }}
       >
         <Tabs.TabPane tab={TABS[0]} key={TABS[0]}>
-          <Form.Item
-            name="userMobile"
-            label="手机帐号"
-            rules={[
-              {
-                required: true,
-                message: '请输入手机号',
-              },
-              MOBILE_VALIDATOR,
-            ]}
-          >
-            <Input placeholder="请输入手机号" tabIndex="1" />
-          </Form.Item>
-          <Form.Item
-            name="userMobileCaptchaTarget"
-            label="短信验证"
-            rules={[
-              {
-                required: true,
-                message: '请输入手机短信验证码',
-              },
-            ]}
-          >
-            <CountDownInput
-              placeholder="请输入手机短信验证码"
-              tabIndex="2"
-              loading={sendMessageLoading}
-              buttonProps={{
-                onClick: async (_, count) => {
-                  try {
-                    const { userMobile } = await form.validateFields([
-                      'userMobile',
-                    ]);
-                    const res = await runSendMessage(userMobile);
-                    !res && count();
-                  } catch (err) {
-                    throw err;
-                  }
-                },
-              }}
-            />
-          </Form.Item>
+          <Mobile />
         </Tabs.TabPane>
         <Tabs.TabPane tab={TABS[1]} key={TABS[1]}>
-          <Form.Item
-            name="userEmail"
-            label="邮箱帐号"
-            rules={[
-              {
-                required: true,
-                message: '请输入电子邮箱',
-              },
-              EMAIL_VALIDATOR,
-            ]}
-          >
-            <Input placeholder="请输入电子邮箱" tabIndex="1" />
-          </Form.Item>
-          <Form.Item
-            name="userEmailCaptchaTarget"
-            label="邮箱验证"
-            rules={[
-              {
-                required: true,
-                message: '请输入邮箱验证码',
-              },
-            ]}
-          >
-            <CountDownInput
-              placeholder="请输入邮箱验证码"
-              tabIndex="2"
-              loading={sendEmailLoading}
-              buttonProps={{
-                onClick: async (_, count) => {
-                  try {
-                    const { userEmail } = await form.validateFields([
-                      'userEmail',
-                    ]);
-                    const res = await runSendEmail(userEmail);
-                    !res && count();
-                  } catch (err) {
-                    throw err;
-                  }
-                },
-              }}
-            />
-          </Form.Item>
+          <Email />
         </Tabs.TabPane>
       </Tabs>
-      <Form.Item
-        name="userNickname"
-        label="昵称帐号"
-        rules={[
-          {
-            required: true,
-            message: '请输入昵称帐号',
-          },
-          NICK_VALIDATOR,
-        ]}
-      >
-        <Input placeholder="请输入昵称帐号" tabIndex="3" />
-      </Form.Item>
+      <Nickname />
       <Form.Item
         name="userLoginPassword"
         label="登录密码"
@@ -294,8 +195,10 @@ export default () => {
         <Button
           type="primary"
           block
-          htmlType="submit"
-          loading={mobileLoading || emailLoading}
+          onClick={() => onSubmit()}
+          loading={
+            mobileRegisterRequest.loading || emailRegisterRequest.loading
+          }
         >
           注册
         </Button>

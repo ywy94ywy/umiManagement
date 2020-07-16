@@ -23,7 +23,7 @@ export default () => {
       if (redirect) {
         window.location.href = decodeURIComponent(redirect[1]);
       } else {
-        history.push('/');
+        history.push('/home');
       }
     },
     onError(err) {

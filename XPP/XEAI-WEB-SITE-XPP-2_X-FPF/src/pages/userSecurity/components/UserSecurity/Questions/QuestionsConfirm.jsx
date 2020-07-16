@@ -1,6 +1,6 @@
 import { forwardRef, useEffect } from 'react';
 import { Input, Form } from 'antd';
-import { QuestionsMap } from './question';
+import { PASSWORD_QUESTION_MAP } from '@/config/enum';
 
 export default ({ form, layout, sercurityDate }) => {
   useEffect(() => {
@@ -13,7 +13,7 @@ export default ({ form, layout, sercurityDate }) => {
   }, []);
 
   return (
-    <Form form={form} {...layout} validateTrigger="onBlur">
+    <Form form={form} {...layout} validateTrigger="onBlur" preserve={false}>
       <Form.Item label="密保问题01" name="1" rules={[{ required: true }]}>
         <InputWrapper />
       </Form.Item>
@@ -79,5 +79,5 @@ export default ({ form, layout, sercurityDate }) => {
 };
 
 const InputWrapper = forwardRef(({ value }, ref) => {
-  return <Input disabled value={QuestionsMap[value]} ref={ref} />;
+  return <Input disabled value={PASSWORD_QUESTION_MAP[value]} ref={ref} />;
 });

@@ -7,6 +7,7 @@ import {
   Notification,
   UserMenu,
 } from 'lanlinker';
+
 import Cookies from 'js-cookie';
 // import { useRequest } from 'umi';
 // import { fetchUser } from './servers';
@@ -26,8 +27,6 @@ const Layout = ({ children, location }) => {
   }, [location]);
 
   if (!token) {
-    // Cookies.set('timeout', true);
-    alert(token);
     window.location.href =
       XPP_FPF_URL +
       '/login?redirect=' +

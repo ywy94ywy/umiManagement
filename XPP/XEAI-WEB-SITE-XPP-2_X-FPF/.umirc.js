@@ -11,6 +11,7 @@ export default defineConfig({
     type: 'none',
   },
   routes: [
+    { path: '/', redirect: '/login' },
     {
       path: '/login',
       component: '@/pages/login',
@@ -37,7 +38,6 @@ export default defineConfig({
       path: '/',
       component: '../layouts/main',
       routes: [
-        { path: '/', redirect: '/home' },
         { path: '/home', component: '@/pages/home' },
         { path: '/manual', component: '@/pages/manual' },
         { path: '/userInfo', component: '@/pages/userInfo' },

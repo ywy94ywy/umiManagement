@@ -135,10 +135,8 @@ export default ({ modalStyle, layout }) => {
         afterClose={() => {
           setSercurityDate();
           setCurrent(0);
-          current === 0 && validateForm.resetFields();
-          current === 1 && sercurityForm.resetFields();
-          current === 2 && confirmForm.resetFields();
         }}
+        destroyOnClose
         onCancel={() => {
           setModal(false);
         }}

@@ -7,7 +7,12 @@ export default ({ current, form1, form2, form3, sercurityDate, layout }) => {
   switch (current) {
     case 0:
       return (
-        <Form form={form1} {...layout} style={{ marginTop: 90 }}>
+        <Form
+          form={form1}
+          {...layout}
+          style={{ marginTop: 90 }}
+          preserve={false}
+        >
           <Form.Item
             label="安全密码"
             name="userSafePassword"
