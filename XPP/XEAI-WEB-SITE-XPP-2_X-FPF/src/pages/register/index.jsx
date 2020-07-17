@@ -129,6 +129,10 @@ export default () => {
             required: true,
             message: '请输入安全密码',
           },
+          {
+            len: 6,
+            message: '请输入六位安全密码',
+          },
         ]}
       >
         <SafeInput tabIndex="6" />

@@ -42,6 +42,7 @@ interface InputGenerateProps {
 
 const InputGenerate = forwardRef<any, InputGenerateProps>(
   ({ number = 6, valueArr, setValueArr, onChange, ...props }, ref: any) => {
+
     return (
       <>
         {new Array(number).fill('').map((_, i) => (

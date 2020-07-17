@@ -18,7 +18,17 @@ export default () => {
   const [form] = Form.useForm();
 
   return (
-    <Form form={form} validateTrigger="onBlur">
+    <Form form={form}>
+      <Form.Item
+        name="a"
+        rules={[{ required: true }]}
+        normalize={(value, prevValue, prevValues) => {
+          console.log(('----', value, prevValue, prevValues));
+          return 1;
+        }}
+      >
+        <Input />
+      </Form.Item>
       <Form.Item name="safe" rules={[{ required: true }]}>
         <SafeInput />
       </Form.Item>
