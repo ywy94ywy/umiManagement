@@ -16,9 +16,11 @@ export default () => {
   const { loading, run } = useRequest(fetchLogin, {
     manual: true,
     onSuccess(res, params) {
+      // 存储token和用户信息（跨子项目使用）
       Cookies.set('TOKEN', res.token);
       Cookies.set('u_inf', JSON.stringify(res?.loginUser));
 
+      // 重定向或直接跳转
       const redirect = window.location.href.match(/\?redirect=(\S*)/);
       if (redirect) {
         window.location.href = decodeURIComponent(redirect[1]);

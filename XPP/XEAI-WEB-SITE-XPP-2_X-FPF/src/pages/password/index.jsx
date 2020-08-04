@@ -1,7 +1,7 @@
 /**
- * @module 忘记密码
+ * @page 忘记密码
  */
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { SafeInput } from 'lanlinker';
 import CountDownInput from '@/components/CountDownInput';
 import SecretFormItem from '@/components/SecretFormItem';
@@ -30,48 +30,47 @@ export default () => {
 };
 
 const Switcher = ({ current, setCurrent }) => {
-  const prev = () => {
-    setCurrent(c => --c);
-  };
-  const next = () => {
-    setCurrent(c => ++c);
-  };
+  const Prev = ({ ...props }) => (
+    <Button type="primary" {...props}>
+      上一步
+    </Button>
+  );
+  const Next = ({ ...props }) => (
+    <Button type="primary" {...props}>
+      下一步
+    </Button>
+  );
 
   switch (current) {
     case 0:
       return (
         <>
-          <Form.Item name="a" label="用户账号">
-            <Input placeholder="请输入数字帐号/昵称帐号/手机帐号/邮箱帐号/身份证号"></Input>
+          <Form.Item name="a" label="用户帐号">
+            <Input placeholder="请输入手机帐号/邮箱帐号"></Input>
           </Form.Item>
           <Row justify="end">
-            <Button type="primary" onClick={next}>
-              下一步
-            </Button>
+            <Next onClick={() => setCurrent(c => ++c)} />
           </Row>
         </>
       );
     case 1:
       return (
         <>
-          <SecretFormItem></SecretFormItem>
-          <Form.Item name="e" label="手机账号">
+          <Form.Item name="e" label="手机帐号">
             <Input placeholder="请输入手机号"></Input>
           </Form.Item>
           <Form.Item name="f" label="短信验证">
             <CountDownInput placeholder="请输入手机短信验证码"></CountDownInput>
           </Form.Item>
-          <Form.Item name="G" label="邮箱账号">
+          <Form.Item name="G" label="邮箱帐号">
             <Input placeholder="请输入电子邮箱"></Input>
           </Form.Item>
           <Form.Item name="H" label="邮箱验证">
             <CountDownInput placeholder="请输入邮箱验证码"></CountDownInput>
           </Form.Item>
           <Row justify="space-between">
-            <Button onClick={prev}>上一步</Button>
-            <Button type="primary" onClick={next}>
-              下一步
-            </Button>
+            <Prev onClick={() => setCurrent(c => --c)} />
+            <Next onClick={() => setCurrent(c => ++c)} />
           </Row>
         </>
       );
@@ -84,17 +83,9 @@ const Switcher = ({ current, setCurrent }) => {
           <Form.Item name="H" label="登录密码确认">
             <Input placeholder="请重新输入登录密码"></Input>
           </Form.Item>
-          <Form.Item name="G" label="新安全密码">
-            <SafeInput></SafeInput>
-          </Form.Item>
-          <Form.Item name="H" label="安全密码确认">
-            <SafeInput></SafeInput>
-          </Form.Item>
           <Row justify="space-between">
-            <Button onClick={prev}>上一步</Button>
-            <Button type="primary" onClick={next}>
-              下一步
-            </Button>
+            <Prev onClick={() => setCurrent(c => --c)} />
+            <Next onClick={() => setCurrent(c => ++c)} />
           </Row>
         </>
       );
@@ -113,7 +104,7 @@ const Switcher = ({ current, setCurrent }) => {
               返回登录页
             </Button>,
           ]}
-        ></Result>
+        />
       );
 
     default:

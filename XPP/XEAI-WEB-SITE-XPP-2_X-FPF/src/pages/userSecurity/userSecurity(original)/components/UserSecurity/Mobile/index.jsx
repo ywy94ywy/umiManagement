@@ -2,7 +2,7 @@
  * @module 用户密保手机管理
  */
 import { useState } from 'react';
-import { Modal } from 'lanlinker';
+import { SafeInput, Modal } from 'lanlinker';
 import { Form, message, Input, Button } from 'antd';
 import { useRequest } from 'umi';
 import { MOBILE_VALIDATOR } from '@/config/reg';
@@ -61,6 +61,13 @@ export default ({ modalStyle, layout }) => {
           {...layout}
           preserve={false}
         >
+          <Form.Item
+            name="userSafePassword"
+            label="安全密码"
+            rules={[{ required: true }]}
+          >
+            <SafeInput />
+          </Form.Item>
           <Form.Item
             name="userMobile"
             label="新手机账号"

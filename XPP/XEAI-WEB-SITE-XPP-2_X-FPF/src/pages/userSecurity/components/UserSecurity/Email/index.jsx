@@ -62,13 +62,6 @@ export default ({ modalStyle, layout }) => {
           preserve={false}
         >
           <Form.Item
-            name="userSafePassword"
-            label="安全密码"
-            rules={[{ required: true }]}
-          >
-            <SafeInput />
-          </Form.Item>
-          <Form.Item
             name="userEmail"
             label="新邮箱账号"
             validateFirst

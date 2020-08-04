@@ -1,19 +1,16 @@
 @import '~lanlinker/es/style/index.less';
 
-.wrapper {
-  position: relative;
+.user {
+  position: absolute;
+  top: 0;
+  z-index: 10;
+  width: 100%;
+  height: 200px;
   display: flex;
-  justify-content: center;
-  .user {
-    position: absolute;
-    z-index: 1;
-    height: 200px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    > .uploadBtn {
-      margin-top: 20px;
-    }
+  flex-direction: column;
+  align-items: center;
+  > .uploadBtn {
+    margin-top: 20px;
   }
 }
 

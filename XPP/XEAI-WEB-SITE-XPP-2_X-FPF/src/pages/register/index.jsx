@@ -4,7 +4,7 @@
 import { useState } from 'react';
 import { SafeInput, ButtonModal } from 'lanlinker';
 import { useRequest, history } from 'umi';
-import { Tabs, Input, Button, Checkbox, Form, message } from 'antd';
+import { Tabs, Input, Button, Checkbox, Form, message, Select } from 'antd';
 import { mobileRegister, emailRegister } from './servers';
 import Agreement from './Agreement';
 import Mobile from './Mobile';
@@ -87,6 +87,30 @@ export default () => {
           <Email />
         </Tabs.TabPane>
       </Tabs>
+      <Form.Item
+        // name="userLoginPassword"
+        label="用户类型"
+        rules={[
+          {
+            required: true,
+            message: '请选择用户类型',
+          },
+        ]}
+      >
+        <Select tabIndex="4" />
+      </Form.Item>
+      <Form.Item
+        // name="userLoginPassword"
+        label="用户全名"
+        rules={[
+          {
+            required: true,
+            message: '请输入用户全名',
+          },
+        ]}
+      >
+        <Input placeholder="请输入用户全名" tabIndex="4" />
+      </Form.Item>
       <Nickname />
       <Form.Item
         name="userLoginPassword"
@@ -98,7 +122,7 @@ export default () => {
           },
         ]}
       >
-        <Input placeholder="请输入登录密码" tabIndex="4" />
+        <Input.Password placeholder="请输入登录密码" tabIndex="4" />
       </Form.Item>
       <Form.Item
         name="userLoginPasswordConfirm"
@@ -119,9 +143,9 @@ export default () => {
           }),
         ]}
       >
-        <Input placeholder="请重新输入登录密码" tabIndex="5" />
+        <Input.Password placeholder="请重新输入登录密码" tabIndex="5" />
       </Form.Item>
-      <Form.Item
+      {/* <Form.Item
         name="userSafePassword"
         label="安全密码"
         rules={[
@@ -157,7 +181,7 @@ export default () => {
         ]}
       >
         <SafeInput tabIndex="7" />
-      </Form.Item>
+      </Form.Item> */}
       <Form.Item
         name="agree"
         wrapperCol={{ offset: 4 }}

@@ -62,5 +62,8 @@ export const PASSWORD_QUESTIONS = [
     value: '对您一生影响最大的人姓名是?',
   },
 ];
-export const PASSWORD_QUESTION_MAP = {};
-PASSWORD_QUESTIONS.forEach(v => (PASSWORD_QUESTION_MAP[v.key] = v.value));
+
+export const PASSWORD_QUESTION_MAP = PASSWORD_QUESTIONS.reduce(
+  (p, v) => ({ ...p, [v.key]: v.value }),
+  {},
+);

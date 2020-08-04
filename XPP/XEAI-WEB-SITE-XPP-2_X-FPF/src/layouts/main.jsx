@@ -12,7 +12,8 @@ import Cookies from 'js-cookie';
 // import { useRequest } from 'umi';
 // import { fetchUser } from './servers';
 import { XPP_FPF_URL } from '@/config/host';
-import { message, Spin } from 'antd';
+import { message, Spin, ConfigProvider } from 'antd';
+import zhCN from 'antd/es/locale/zh_CN';
 
 const Layout = ({ children, location }) => {
   const [messages, setMessages] = useState(fakeMessages);
@@ -26,18 +27,18 @@ const Layout = ({ children, location }) => {
     window.screenTop = 0;
   }, [location]);
 
-  if (!token) {
-    window.location.href =
-      XPP_FPF_URL +
-      '/login?redirect=' +
-      encodeURIComponent(window.location.href);
+  // if (!token) {
+  //   window.location.href =
+  //     XPP_FPF_URL +
+  //     '/login?redirect=' +
+  //     encodeURIComponent(window.location.href);
 
-    return (
-      <div style={{ textAlign: 'center', paddingTop: 200 }}>
-        <Spin size="large" />
-      </div>
-    );
-  }
+  //   return (
+  //     <div style={{ textAlign: 'center', paddingTop: 200 }}>
+  //       <Spin size="large" />
+  //     </div>
+  //   );
+  // }
 
   // useEffect(() => {
   //   const isLog = Cookies.get('isLog');
@@ -56,78 +57,80 @@ const Layout = ({ children, location }) => {
   // }
 
   return (
-    <BasicLayout
-      headerLeft={
-        <>
-          <SwitchSystems
-            list={fakeSystems}
-            height={400}
-            onSelect={v => {
-              console.log(v);
-            }}
-            style={{ marginRight: 50 }}
-          ></SwitchSystems>
-          <TimeWeather />
-        </>
-      }
-      headerRight={
-        <>
-          <SwitchTheme />
-          <Notification
-            messages={messages}
-            prompts={prompts}
-            readMessage={item => {
-              setMessages(
-                messages.map(v => {
-                  if (v.id !== item.id) {
-                    return v;
-                  } else {
-                    v.readed = true;
-                    return v;
-                  }
-                }),
-              );
-            }}
-            readPrompt={item => {
-              setPrompts(
-                prompts.map(v => {
-                  if (v.id !== item.id) {
-                    return v;
-                  } else {
-                    v.readed = true;
-                    return v;
-                  }
-                }),
-              );
-            }}
-            clearMessages={() => {
-              setMessages([]);
-            }}
-            clearPrompts={() => {
-              setPrompts([]);
-            }}
-          ></Notification>
-          <UserMenu
-            userName={user.userName}
-            profile={user.profile}
-            logout={() => {
-              Cookies.remove('TOKEN');
-              Cookies.remove('u_inf');
-              window.location.href = XPP_FPF_URL + '/login';
-            }}
-            menu={[
-              {
-                title: 'XXXXXXXXXX系统',
-                url: '/',
-              },
-            ]}
-          />
-        </>
-      }
-      menuData={menu}
-    >
-      {children}
-    </BasicLayout>
+    <ConfigProvider locale={zhCN}>
+      <BasicLayout
+        headerLeft={
+          <>
+            <SwitchSystems
+              list={fakeSystems}
+              height={400}
+              onSelect={v => {
+                console.log(v);
+              }}
+              style={{ marginRight: 50 }}
+            />
+            <TimeWeather />
+          </>
+        }
+        headerRight={
+          <>
+            <SwitchTheme />
+            <Notification
+              messages={messages}
+              prompts={prompts}
+              readMessage={item => {
+                setMessages(
+                  messages.map(v => {
+                    if (v.id !== item.id) {
+                      return v;
+                    } else {
+                      v.readed = true;
+                      return v;
+                    }
+                  }),
+                );
+              }}
+              readPrompt={item => {
+                setPrompts(
+                  prompts.map(v => {
+                    if (v.id !== item.id) {
+                      return v;
+                    } else {
+                      v.readed = true;
+                      return v;
+                    }
+                  }),
+                );
+              }}
+              clearMessages={() => {
+                setMessages([]);
+              }}
+              clearPrompts={() => {
+                setPrompts([]);
+              }}
+            ></Notification>
+            <UserMenu
+              userName={user.userName}
+              profile={user.profile}
+              logout={() => {
+                Cookies.remove('TOKEN');
+                Cookies.remove('u_inf');
+                window.location.href = XPP_FPF_URL + '/login';
+              }}
+              menu={[
+                {
+                  title: 'XXXXXXXXXX系统',
+                  url: '/',
+                },
+              ]}
+            />
+          </>
+        }
+        menuData={menu}
+      >
+        {children}
+      </BasicLayout>
+    </ConfigProvider>
   );
 };
 

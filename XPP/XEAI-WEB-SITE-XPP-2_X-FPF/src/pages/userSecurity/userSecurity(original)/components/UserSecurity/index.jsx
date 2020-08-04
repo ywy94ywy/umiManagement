@@ -2,17 +2,20 @@
  * @module 用户密保管理
  */
 import ListWrapper from '../ListWrapper';
+import Questions from './Questions';
 import Mobile from './Mobile';
 import Email from './Email';
 
-export default ({ className, style }) => {
+export default () => {
   const layout = { labelCol: { span: 9 }, wrapperCol: { span: 10 } };
-  const modalStyle = {
-    width: 700,
-    bodyStyle: { minHeight: 250, paddingTop: 48 },
-  };
+  const modalStyle = { width: 700, bodyStyle: { minHeight: 300 } };
 
   const data = [
+    {
+      title: '用户密保问题管理',
+      description: '未设置密保问题，密保问题可有效保护帐户安全', //todo 动态
+      actions: [<Questions modalStyle={modalStyle} layout={layout} />],
+    },
     {
       title: '用户密保手机管理',
       description: '已绑定手机：138****8293', //todo 动态
@@ -25,10 +28,5 @@ export default ({ className, style }) => {
     },
   ];
 
-  return (
-    <div className={className} style={style}>
-      <h2>用户密保管理</h2>
-      <ListWrapper data={data} />
-    </div>
-  );
+  return <ListWrapper data={data} />;
 };
