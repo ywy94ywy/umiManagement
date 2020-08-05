@@ -26,7 +26,15 @@ export default ({ layout }) => {
           <span>个人</span>
         </Form.Item>
         <Form.Item>
-          <User />
+          <User
+            disabled={disabled}
+            onOk={cb => {
+              console.log(123);
+              setTimeout(() => {
+                cb();
+              }, 1000);
+            }}
+          />
         </Form.Item>
         <Form.Item label="用户全名">
           <Input disabled={disabled} />

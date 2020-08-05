@@ -1,0 +1,72 @@
+@import '~lanlinker/es/style/index.less';
+
+.wrapper {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  >.user {
+    position: absolute;
+    z-index: 1;
+    height: 200px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    > .uploadBtn {
+      margin-top: 20px;
+    }
+  }
+}
+
+.uploadProfileModal {
+  img {
+    height: inherit;
+    width: inherit;
+  }
+  .profileImg {
+    width: 180px;
+    height: 180px;
+    overflow: hidden;
+    background-color: @content-background;
+  }
+  .original {
+    display: flex;
+    align-items: flex-end;
+    .downloadBtn {
+      margin-left: 24px;
+    }
+  }
+  .new {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    p {
+      text-align: center;
+      margin-top: 10px;
+    }
+    .uploadBtn {
+      position: relative;
+      top: -18px;
+      left: -26px;
+    }
+    .small() {
+      width: 130px;
+      height: 130px;
+      overflow: hidden;
+      background-color: @content-background;
+    }
+    .square {
+      .small;
+    }
+    .circle {
+      .small;
+      border-radius: 50%;
+    }
+  }
+  .footer {
+    display: flex;
+    align-items: center;
+    > * {
+      margin-right: 10px;
+    }
+  }
+}

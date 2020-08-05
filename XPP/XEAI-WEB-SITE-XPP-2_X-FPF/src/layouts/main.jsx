@@ -75,40 +75,6 @@ const Layout = ({ children, location }) => {
         headerRight={
           <>
             <SwitchTheme />
-            <Notification
-              messages={messages}
-              prompts={prompts}
-              readMessage={item => {
-                setMessages(
-                  messages.map(v => {
-                    if (v.id !== item.id) {
-                      return v;
-                    } else {
-                      v.readed = true;
-                      return v;
-                    }
-                  }),
-                );
-              }}
-              readPrompt={item => {
-                setPrompts(
-                  prompts.map(v => {
-                    if (v.id !== item.id) {
-                      return v;
-                    } else {
-                      v.readed = true;
-                      return v;
-                    }
-                  }),
-                );
-              }}
-              clearMessages={() => {
-                setMessages([]);
-              }}
-              clearPrompts={() => {
-                setPrompts([]);
-              }}
-            ></Notification>
             <UserMenu
               userName={user.userName}
               profile={user.profile}
