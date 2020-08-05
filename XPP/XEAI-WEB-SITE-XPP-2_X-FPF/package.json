@@ -27,7 +27,7 @@
   "dependencies": {
     "@umijs/preset-react": "1.x",
     "@umijs/test": "^3.2.3",
-    "antd": "^4.4.2",
+    "antd": "^4.5.2",
     "antd-img-crop": "^3.9.0",
     "js-cookie": "^2.2.1",
     "lint-staged": "^10.0.7",

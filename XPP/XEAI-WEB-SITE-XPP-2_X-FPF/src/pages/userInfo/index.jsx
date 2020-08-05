@@ -1,6 +1,5 @@
 /**
  * @page 用户信息管理
- * @todo 图片真实旋转
  */
 import { PageHeaderWrapper } from 'lanlinker';
 import { Tabs, Card } from 'antd';

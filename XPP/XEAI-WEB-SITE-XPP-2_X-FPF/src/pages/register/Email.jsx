@@ -3,26 +3,15 @@ import { useRequest } from 'umi';
 import { Form, message, Input } from 'antd';
 import { EMAIL_VALIDATOR } from '@/config/reg';
 import CountDownInput from '@/components/CountDownInput';
-import { sendEmail } from './servers';
-import { validateAccount } from '@/services';
+import { validateAccount, sendEmail } from '@/services';
 
-export default () => {
+export default formProps => {
   const [EmailDisabled, setEmailDisabled] = useState(true);
-  const canValidateEmailRef = useRef(false);
+  const emailRef = useRef();
   const validateAccountRequest = useRequest(validateAccount, {
     manual: true,
     onSuccess(res) {
-      if (res && res.userId) {
-        setMobileDisabled(true);
-        form.setFields([
-          {
-            name: ['userEmail'],
-            errors: ['账号已存在'],
-          },
-        ]);
-      } else {
-        setMobileDisabled(false);
-      }
+      res && setEmailDisabled(false);
     },
     onError(err) {
       message.error(err.message);
@@ -36,12 +25,11 @@ export default () => {
   });
 
   return (
-    <>
+    <Form {...formProps}>
       <Form.Item
-        name="userEmail"
+        name="email"
         label="邮箱帐号"
         validateFirst
-        validateTrigger="onChange"
         rules={[
           {
             required: true,
@@ -49,29 +37,25 @@ export default () => {
           },
           () => ({
             validator: async (_, value) => {
-              canValidateEmailRef.current = false;
               setEmailDisabled(true);
               if (value && value.match(EMAIL_VALIDATOR.pattern)) {
-                canValidateEmailRef.current = true;
-                return Promise.resolve();
+                const notExist = await validateAccountRequest.run({
+                  type: '1',
+                  userName: value,
+                });
+                return notExist
+                  ? Promise.resolve()
+                  : Promise.reject('该邮箱已存在');
               }
               return Promise.reject(EMAIL_VALIDATOR.message);
             },
           }),
         ]}
       >
-        <Input
-          placeholder="请输入电子邮箱"
-          tabIndex="1"
-          onChange={e => {
-            if (canValidateEmailRef.current) {
-              validateAccountRequest.run(e.target.value);
-            }
-          }}
-        />
+        <Input placeholder="请输入电子邮箱" ref={emailRef} maxLength={36} />
       </Form.Item>
       <Form.Item
-        name="userEmailCaptchaTarget"
+        name="verifyCode"
         label="邮箱验证"
         rules={[
           {
@@ -82,19 +66,17 @@ export default () => {
       >
         <CountDownInput
           placeholder="请输入邮箱验证码"
-          tabIndex="2"
           loading={sendEmailRequest.loading}
           buttonProps={{
             disabled: EmailDisabled,
             onClick: async (_, disabled) => {
-              const email = form.getFieldValue('userEmail');
-              console.log(email);
-              await sendEmailRequest.run(email);
+              const email = emailRef.current.state.value;
+              await sendEmailRequest.run({ type: '0', email });
               disabled();
             },
           }}
         />
       </Form.Item>
-    </>
+    </Form>
   );
 };

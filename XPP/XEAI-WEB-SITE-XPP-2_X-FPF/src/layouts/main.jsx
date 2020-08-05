@@ -13,6 +13,7 @@ import Cookies from 'js-cookie';
 // import { fetchUser } from './servers';
 import { XPP_FPF_URL } from '@/config/host';
 import { message, Spin, ConfigProvider } from 'antd';
+import logo from './logo.png';
 import zhCN from 'antd/es/locale/zh_CN';
 
 const Layout = ({ children, location }) => {
@@ -59,6 +60,12 @@ const Layout = ({ children, location }) => {
   return (
     <ConfigProvider locale={zhCN}>
       <BasicLayout
+        logo={() => (
+          <div style={{ margin: '0 auto' }}>
+            <img src={logo} alt="logo" />
+          </div>
+        )}
+        title=""
         headerLeft={
           <>
             <SwitchSystems

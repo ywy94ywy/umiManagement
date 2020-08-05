@@ -5,7 +5,7 @@ import { useEffect } from 'react';
 import { Input, Button, Form, message } from 'antd';
 import { UserOutlined, LockOutlined } from '@ant-design/icons';
 import { useRequest, history } from 'umi';
-import { fetchLogin } from './servers.js';
+import { fetchLogin } from './services.js';
 import Cookies from 'js-cookie';
 import logo from './logo.png';
 import qrcode from './qrcode.png';

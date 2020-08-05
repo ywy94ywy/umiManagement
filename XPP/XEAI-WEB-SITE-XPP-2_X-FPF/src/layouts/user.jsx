@@ -1,12 +1,12 @@
 import React from 'react';
 import styles from './user.less';
-import logo from './logo.png';
+import header from './header.png';
 
 export default ({ children }) => {
   return (
     <div className={styles.user}>
       <header>
-        <img src={logo} alt="logo" />
+        <img src={header} alt="logo" />
       </header>
       {children}
       <footer>

@@ -2,31 +2,31 @@
  * @page 注册
  */
 import { useState } from 'react';
-import { SafeInput, ButtonModal } from 'lanlinker';
+import { ButtonModal } from 'lanlinker';
 import { useRequest, history } from 'umi';
 import { Tabs, Input, Button, Checkbox, Form, message, Select } from 'antd';
-import { mobileRegister, emailRegister } from './servers';
+import { register } from './services';
 import Agreement from './Agreement';
 import Mobile from './Mobile';
 import Email from './Email';
 import Nickname from './Nickname';
 
 const TABS = ['手机注册', '邮箱注册'];
+const formProps = {
+  colon: false,
+  hideRequiredMark: true,
+  labelCol: { span: 4 },
+  wrapperCol: { span: 20 },
+  style: { width: 400 },
+  validateTrigger: 'onBlur',
+};
 
 export default () => {
+  const [infoForm] = Form.useForm();
+  const [mobileForm] = Form.useForm();
+  const [emailForm] = Form.useForm();
   const [tab, setTab] = useState(TABS[0]);
-  const [form] = Form.useForm();
-  const mobileRegisterRequest = useRequest(mobileRegister, {
-    manual: true,
-    onSuccess() {
-      history.push('/login');
-      message.success('注册成功！');
-    },
-    onError(err) {
-      message.error(err.message);
-    },
-  });
-  const emailRegisterRequest = useRequest(emailRegister, {
+  const registerRequest = useRequest(register, {
     manual: true,
     onSuccess() {
       history.push('/login');
@@ -38,42 +38,46 @@ export default () => {
   });
 
   const onSubmit = async () => {
-    const fields = [
-      'userNickname',
-      'userLoginPassword',
-      'userLoginPasswordConfirm',
-      'userSafePassword',
-      'userSafePasswordConfirm',
-      'agree',
-    ];
+    // 手机注册
     if (tab === TABS[0]) {
-      const res = await form.validateFields([
-        'userMobile',
-        'userMobileCaptchaTarget',
-        ...fields,
+      const [mobile, info] = await Promise.all([
+        mobileForm.validateFields(),
+        infoForm.validateFields(),
       ]);
-      mobileRegisterRequest.run(res);
+      const data = {
+        mobile: mobile.mobile,
+        verifyCode: mobile.verifyCode,
+        type: info.type,
+        fullName: info.fullName,
+        nickname: info.nickname,
+        loginPassword: info.loginPassword,
+        registerType: '0',
+      };
+
+      registerRequest.run(data);
     }
+    // 邮箱注册
     if (tab === TABS[1]) {
-      const res = await form.validateFields([
-        'userEmail',
-        'userEmailCaptchaTarget',
-        ...fields,
+      const [email, info] = await Promise.all([
+        emailForm.validateFields(),
+        infoForm.validateFields(),
       ]);
-      emailRegisterRequest.run(res);
+      const data = {
+        email: email.email,
+        verifyCode: email.verifyCode,
+        type: info.type,
+        fullName: info.fullName,
+        nickname: info.nickname,
+        loginPassword: info.loginPassword,
+        registerType: '1',
+      };
+
+      registerRequest.run(data);
     }
   };
 
   return (
-    <Form
-      form={form}
-      colon={false}
-      hideRequiredMark
-      labelCol={{ span: 4 }}
-      wrapperCol={{ span: 20 }}
-      validateTrigger="onBlur"
-      style={{ width: 400 }}
-    >
+    <>
       <Tabs
         activekey={tab}
         onChange={key => setTab(key)}
@@ -81,156 +85,127 @@ export default () => {
         tabBarStyle={{ marginLeft: 69 }}
       >
         <Tabs.TabPane tab={TABS[0]} key={TABS[0]}>
-          <Mobile />
+          <Mobile form={mobileForm} {...formProps} />
         </Tabs.TabPane>
         <Tabs.TabPane tab={TABS[1]} key={TABS[1]}>
-          <Email />
+          <Email form={emailForm} {...formProps} />
         </Tabs.TabPane>
       </Tabs>
-      <Form.Item
-        // name="userLoginPassword"
-        label="用户类型"
-        rules={[
-          {
-            required: true,
-            message: '请选择用户类型',
-          },
-        ]}
-      >
-        <Select tabIndex="4" />
-      </Form.Item>
-      <Form.Item
-        // name="userLoginPassword"
-        label="用户全名"
-        rules={[
-          {
-            required: true,
-            message: '请输入用户全名',
-          },
-        ]}
-      >
-        <Input placeholder="请输入用户全名" tabIndex="4" />
-      </Form.Item>
-      <Nickname />
-      <Form.Item
-        name="userLoginPassword"
-        label="登录密码"
-        rules={[
-          {
-            required: true,
-            message: '请输入登录密码',
-          },
-        ]}
-      >
-        <Input.Password placeholder="请输入登录密码" tabIndex="4" />
-      </Form.Item>
-      <Form.Item
-        name="userLoginPasswordConfirm"
-        label="确认密码"
-        dependencies={['userLoginPassword']}
-        rules={[
-          {
-            required: true,
-            message: '请再次输入登录密码',
-          },
-          ({ getFieldValue }) => ({
-            validator(_, value) {
-              if (!value || getFieldValue('userLoginPassword') === value) {
-                return Promise.resolve();
-              }
-              return Promise.reject('两次密码输入不一致！');
+      <Form form={infoForm} initialValues={{ type: '1' }} {...formProps}>
+        <Form.Item
+          name="type"
+          label="用户类型"
+          rules={[
+            {
+              required: true,
+              message: '请选择用户类型',
             },
-          }),
-        ]}
-      >
-        <Input.Password placeholder="请重新输入登录密码" tabIndex="5" />
-      </Form.Item>
-      {/* <Form.Item
-        name="userSafePassword"
-        label="安全密码"
-        rules={[
-          {
-            required: true,
-            message: '请输入安全密码',
-          },
-          {
-            len: 6,
-            message: '请输入六位安全密码',
-          },
-        ]}
-      >
-        <SafeInput tabIndex="6" />
-      </Form.Item>
-      <Form.Item
-        name="userSafePasswordConfirm"
-        label="确认密码"
-        dependencies={['userSafePassword']}
-        rules={[
-          {
-            required: true,
-            message: '请再次输入安全密码',
-          },
-          ({ getFieldValue }) => ({
-            validator(_, value) {
-              if (!value || getFieldValue('userSafePassword') === value) {
-                return Promise.resolve();
-              }
-              return Promise.reject('两次密码输入不一致！');
-            },
-          }),
-        ]}
-      >
-        <SafeInput tabIndex="7" />
-      </Form.Item> */}
-      <Form.Item
-        name="agree"
-        wrapperCol={{ offset: 4 }}
-        valuePropName="checked"
-        rules={[
-          () => ({
-            validator(_, value) {
-              if (value !== true) {
-                return Promise.reject('请同意《平台用户协议》');
-              }
-              return Promise.resolve();
-            },
-          }),
-        ]}
-      >
-        <Checkbox tabIndex="8">
-          <ButtonModal
-            title="平台用户协议"
-            okText="同意"
-            cancelText="不同意"
-            onOk={(_, close) => {
-              form.setFieldsValue({ agree: true });
-              close();
-            }}
-            onCancel={() => {
-              form.setFieldsValue({ agree: false });
-            }}
-            buttonProps={{
-              text: '同意《平台用户协议》',
-              type: 'link',
-              size: 'small',
-            }}
-          >
-            <Agreement />
-          </ButtonModal>
-        </Checkbox>
-      </Form.Item>
-      <Form.Item wrapperCol={{ offset: 4 }}>
-        <Button
-          type="primary"
-          block
-          onClick={() => onSubmit()}
-          loading={
-            mobileRegisterRequest.loading || emailRegisterRequest.loading
-          }
+          ]}
         >
-          注册
-        </Button>
-      </Form.Item>
-    </Form>
+          <Select>
+            <Select.Option value="1">个人</Select.Option>
+            <Select.Option value="2">企业</Select.Option>
+          </Select>
+        </Form.Item>
+        <Form.Item
+          name="fullName"
+          label="用户全名"
+          rules={[
+            {
+              required: true,
+              message: '请输入用户全名',
+            },
+          ]}
+        >
+          <Input placeholder="请输入用户全名" maxLength={32} />
+        </Form.Item>
+        <Nickname />
+        <Form.Item
+          name="loginPassword"
+          label="登录密码"
+          rules={[
+            {
+              required: true,
+              message: '请输入登录密码',
+            },
+            {
+              min: 6,
+              message: '密码至少6位',
+            },
+          ]}
+        >
+          <Input.Password placeholder="请输入登录密码" maxLength={18} />
+        </Form.Item>
+        <Form.Item
+          name="loginPasswordConfirm"
+          label="确认密码"
+          dependencies={['loginPassword']}
+          rules={[
+            {
+              required: true,
+              message: '请再次输入登录密码',
+            },
+            ({ getFieldValue }) => ({
+              validator(_, value) {
+                if (!value || getFieldValue('loginPassword') === value) {
+                  return Promise.resolve();
+                }
+                return Promise.reject('两次密码输入不一致！');
+              },
+            }),
+          ]}
+        >
+          <Input.Password placeholder="请重新输入登录密码" />
+        </Form.Item>
+
+        <Form.Item
+          name="agree"
+          wrapperCol={{ offset: 4 }}
+          valuePropName="checked"
+          rules={[
+            () => ({
+              validator(_, value) {
+                if (value !== true) {
+                  return Promise.reject('请同意《平台用户协议》');
+                }
+                return Promise.resolve();
+              },
+            }),
+          ]}
+        >
+          <Checkbox>
+            <ButtonModal
+              title="平台用户协议"
+              okText="同意"
+              cancelText="不同意"
+              onOk={(_, close) => {
+                infoForm.setFieldsValue({ agree: true });
+                close();
+              }}
+              onCancel={() => {
+                infoForm.setFieldsValue({ agree: false });
+              }}
+              buttonProps={{
+                text: '同意《平台用户协议》',
+                type: 'link',
+                size: 'small',
+              }}
+            >
+              <Agreement />
+            </ButtonModal>
+          </Checkbox>
+        </Form.Item>
+        <Form.Item wrapperCol={{ offset: 4 }}>
+          <Button
+            type="primary"
+            onClick={e => onSubmit(e)}
+            block
+            loading={registerRequest.loading}
+          >
+            注册
+          </Button>
+        </Form.Item>
+      </Form>
+    </>
   );
 };

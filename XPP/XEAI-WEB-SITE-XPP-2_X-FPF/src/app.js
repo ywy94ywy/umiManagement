@@ -2,7 +2,7 @@ import { message } from 'antd';
 import Cookies from 'js-cookie';
 import { XPP_FPF_URL, mockUrl, XPP_FPF_DEV_API } from '@/config/host';
 
-const baseUrl = mockUrl;
+const baseUrl = XPP_FPF_DEV_API;
 
 export const request = {
   // timeout: 1000,
