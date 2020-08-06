@@ -2,34 +2,39 @@
  * @module 用户密保邮箱管理
  */
 import { useState } from 'react';
-import { Modal, SafeInput } from 'lanlinker';
+import { Modal } from 'lanlinker';
 import { Form, message, Input, Button } from 'antd';
 import { useRequest } from 'umi';
 import { EMAIL_VALIDATOR } from '@/config/reg';
-import { getUserId } from '@/utils';
 import CountDownInput from '@/components/CountDownInput';
-import { updateEmail, sendEmailMessage } from '../../../services';
+import { updateEmail } from '@/pages/userSecurity/services';
+import { validateAccount, sendEmail } from '@/services';
 import styles from '../../style.less';
 
 export default ({ modalStyle, layout }) => {
-  const userId = getUserId();
   const [modal, setModal] = useState(false);
   const [sendDisabled, setSendDisabled] = useState(true);
   const [formEmail] = Form.useForm();
-  const updateEmailRequest = useRequest(updateEmail, {
+  const validateAccountRequest = useRequest(validateAccount, {
+    manual: true,
+    onError(err) {
+      message.error(err.message);
+    },
+  });
+  const sendEmailRequest = useRequest(sendEmail, {
+    manual: true,
     onSuccess() {
-      setModal(false);
-      message.success('用户密保邮箱修改成功！');
+      message.success('邮箱验证码发送成功！');
     },
     onError(err) {
       message.error(err.message);
     },
-    manual: true,
   });
-  const sendEmailMessageRequest = useRequest(sendEmailMessage, {
+  const updateEmailRequest = useRequest(updateEmail, {
     manual: true,
     onSuccess() {
-      message.success('邮箱验证码发送成功！');
+      setModal(false);
+      message.success('用户密保邮箱修改成功！');
     },
     onError(err) {
       message.error(err.message);
@@ -48,7 +53,7 @@ export default ({ modalStyle, layout }) => {
         destroyOnClose
         onOk={async () => {
           const res = await formEmail.validateFields();
-          updateEmailRequest.run({ userId, ...res });
+          updateEmailRequest.run({ type: '2', ...res });
         }}
         afterClose={() => {
           setSendDisabled(true);
@@ -60,18 +65,29 @@ export default ({ modalStyle, layout }) => {
           className={styles.form}
           {...layout}
           preserve={false}
+          validateTrigger="onBlur"
         >
           <Form.Item
-            name="userEmail"
+            name="email"
             label="新邮箱账号"
             validateFirst
             rules={[
               { required: true },
               () => ({
-                validator(_, value) {
+                validator: async (_, value) => {
                   if (value && value.match(EMAIL_VALIDATOR.pattern)) {
-                    setSendDisabled(false);
-                    return Promise.resolve();
+                    const notExist = await validateAccountRequest.run({
+                      type: '1',
+                      userName: value,
+                    });
+
+                    if (notExist) {
+                      setSendDisabled(false);
+                      return Promise.resolve();
+                    } else {
+                      setSendDisabled(true);
+                      return Promise.reject('该邮箱已存在');
+                    }
                   }
                   setSendDisabled(true);
                   return Promise.reject(EMAIL_VALIDATOR.message);
@@ -82,7 +98,7 @@ export default ({ modalStyle, layout }) => {
             <Input placeholder="请输入新邮箱账号" />
           </Form.Item>
           <Form.Item
-            name="userEmailCaptcha"
+            name="code"
             label="新邮箱验证码"
             rules={[{ required: true }]}
           >
@@ -90,8 +106,11 @@ export default ({ modalStyle, layout }) => {
               buttonProps={{
                 disabled: sendDisabled,
                 onClick: async (e, disabled) => {
-                  const mobile = formEmail.getFieldValue('userEmail');
-                  sendEmailMessageRequest.run(mobile);
+                  const email = formEmail.getFieldValue('email');
+                  await sendEmailRequest.run({
+                    type: '2',
+                    email,
+                  });
                   disabled();
                 },
               }}

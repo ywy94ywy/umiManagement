@@ -1,6 +1,6 @@
 import { message } from 'antd';
-import Cookies from 'js-cookie';
-import { XPP_FPF_URL, mockUrl, XPP_FPF_DEV_API } from '@/config/host';
+import { getToken, setErrorMessage } from '@/utils';
+import { XPP_FPF_URL, XPP_FPF_DEV_API } from '@/config/host';
 
 const baseUrl = XPP_FPF_DEV_API;
 
@@ -34,12 +34,8 @@ export const request = {
   // 请求拦截
   requestInterceptors: [
     (url, options) => {
-      const token = Cookies.get('TOKEN');
-      if (
-        url ===
-        '/aggregate/common/login/agg-user-login/create-one-by-user-typeless-account-name-and-user-login-password'
-      ) {
-      } else if (token) {
+      if (options.withToken !== false) {
+        const token = getToken();
         options.headers = {
           author_token: token,
         };
@@ -79,7 +75,7 @@ export const request = {
 
         // token不存在或者过期
         if (resultStatusId === 401 || resultStatusId === 403) {
-          // Cookies.set('timeout', true);
+          setErrorMessage(resultStatusContent);
           window.location =
             XPP_FPF_URL +
             '/login?redirect=' +

@@ -4,6 +4,11 @@ import { useRequest } from 'umi';
 import CountDownInput from '@/components/CountDownInput';
 import { Prev, Next } from './buttons';
 import {
+  MOBILE_VALIDATOR,
+  EMAIL_VALIDATOR,
+  EMAIL_LENGTH_VALIDATOR,
+} from '@/config/reg';
+import {
   sendMobile,
   sendEmail,
   validateMobile,
@@ -47,7 +52,17 @@ export default ({ formProps, setCurrent, account }) => {
       {account.type === 'mobile' && (
         <>
           <Form.Item name="mobile" label="手机帐号">
-            <Input placeholder="请输入手机号" maxLength={11} disabled />
+            <Input
+              placeholder="请输入手机号"
+              rules={[
+                {
+                  required: true,
+                  message: '请输入手机号',
+                },
+                MOBILE_VALIDATOR,
+              ]}
+              disabled
+            />
           </Form.Item>
           <Form.Item name="code" label="短信验证">
             <CountDownInput
@@ -68,7 +83,18 @@ export default ({ formProps, setCurrent, account }) => {
       {account.type === 'email' && (
         <>
           <Form.Item name="email" label="邮箱帐号">
-            <Input placeholder="请输入电子邮箱" maxLength={32} disabled />
+            <Input
+              placeholder="请输入电子邮箱"
+              rules={[
+                {
+                  required: true,
+                  message: '请输入电子邮箱',
+                },
+                EMAIL_VALIDATOR,
+                EMAIL_LENGTH_VALIDATOR,
+              ]}
+              disabled
+            />
           </Form.Item>
           <Form.Item name="code" label="邮箱验证">
             <CountDownInput

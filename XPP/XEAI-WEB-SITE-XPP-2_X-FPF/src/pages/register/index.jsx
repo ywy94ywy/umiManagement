@@ -5,6 +5,7 @@ import { useState } from 'react';
 import { ButtonModal } from 'lanlinker';
 import { useRequest, history } from 'umi';
 import { Tabs, Input, Button, Checkbox, Form, message, Select } from 'antd';
+import { PASSWORD_VALIDATOR, USER_FULLNAME_VALIDATOR } from '@/config/reg';
 import { register } from './services';
 import Agreement from './Agreement';
 import Mobile from './Mobile';
@@ -115,9 +116,10 @@ export default () => {
               required: true,
               message: '请输入用户全名',
             },
+            USER_FULLNAME_VALIDATOR,
           ]}
         >
-          <Input placeholder="请输入用户全名" maxLength={32} />
+          <Input placeholder="请输入用户全名" />
         </Form.Item>
         <Nickname />
         <Form.Item
@@ -128,13 +130,10 @@ export default () => {
               required: true,
               message: '请输入登录密码',
             },
-            {
-              min: 6,
-              message: '密码至少6位',
-            },
+            PASSWORD_VALIDATOR,
           ]}
         >
-          <Input.Password placeholder="请输入登录密码" maxLength={18} />
+          <Input.Password placeholder="请输入登录密码" />
         </Form.Item>
         <Form.Item
           name="loginPasswordConfirm"

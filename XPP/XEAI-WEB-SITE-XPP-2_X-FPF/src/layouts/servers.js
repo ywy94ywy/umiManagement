@@ -1,6 +1,10 @@
-export const fetchUser = () => {
+export const fetchMenus = () => {
   return {
-    url: `/user`,
-    method: 'post',
+    url: `/roleModule/findAuthorityModuleList`,
+    method: 'get',
+    params: {
+      frontEndType: '1001',
+      position: 0,
+    },
   };
 };

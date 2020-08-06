@@ -3,6 +3,7 @@ export const validateAccount = ({ type, userName }) => {
   return {
     url: '/user/verifyRepeat',
     method: 'get',
+    withToken: false,
     params: {
       type,
       userName,
@@ -14,6 +15,7 @@ export const validateAccount = ({ type, userName }) => {
 export const sendMobile = ({ type, mobile }) => ({
   url: '/verifyCode/sendSmsVerify',
   method: 'post',
+  withToken: false,
   data: {
     type,
     mobile,
@@ -24,6 +26,7 @@ export const sendMobile = ({ type, mobile }) => ({
 export const sendEmail = ({ type, email }) => ({
   url: '/verifyCode/sendEmailVerify',
   method: 'post',
+  withToken: false,
   data: {
     type,
     email,
@@ -34,6 +37,7 @@ export const sendEmail = ({ type, email }) => ({
 export const validateMobile = ({ code, type, mobile }) => ({
   url: '/verifyCode/verifySmsCode',
   method: 'post',
+  withToken: false,
   data: {
     code,
     mobile,
@@ -45,9 +49,15 @@ export const validateMobile = ({ code, type, mobile }) => ({
 export const validateEmail = ({ code, type, email }) => ({
   url: '/verifyCode/verifyEmailCode',
   method: 'post',
+  withToken: false,
   data: {
     code,
     type,
     email,
   },
+});
+
+export const fetchUserInfo = () => ({
+  url: '/user/findLoginUser',
+  method: 'get',
 });

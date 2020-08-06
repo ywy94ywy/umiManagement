@@ -24,10 +24,13 @@ export default () => {
         () => ({
           validator: async (_, value) => {
             if (value && value.match(NICK_VALIDATOR.pattern)) {
-              const notExist = await validateAccountRequest.run({
-                type: '2',
-                userName: value,
-              });
+              const notExist = await validateAccountRequest.run(
+                {
+                  type: '2',
+                  userName: value,
+                },
+                false,
+              );
 
               return notExist
                 ? Promise.resolve()

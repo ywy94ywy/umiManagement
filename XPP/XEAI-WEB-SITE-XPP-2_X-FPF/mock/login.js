@@ -34,7 +34,7 @@ export default {
           },
           menu: [
             {
-              path: '/homeManagement',
+              // path: '/homeManagement',
               name: '主页管理',
               icon: '&#xe792;',
               // key: 'homeManagement',

@@ -1,6 +1,7 @@
 import { Form, Row, Input } from 'antd';
 import { Prev, Next } from './buttons';
 import { useRequest } from 'umi';
+import { PASSWORD_VALIDATOR } from '@/config/reg';
 import { resetPassword } from '../services';
 
 export default ({ formProps, setCurrent, account }) => {
@@ -19,13 +20,10 @@ export default ({ formProps, setCurrent, account }) => {
             required: true,
             message: '请输入登录密码',
           },
-          {
-            min: 6,
-            message: '密码至少6位',
-          },
+          PASSWORD_VALIDATOR,
         ]}
       >
-        <Input.Password placeholder="请输入登录密码" maxLength={18} />
+        <Input.Password placeholder="请输入登录密码" />
       </Form.Item>
       <Form.Item
         name="newPasswordConfirm"

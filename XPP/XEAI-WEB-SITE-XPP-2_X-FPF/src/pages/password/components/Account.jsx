@@ -1,6 +1,10 @@
 import { Form, Input, Row } from 'antd';
 import { useRequest } from 'umi';
-import { MOBILE_VALIDATOR, EMAIL_VALIDATOR } from '@/config/reg';
+import {
+  MOBILE_VALIDATOR,
+  EMAIL_VALIDATOR,
+  EMAIL_LENGTH_VALIDATOR,
+} from '@/config/reg';
 import { Next } from './buttons';
 import { validateAccount } from '@/services';
 
@@ -60,7 +64,10 @@ export default ({ formProps, setCurrent, setAccount }) => {
           }),
         ]}
       >
-        <Input placeholder="请输入手机帐号/邮箱帐号" />
+        <Input
+          placeholder="请输入手机帐号/邮箱帐号"
+          maxLength={EMAIL_LENGTH_VALIDATOR.max}
+        />
       </Form.Item>
       <Row justify="end">
         <Next

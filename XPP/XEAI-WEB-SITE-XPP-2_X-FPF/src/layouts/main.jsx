@@ -1,28 +1,22 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import {
   BasicLayout,
   SwitchSystems,
   TimeWeather,
   SwitchTheme,
-  Notification,
   UserMenu,
 } from 'lanlinker';
 
 import Cookies from 'js-cookie';
-// import { useRequest } from 'umi';
-// import { fetchUser } from './servers';
-import { XPP_FPF_URL } from '@/config/host';
+import { useRequest } from 'umi';
+import { removeTokenAndUser, getToken, gotoLogin } from '@/utils';
 import { message, Spin, ConfigProvider } from 'antd';
+import { fetchMenus } from './servers';
 import logo from './logo.png';
 import zhCN from 'antd/es/locale/zh_CN';
 
 const Layout = ({ children, location }) => {
-  const [messages, setMessages] = useState(fakeMessages);
-  const [prompts, setPrompts] = useState(fakePrompts);
-  // const { data = {}, error, loading } = useRequest(fetchUser);
-  const { user = {}, menu = [], systems = [] } = {};
-
-  const token = Cookies.get('TOKEN');
+  const fetchMenusRequest = useRequest(fetchMenus);
 
   useEffect(() => {
     window.screenTop = 0;
@@ -49,13 +43,13 @@ const Layout = ({ children, location }) => {
   //   }
   // }, []);
 
-  // if (loading) {
-  //   return (
-  //     <div style={{ textAlign: 'center', paddingTop: 200 }}>
-  //       <Spin size="large" />
-  //     </div>
-  //   );
-  // }
+  if (fetchMenusRequest.loading) {
+    return (
+      <div style={{ textAlign: 'center', paddingTop: 200 }}>
+        <Spin size="large" />
+      </div>
+    );
+  }
 
   return (
     <ConfigProvider locale={zhCN}>
@@ -83,12 +77,11 @@ const Layout = ({ children, location }) => {
           <>
             <SwitchTheme />
             <UserMenu
-              userName={user.userName}
-              profile={user.profile}
+              // userName={user.userName}
+              // profile={user.profile}
               logout={() => {
-                Cookies.remove('TOKEN');
-                Cookies.remove('u_inf');
-                window.location.href = XPP_FPF_URL + '/login';
+                removeTokenAndUser();
+                gotoLogin();
               }}
               menu={[
                 {
@@ -99,7 +92,7 @@ const Layout = ({ children, location }) => {
             />
           </>
         }
-        menuData={menu}
+        menuData={fetchMenusRequest.data}
       >
         {children}
       </BasicLayout>
@@ -108,15 +101,6 @@ const Layout = ({ children, location }) => {
 };
 
 export default Layout;
-
-const companys = [
-  {
-    value: '南通二建集团有限公司',
-  },
-  {
-    value: 'XXXXXX有限公司',
-  },
-];
 
 const fakeSystems = [
   {
@@ -166,93 +150,5 @@ const fakeSystems = [
     background:
       'linear-gradient(180deg,rgba(180,255,250,1) 0%,rgba(111,216,209,1) 100%)',
     title: '项目进度管理系统',
-  },
-];
-
-const fakeMessages = [
-  {
-    id: 1,
-    avatar:
-      'https://gw.alipayobjects.com/zos/antfincdn/XAosXuNZyF/BiazfanxmamNRoxxVxka.png',
-    title: '您提交的评价已通过审核',
-    name: '赵某人',
-    event: '多次违反工地规定，并拒不悔改…',
-    time: '5 分钟前',
-    readed: false,
-  },
-  {
-    id: 2,
-    avatar:
-      'https://gw.alipayobjects.com/zos/antfincdn/XAosXuNZyF/BiazfanxmamNRoxxVxka.png',
-    title: '您提交的评价已通过审核',
-    name: '赵某人',
-    event: '多次违反工地规定，并拒不悔改…',
-    time: '5 分钟前',
-    readed: false,
-  },
-  {
-    id: 3,
-    avatar:
-      'https://gw.alipayobjects.com/zos/antfincdn/XAosXuNZyF/BiazfanxmamNRoxxVxka.png',
-    title: '您提交的评价已通过审核',
-    name: '赵某人',
-    event: '多次违反工地规定，并拒不悔改…',
-    time: '5 分钟前',
-    readed: true,
-  },
-  {
-    id: 4,
-    avatar:
-      'https://gw.alipayobjects.com/zos/antfincdn/XAosXuNZyF/BiazfanxmamNRoxxVxka.png',
-    title: '您提交的评价已通过审核',
-    name: '赵某人',
-    event:
-      '多次违反工地规定，拒不悔改拒不悔改拒不悔改拒不悔改拒不悔改拒不悔改拒不悔改拒不悔改拒不悔改拒不悔改拒不悔改拒不悔改拒不悔改',
-    time: '5 分钟前',
-    readed: true,
-  },
-];
-const fakePrompts = [
-  {
-    id: 1,
-    description: '张然  的合同已经到期，请及时处理',
-    time: '10分钟前',
-    readed: false,
-  },
-  {
-    id: 2,
-    description: '张然  的合同已经到期，请及时处理',
-    time: '10分钟前',
-    readed: false,
-  },
-  {
-    id: 3,
-    description: '张然  的合同已经到期，请及时处理',
-    time: '10分钟前',
-    readed: false,
-  },
-  {
-    id: 4,
-    description: '张然  的合同已经到期，请及时处理',
-    time: '10分钟前',
-    readed: false,
-  },
-  {
-    id: 5,
-    description: '张然  的合同已经到期，请及时处理',
-    time: '10分钟前',
-    readed: false,
-  },
-  {
-    id: 6,
-    description: '张然  的合同已经到期，请及时处理',
-    time: '10分钟前',
-    readed: true,
-  },
-  {
-    id: 7,
-    description: '张然  的合同已经到期，请及时处理',
-    time: '10分钟前',
-    readed: true,
   },
 ];

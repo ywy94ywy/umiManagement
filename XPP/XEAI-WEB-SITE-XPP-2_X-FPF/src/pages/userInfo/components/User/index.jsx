@@ -33,7 +33,7 @@ export default forwardRef(
                 const callback = () =>
                   blobToDataURL(file, b => {
                     setProfileBase64(b);
-                    onChange(b);
+                    onChange && onChange(b);
                   });
                 if (onOk) {
                   onOk(callback);

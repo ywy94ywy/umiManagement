@@ -1,26 +1,31 @@
-// 获取用户基本信息
-export const fetchUserInfo = userId => {
-  return {
-    url: `/foundation/user/catalog/user-self-base-catalog/retrieve-one-by-user-id`,
-    method: 'post',
-    params: { userId },
-  };
-};
-
-// 获取用户综合信息
-export const fetchGeneralInfo = userId => {
-  return {
-    url: `/foundation/user-self-extend-synthesis-catalog/retrieve-one-by-user-id`,
-    method: 'post',
-    params: { userId },
-  };
-};
-
 // 获取个人扩展信息
-export const fetchExpanedInfo = personalUserId => {
+export const fetchPersonExpanded = () => {
   return {
-    url: `/foundation/user/catalog/user-self-extend-personal-catalog/retrieve-one-by-personal-user-id`,
+    url: `/userPersonal/findLoginUserPersonal`,
+    method: 'get',
+  };
+};
+
+// 修改个人注册信息
+export const updatePersonRegister = ({ fullName, id, nickname, avatar }) => {
+  return {
+    url: `/user/updateLoginUser`,
     method: 'post',
-    params: { personalUserId },
+    data: { fullName, id, nickname, avatar },
+  };
+};
+
+// 修改个人扩展信息
+export const updatePersonExpanded = ({
+  profession,
+  workUnitName,
+  workEmail,
+  sex,
+  workMobile,
+}) => {
+  return {
+    url: `/userPersonal/saveLoginUserPersonal`,
+    method: 'post',
+    data: { profession, workUnitName, workEmail, sex, workMobile },
   };
 };

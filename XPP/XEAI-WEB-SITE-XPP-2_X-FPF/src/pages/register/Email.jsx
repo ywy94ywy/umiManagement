@@ -1,7 +1,7 @@
 import { useState, useRef } from 'react';
 import { useRequest } from 'umi';
 import { Form, message, Input } from 'antd';
-import { EMAIL_VALIDATOR } from '@/config/reg';
+import { EMAIL_VALIDATOR, EMAIL_LENGTH_VALIDATOR } from '@/config/reg';
 import CountDownInput from '@/components/CountDownInput';
 import { validateAccount, sendEmail } from '@/services';
 
@@ -35,14 +35,17 @@ export default formProps => {
             required: true,
             message: '请输入电子邮箱',
           },
+          EMAIL_LENGTH_VALIDATOR,
           () => ({
             validator: async (_, value) => {
               setEmailDisabled(true);
               if (value && value.match(EMAIL_VALIDATOR.pattern)) {
-                const notExist = await validateAccountRequest.run({
-                  type: '1',
-                  userName: value,
-                });
+                const notExist = await validateAccountRequest.run(
+                  {
+                    type: '1',
+                    userName: value,
+                  },
+                );
                 return notExist
                   ? Promise.resolve()
                   : Promise.reject('该邮箱已存在');

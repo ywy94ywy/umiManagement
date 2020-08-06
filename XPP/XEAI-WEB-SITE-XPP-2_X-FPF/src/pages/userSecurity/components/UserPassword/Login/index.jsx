@@ -5,11 +5,10 @@ import { useState } from 'react';
 import { Modal } from 'lanlinker';
 import { Button, Form, Input, message } from 'antd';
 import { useRequest } from 'umi';
-import { getUserId } from '@/utils';
+import { PASSWORD_VALIDATOR } from '@/config/reg';
 import { updateLoginPassword } from '@/pages/userSecurity/services';
 
 export default ({ modalStyle, layout }) => {
-  const userId = getUserId();
   const [modal, setModal] = useState(false);
   const [form] = Form.useForm();
   const updateLoginPasswordRequest = useRequest(updateLoginPassword, {
@@ -33,12 +32,12 @@ export default ({ modalStyle, layout }) => {
         visible={modal}
         onOk={async () => {
           const res = await form.validateFields();
-          const params = {
-            userId,
-            sourceUserLoginPassword: res.sourceUserLoginPassword,
-            targetUserLoginPassword: res.targetUserLoginPassword,
+
+          const data = {
+            oldPassword: res.oldPassword,
+            newPassword: res.newPassword,
           };
-          updateLoginPasswordRequest.run(params);
+          updateLoginPasswordRequest.run(data);
         }}
         destroyOnClose
         onCancel={() => setModal(false)}
@@ -47,30 +46,27 @@ export default ({ modalStyle, layout }) => {
         <Form form={form} {...layout} validateTrigger="onBlur" preserve={false}>
           <Form.Item
             label="原登录密码"
-            name="sourceUserLoginPassword"
-            rules={[{ required: true }]}
+            name="oldPassword"
+            rules={[{ required: true }, PASSWORD_VALIDATOR]}
           >
-            <Input placeholder="请输入原登录密码" />
+            <Input.Password placeholder="请输入原登录密码" />
           </Form.Item>
           <Form.Item
             label="新登录密码"
-            name="targetUserLoginPassword"
-            rules={[{ required: true }]}
+            name="newPassword"
+            rules={[{ required: true }, PASSWORD_VALIDATOR]}
           >
-            <Input placeholder="请输入新登录密码" />
+            <Input.Password placeholder="请输入新登录密码" />
           </Form.Item>
           <Form.Item
             label="新登录密码确认"
-            dependencies={['targetUserLoginPassword']}
-            name="targetUserLoginPasswordConfirm"
+            dependencies={['newPassword']}
+            name="newPasswordConfirm"
             rules={[
-              { required: true },
+              { required: true, message: '请重新输入新登录密码' },
               ({ getFieldValue }) => ({
                 validator(_, value) {
-                  if (
-                    !value ||
-                    getFieldValue('targetUserLoginPassword') === value
-                  ) {
+                  if (!value || getFieldValue('newPassword') === value) {
                     return Promise.resolve();
                   }
                   return Promise.reject('两次输入的密码不一致！');
@@ -78,7 +74,7 @@ export default ({ modalStyle, layout }) => {
               }),
             ]}
           >
-            <Input placeholder="请重新输入新登录密码" />
+            <Input.Password placeholder="请重新输入新登录密码" />
           </Form.Item>
         </Form>
       </Modal>

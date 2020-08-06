@@ -6,30 +6,35 @@ import { Modal } from 'lanlinker';
 import { Form, message, Input, Button } from 'antd';
 import { useRequest } from 'umi';
 import { MOBILE_VALIDATOR } from '@/config/reg';
-import { getUserId } from '@/utils';
 import CountDownInput from '@/components/CountDownInput';
-import { updateMobile, sendMobileMessage } from '../../../services';
+import { updateMobile } from '@/pages/userSecurity/services';
+import { validateAccount, sendMobile } from '@/services';
 import styles from '../../style.less';
 
 export default ({ modalStyle, layout }) => {
-  const userId = getUserId();
   const [modal, setModal] = useState(false);
   const [sendDisabled, setSendDisabled] = useState(true);
   const [formPhone] = Form.useForm();
-  const updateMobileRequest = useRequest(updateMobile, {
+  const validateAccountRequest = useRequest(validateAccount, {
+    manual: true,
+    onError(err) {
+      message.error(err.message);
+    },
+  });
+  const sendMobileRequest = useRequest(sendMobile, {
+    manual: true,
     onSuccess() {
-      setModal(false);
-      message.success('用户密保手机修改成功！');
+      message.success('手机验证码发送成功！');
     },
     onError(err) {
       message.error(err.message);
     },
-    manual: true,
   });
-  const sendMobileMessageRequest = useRequest(sendMobileMessage, {
+  const updateMobileRequest = useRequest(updateMobile, {
     manual: true,
     onSuccess() {
-      message.success('手机验证码发送成功！');
+      setModal(false);
+      message.success('用户密保手机修改成功！');
     },
     onError(err) {
       message.error(err.message);
@@ -48,7 +53,7 @@ export default ({ modalStyle, layout }) => {
         destroyOnClose
         onOk={async () => {
           const res = await formPhone.validateFields();
-          updateMobileRequest.run({ userId, ...res });
+          updateMobileRequest.run({ type: '2', ...res });
         }}
         afterClose={() => {
           setSendDisabled(true);
@@ -59,19 +64,28 @@ export default ({ modalStyle, layout }) => {
           form={formPhone}
           className={styles.form}
           {...layout}
-          preserve={false}
+          validateTrigger="onBlur"
         >
           <Form.Item
-            name="userMobile"
+            name="mobile"
             label="新手机账号"
             validateFirst
             rules={[
               { required: true },
               () => ({
-                validator(_, value) {
+                validator: async (_, value) => {
                   if (value && value.match(MOBILE_VALIDATOR.pattern)) {
-                    setSendDisabled(false);
-                    return Promise.resolve();
+                    const notExist = await validateAccountRequest.run({
+                      type: '0',
+                      userName: value,
+                    });
+                    if (notExist) {
+                      setSendDisabled(false);
+                      return Promise.resolve();
+                    } else {
+                      setSendDisabled(true);
+                      return Promise.reject('该手机号码已存在');
+                    }
                   }
                   setSendDisabled(true);
                   return Promise.reject(MOBILE_VALIDATOR.message);
@@ -82,7 +96,7 @@ export default ({ modalStyle, layout }) => {
             <Input placeholder="请输入新手机账号" />
           </Form.Item>
           <Form.Item
-            name="userMobileCaptcha"
+            name="code"
             label="新手机验证码"
             rules={[{ required: true }]}
           >
@@ -90,8 +104,12 @@ export default ({ modalStyle, layout }) => {
               buttonProps={{
                 disabled: sendDisabled,
                 onClick: async (e, disabled) => {
-                  const mobile = formPhone.getFieldValue('userMobile');
-                  sendMobileMessageRequest.run(mobile);
+                  const mobile = formPhone.getFieldValue('mobile');
+
+                  await sendMobileRequest.run({
+                    type: '2',
+                    mobile,
+                  });
                   disabled();
                 },
               }}

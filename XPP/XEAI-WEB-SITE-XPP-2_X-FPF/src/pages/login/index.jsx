@@ -6,7 +6,8 @@ import { Input, Button, Form, message } from 'antd';
 import { UserOutlined, LockOutlined } from '@ant-design/icons';
 import { useRequest, history } from 'umi';
 import { fetchLogin } from './services.js';
-import Cookies from 'js-cookie';
+import { saveTokenAndUser, getErrorMessage, removeErrorMessage } from '@/utils';
+import { PASSWORD_VALIDATOR } from '@/config/reg';
 import logo from './logo.png';
 import qrcode from './qrcode.png';
 import styles from './style.less';
@@ -15,12 +16,11 @@ export default () => {
   const [form] = Form.useForm();
   const { loading, run } = useRequest(fetchLogin, {
     manual: true,
-    onSuccess(res, params) {
-      // 存储token和用户信息（跨子项目使用）
-      Cookies.set('TOKEN', res.token);
-      Cookies.set('u_inf', JSON.stringify(res?.loginUser));
+    onSuccess(res) {
+      // // 存储token和用户信息（跨子项目使用）
+      saveTokenAndUser(res.token, JSON.stringify(res?.loginUser));
 
-      // 重定向或直接跳转
+      // // 重定向或直接跳转
       const redirect = window.location.href.match(/\?redirect=(\S*)/);
       if (redirect) {
         window.location.href = decodeURIComponent(redirect[1]);
@@ -33,15 +33,13 @@ export default () => {
     },
   });
 
-  // useEffect(() => {
-  //   const timeout = Cookies.get('timeout');
-
-  //   if (timeout) {
-  //     Cookies.remove('token');
-  //     Cookies.remove('timeout');
-  //     message.error('登录已超时！');
-  //   }
-  // }, []);
+  useEffect(() => {
+    const err = getErrorMessage();
+    if (err) {
+      message.error(err);
+      removeErrorMessage();
+    }
+  }, []);
 
   // 提交表单
   const onFinish = value => {
@@ -54,9 +52,14 @@ export default () => {
         <header>
           <img src={logo} alt="logo" />
         </header>
-        <Form form={form} onFinish={onFinish} className={styles.log}>
+        <Form
+          form={form}
+          onFinish={onFinish}
+          className={styles.log}
+          validateTrigger="onBlur"
+        >
           <Form.Item
-            name="userTypelessAccountName"
+            name="userName"
             className={styles.item}
             rules={[
               {
@@ -68,13 +71,14 @@ export default () => {
             <Input prefix={<UserOutlined />} placeholder="请输入用户名" />
           </Form.Item>
           <Form.Item
-            name="userLoginPassword"
+            name="password"
             className={styles.item}
             rules={[
               {
                 required: true,
                 message: '请输入密码',
               },
+              PASSWORD_VALIDATOR,
             ]}
           >
             <Input.Password
