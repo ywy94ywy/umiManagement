@@ -1,0 +1,27 @@
+// todo 样式管理
+@import '../BankCard/style.less';
+
+.layout {
+  display: flex;
+  flex-wrap: wrap;
+  > * {
+    margin-right: 30px;
+    margin-bottom: 20px;
+  }
+  > .empty {
+    .card;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 25px;
+    color: #ccc;
+    cursor: pointer;
+    transition: all 0.2s;
+    &:hover {
+      border: 1px solid #9f9f9f;
+      color: #9f9f9f;
+    }
+  }
+}

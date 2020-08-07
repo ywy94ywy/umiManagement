@@ -1,0 +1,27 @@
+@import '~lanlinker/es/style/index.less';
+
+.title {
+  text-align: center;
+  margin-bottom: 30px;
+  .h2;
+  > span {
+    .text-lg;
+    display: inline-block;
+    text-align: left;
+  }
+  .withLine {
+    position: relative;
+    margin-bottom: 17px;
+    &::after {
+      content: '';
+      position: absolute;
+      bottom: -10px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 36px;
+      height: 4px;
+      background: @primary-5;
+      border-radius: 2px;
+    }
+  }
+}

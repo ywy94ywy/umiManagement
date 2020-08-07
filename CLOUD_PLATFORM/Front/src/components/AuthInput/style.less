@@ -1,0 +1,24 @@
+@import '~lanlinker/es/style/index.less';
+
+.authInput {
+  &.active {
+    :global(.ant-input-group-addon) {
+      padding: 0;
+      background-color: @primary-color;
+      color: white;
+      > div {
+        padding: 0 15px;
+      }
+    }
+  }
+  &.inactive {
+    :global(.ant-input-group-addon) {
+      padding: 0;
+      background-color: #afafaf;
+      color: white;
+      > div {
+        padding: 0 15px;
+      }
+    }
+  }
+}

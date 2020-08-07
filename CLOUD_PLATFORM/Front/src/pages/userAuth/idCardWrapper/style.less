@@ -1,0 +1,59 @@
+.cardWrapper {
+  display: flex;
+  justify-content: space-around;
+  .card() {
+    width: 510px;
+    height: 330px;
+    background-size: 510px 330px;
+    padding: 25px 30px;
+    position: relative;
+    > .profile {
+      position: absolute;
+      width: 130px;
+      height: 130px;
+      border-radius: 50%;
+      top: 35px;
+      right: 20px;
+      overflow: hidden;
+      background: #ddd;
+      img {
+        width: inherit;
+        height: inherit;
+      }
+    }
+  }
+  :global {
+    .ant-form-item-control {
+      opacity: 0.8;
+    }
+  }
+  &.idCard {
+    > .front {
+      .card;
+      background-image: url('./imgs/idCardFront.png');
+    }
+    > .back {
+      .card;
+      background-image: url('./imgs/idCardBack.png');
+      padding-top: 210px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+  }
+  &.idCardTemp {
+    :global {
+      .ant-form-item {
+        margin-bottom: 10px;
+      }
+    }
+    > .front {
+      .card;
+      background-image: url('./imgs/idCardTempFront.png');
+    }
+    > .back {
+      .card;
+      background-image: url('./imgs/idCardTempBack.png');
+    }
+  }
+}

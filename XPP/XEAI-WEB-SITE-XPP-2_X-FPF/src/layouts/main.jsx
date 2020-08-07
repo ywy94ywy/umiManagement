@@ -1,104 +1,102 @@
 import { useState, useEffect } from 'react';
-import {
-  BasicLayout,
-  SwitchSystems,
-  TimeWeather,
-  SwitchTheme,
-  UserMenu,
-} from 'lanlinker';
+// import {
+//   BasicLayout,
+//   SwitchSystems,
+//   TimeWeather,
+//   SwitchTheme,
+//   UserMenu,
+// } from 'lanlinker';
+// import { useRequest } from 'umi';
+// import {
+//   removeTokenAndUser,
+//   getToken,
+//   getBreifUserInfo,
+//   gotoLogin,
+// } from '@/utils';
+import { message, Spin, ConfigProvider, Space, Input, Form } from 'antd';
+// import { fetchMenus } from './servers';
+// import avatar from '@/assets/img/protrait.svg';
+// import logo from './logo.png';
+// import zhCN from 'antd/es/locale/zh_CN';
+// import { useForm } from 'antd/lib/form/Form';
 
-import Cookies from 'js-cookie';
-import { useRequest } from 'umi';
-import { removeTokenAndUser, getToken, gotoLogin } from '@/utils';
-import { message, Spin, ConfigProvider } from 'antd';
-import { fetchMenus } from './servers';
-import logo from './logo.png';
-import zhCN from 'antd/es/locale/zh_CN';
+// const Layout = ({ children, location }) => {
+//   const fetchMenusRequest = useRequest(fetchMenus);
+//   const breifUserInfo = getBreifUserInfo();
 
-const Layout = ({ children, location }) => {
-  const fetchMenusRequest = useRequest(fetchMenus);
+//   useEffect(() => {
+//     window.screenTop = 0;
+//   }, [location]);
 
-  useEffect(() => {
-    window.screenTop = 0;
-  }, [location]);
+//   // if (!token) {
+//   //   window.location.href =
+//   //     XPP_FPF_URL +
+//   //     '/login?redirect=' +
+//   //     encodeURIComponent(window.location.href);
 
-  // if (!token) {
-  //   window.location.href =
-  //     XPP_FPF_URL +
-  //     '/login?redirect=' +
-  //     encodeURIComponent(window.location.href);
+//   //   return (
+//   //     <div style={{ textAlign: 'center', paddingTop: 200 }}>
+//   //       <Spin size="large" />
+//   //     </div>
+//   //   );
+//   // }
 
-  //   return (
-  //     <div style={{ textAlign: 'center', paddingTop: 200 }}>
-  //       <Spin size="large" />
-  //     </div>
-  //   );
-  // }
+//   if (fetchMenusRequest.loading) {
+//     return (
+//       <div style={{ textAlign: 'center', paddingTop: 200 }}>
+//         <Spin size="large" />
+//       </div>
+//     );
+//   }
 
-  // useEffect(() => {
-  //   const isLog = Cookies.get('isLog');
-  //   if (isLog) {
-  //     Cookies.remove('isLog');
-  //     message.success('登录成功！');
-  //   }
-  // }, []);
-
-  if (fetchMenusRequest.loading) {
-    return (
-      <div style={{ textAlign: 'center', paddingTop: 200 }}>
-        <Spin size="large" />
-      </div>
-    );
-  }
-
-  return (
-    <ConfigProvider locale={zhCN}>
-      <BasicLayout
-        logo={() => (
-          <div style={{ margin: '0 auto' }}>
-            <img src={logo} alt="logo" />
-          </div>
-        )}
-        title=""
-        headerLeft={
-          <>
-            <SwitchSystems
-              list={fakeSystems}
-              height={400}
-              onSelect={v => {
-                console.log(v);
-              }}
-              style={{ marginRight: 50 }}
-            />
-            <TimeWeather />
-          </>
-        }
-        headerRight={
-          <>
-            <SwitchTheme />
-            <UserMenu
-              // userName={user.userName}
-              // profile={user.profile}
-              logout={() => {
-                removeTokenAndUser();
-                gotoLogin();
-              }}
-              menu={[
-                {
-                  title: 'XXXXXXXXXX系统',
-                  url: '/',
-                },
-              ]}
-            />
-          </>
-        }
-        menuData={fetchMenusRequest.data}
-      >
-        {children}
-      </BasicLayout>
-    </ConfigProvider>
-  );
-};
+//   return (
+//     <ConfigProvider locale={zhCN}>
+//       <BasicLayout
+//         logo={() => (
+//           <div style={{ margin: '0 auto' }}>
+//             <img src={logo} alt="logo" />
+//           </div>
+//         )}
+//         title=""
+//         headerLeft={
+//           <>
+//             <SwitchSystems
+//               list={fakeSystems}
+//               height={400}
+//               onSelect={v => {
+//                 console.log(v);
+//               }}
+//               style={{ marginRight: 50 }}
+//             />
+//             <TimeWeather />
+//           </>
+//         }
+//         headerRight={
+//           <>
+//             <SwitchTheme />
+//             <UserMenu
+//               userName={breifUserInfo.userNickname}
+//               profile={breifUserInfo.avatar || avatar}
+//               logout={() => {
+//                 removeTokenAndUser();
+//                 gotoLogin();
+//               }}
+//               // menu={[
+//               //   {
+//               //     title: 'XXXXXXXXXX系统',
+//               //     url: '/',
+//               //   },
+//               // ]}
+//             />
+//           </>
+//         }
+//         menuData={fetchMenusRequest.data}
+//       >
+//         {children}
+//       </BasicLayout>
+//     </ConfigProvider>
+//   );
+// };
 
 export default Layout;
 

@@ -1,31 +1,64 @@
 /**
  * @module 注册信息（企业）
  */
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Form, BindInput } from 'lanlinker';
-import { Input } from 'antd';
+import { Input, message } from 'antd';
+import { useModel, useRequest } from 'umi';
+import { NICK_VALIDATOR, USER_FULLNAME_VALIDATOR } from '@/config/reg';
 import EditForm from '../../components/EditForm';
 import User from '../../components/User';
+import { updateCompanyRegister } from '../../services';
 
 export default ({ layout }) => {
-  const [form] = Form.useForm();
+  const [registerForm] = Form.useForm();
   const [disabled, setDisabled] = useState(true);
+  const { userInfo, fetchUserRequest } = useModel('userInfo');
+  const updateCompanyRegisterRequest = useRequest(updateCompanyRegister, {
+    manual: true,
+    onSuccess() {
+      message.success('用户信息保存成功！');
+      setDisabled(true);
+    },
+    onError(err) {
+      message.error(err.message);
+    },
+  });
+
+  useEffect(() => {
+    if (!userInfo) {
+      fetchUserRequest.run();
+    }
+  }, []);
+
+  useEffect(() => {
+    if (userInfo) {
+      registerForm.setFieldsValue(userInfo);
+    }
+  }, [userInfo]);
 
   return (
     <EditForm
       disabled={disabled}
       setDisabled={setDisabled}
-      onSave={() => {
-        console.log(form.getFieldsValue());
-        setDisabled(true);
+      onSave={async () => {
+        const data = await registerForm.validateFields();
+
+        updateCompanyRegisterRequest.run({
+          id: userInfo.id,
+          fullName: data.fullName,
+          breifName: data.breifName,
+          nickname: data.nickname,
+          avatar: '',
+        });
       }}
       onCancel={() => {
-        form.resetFields();
+        registerForm.setFieldsValue(userInfo);
         setDisabled(true);
       }}
     >
       <Form
-        form={form}
+        form={registerForm}
         {...layout}
         columns={2}
         style={{ width: 800, margin: '0 auto' }}
@@ -44,24 +77,28 @@ export default ({ layout }) => {
             }}
           />
         </Form.Item>
-        <Form.Item label="用户全名">
+        <Form.Item
+          label="用户全名"
+          name="fullName"
+          rules={[USER_FULLNAME_VALIDATOR]}
+        >
           <Input disabled={disabled} />
         </Form.Item>
         <Form.Item />
-        <Form.Item label="用户简名">
+        <Form.Item label="用户简名" name="briefName">
           <Input disabled={disabled} />
         </Form.Item>
         <Form.Item />
-        <Form.Item label="昵称帐号">
+        <Form.Item label="昵称帐号" name="nickname" rules={[NICK_VALIDATOR]}>
           <Input disabled={disabled} />
         </Form.Item>
         <Form.Item />
-        <Form.Item label="手机帐号">
-          <BindInput disabled active={false} />
+        <Form.Item label="手机帐号" name="mobile">
+          <BindInput disabled active={userInfo.mobile} />
         </Form.Item>
         <Form.Item />
-        <Form.Item label="邮箱帐号">
-          <BindInput disabled active={true} />
+        <Form.Item label="邮箱帐号" name="email">
+          <BindInput disabled active={userInfo.email} />
         </Form.Item>
         <Form.Item />
       </Form>

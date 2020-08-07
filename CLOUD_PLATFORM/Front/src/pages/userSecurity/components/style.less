@@ -1,0 +1,16 @@
+@import '~lanlinker/es/style/index.less';
+
+.listWrapper {
+  max-width: 1000px;
+  :global {
+    .ant-list-items {
+      > .ant-list-item {
+        padding-top: 14px;
+        padding-bottom: 14px;
+        &:last-child {
+          border-bottom: @border-split;
+        }
+      }
+    }
+  }
+}

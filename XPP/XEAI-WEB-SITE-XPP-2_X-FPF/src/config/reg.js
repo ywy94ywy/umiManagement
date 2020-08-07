@@ -35,11 +35,6 @@ export const IDENTITY_VALIDATOR = {
   pattern: /^[1-9]d{5}(18|19|20){1}d{2}(0[1-9]|1[0-2])(0[1-9]|[1-2][0-9]|3[0-1])d{3}[d|X]$/,
   message: '身份证格式不正确',
 };
-/** 营业执照帐号 18位统一社会信用代码编号（由数字和大写字母组成）+下划线+13位部门序号（可以是英文字母和数字和下划线的组合）=最长32位字符(序号是为了生成不同地区的部门) */
-export const LICENSE_VALIDATOR = {
-  pattern: /^[A-Z0-9]{18}(_[A-Z0-9]+)*$/,
-  message: '营业执照格式不正确',
-};
 
 // 登录密码
 export const PASSWORD_VALIDATOR = {
@@ -64,4 +59,71 @@ export const UNIT_VALIDATOR = {
 export const PROFESSION_VALIDATOR = {
   max: 64,
   message: '用户职业最长为32位',
+};
+
+// 统一社会信用代码
+export const SOCIAL_CODE_LENGTH_VALIDATOR = {
+  max: 18,
+  message: '统一社会信用代码长度不可超过18',
+};
+
+// 营业执照注册号
+export const LICENSE_VALIDATOR = {
+  max: 32,
+  message: '营业执照注册号长度不可超过32',
+};
+
+// 原始版本
+/** 营业执照帐号 18位统一社会信用代码编号（由数字和大写字母组成）+下划线+13位部门序号（可以是英文字母和数字和下划线的组合）=最长32位字符(序号是为了生成不同地区的部门) */
+// export const LICENSE_VALIDATOR = {
+//   pattern: /^[A-Z0-9]{18}(_[A-Z0-9]+)*$/,
+//   message: '营业执照格式不正确',
+// };
+
+// 企业经营地址
+export const BIZ_ADDRESS_VALIDATOR = {
+  max: 96,
+  message: '经营地址长度不可超过96',
+};
+
+// 法人代表
+export const LAW_PERSON_VALIDATOR = {
+  max: 12,
+  message: '法定代表人长度不可超过12',
+};
+
+// 企业经营范围
+export const BIZ_SCOPE_VALIDATOR = {
+  max: 512,
+  message: '经营范围长度不可超过512',
+};
+
+// 规模
+export const UNIT_SCALE_VALIDATOR = {
+  max: 32,
+  message: '规模长度不可超过32',
+};
+
+// 负责人姓名
+export const MANAGER_NAME_VALIDATOR = {
+  max: 10,
+  message: '负责人姓名长度不可超过10',
+};
+
+// 负责人职级
+export const MANAGER_RANK_VALIDATOR = {
+  max: 16,
+  message: '负责人职级长度不可超过16',
+};
+
+// 负责人电话
+export const MANAGER_TELEPHONE_VALIDATOR = {
+  max: 24,
+  message: '负责人电话长度不可超过24',
+};
+
+// 传真
+export const FAX_VALIDATOR = {
+  max: 24,
+  message: '传真长度不可超过24',
 };

@@ -1,8 +1,9 @@
 import { message } from 'antd';
 import { getToken, setErrorMessage } from '@/utils';
-import { XPP_FPF_URL, XPP_FPF_DEV_API } from '@/config/host';
+import { COULD_FPF_URL, COULD_DEV_URL, MANAGER_DEV_URL } from '@/config/host';
 
-const baseUrl = XPP_FPF_DEV_API;
+const baseUrl = COULD_DEV_URL;
+const managerUrl = MANAGER_DEV_URL;
 
 export const request = {
   // timeout: 1000,
@@ -34,15 +35,21 @@ export const request = {
   // 请求拦截
   requestInterceptors: [
     (url, options) => {
+      let fullUrl;
       if (options.withToken !== false) {
         const token = getToken();
         options.headers = {
           author_token: token,
         };
       }
+      if (options.scope === 'manager') {
+        fullUrl = managerUrl + url;
+      } else {
+        fullUrl = baseUrl + url;
+      }
 
       return {
-        url: baseUrl + url,
+        url: fullUrl,
         ...options,
       };
     },
@@ -77,7 +84,7 @@ export const request = {
         if (resultStatusId === 401 || resultStatusId === 403) {
           setErrorMessage(resultStatusContent);
           window.location =
-            XPP_FPF_URL +
+            COULD_FPF_URL +
             '/login?redirect=' +
             encodeURIComponent(window.location.href);
           return res;

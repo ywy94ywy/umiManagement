@@ -1,0 +1,76 @@
+@import '~lanlinker/es/style/index.less';
+
+.systemCard {
+  width: 338px;
+  background: @white;
+  :global {
+    .ant-list-footer {
+      padding: 0;
+    }
+  }
+  .header {
+    padding: 30px 20px 15px;
+    position: relative;
+    .info {
+      position: absolute;
+      top: 5px;
+      right: 10px;
+      color: @primary-color;
+      cursor: pointer;
+    }
+    .title {
+      width: 200px;
+      .h4;
+      .ellipsis;
+    }
+    .subtitle {
+      .h5;
+      width: 230px;
+      margin-top: 6px;
+      height: 45px;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+    }
+    .license {
+      .ellipsis;
+    }
+  }
+  .footer {
+    height: 48px;
+    background: @card-footer-bg;
+    display: flex;
+    align-items: center;
+    > .item {
+      flex: 1;
+      .center;
+      &:nth-child(n + 2) {
+        border-left: @border-normal;
+      }
+      > span {
+        cursor: pointer;
+      }
+    }
+  }
+  .greyfilter {
+    opacity: 0.5;
+    filter: grayscale(1);
+  }
+}
+
+.projectModal {
+  :global{
+    .ant-list-item{
+      padding: 16px 8px;
+      cursor: pointer;
+      &:hover{
+        .background-primary-hover;
+      }
+      .ant-list-item-meta-title{
+        margin-bottom: 0;
+      }
+    }
+  }
+}

@@ -9,7 +9,7 @@ import { NICK_VALIDATOR, USER_FULLNAME_VALIDATOR } from '@/config/reg';
 import EditForm from '../../components/EditForm';
 import User from '../../components/User';
 
-import { updatePersonRegister } from '../../servers';
+import { updatePersonRegister } from '../../services';
 
 export default ({ layout }) => {
   const [registerForm] = Form.useForm();
@@ -53,6 +53,7 @@ export default ({ layout }) => {
         });
       }}
       onCancel={() => {
+        registerForm.setFieldsValue(userInfo);
         setDisabled(true);
       }}
     >

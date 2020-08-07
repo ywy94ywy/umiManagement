@@ -12,7 +12,7 @@ import {
   UNIT_VALIDATOR,
   PROFESSION_VALIDATOR,
 } from '@/config/reg';
-import { fetchPersonExpanded, updatePersonExpanded } from '../../servers';
+import { fetchPersonExpanded, updatePersonExpanded } from '../../services';
 import EditForm from '../../components/EditForm';
 
 export default ({ layout }) => {
