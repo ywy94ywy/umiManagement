@@ -1,3 +1,11 @@
+// 获取用户已申请系统
+export const fetchApplied = () => {
+  return {
+    url: '/tenantLicense/listApplyTenantLicense',
+    method: 'get',
+  };
+};
+
 // 验证用户账号
 export const validateAccount = ({ type, userName }) => {
   return {

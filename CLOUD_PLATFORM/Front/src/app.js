@@ -1,9 +1,9 @@
 import { message } from 'antd';
 import { getToken, setErrorMessage, gotoLogin } from '@/utils';
-import { COULD_FPF_URL, COULD_DEV_URL, MANAGER_DEV_URL } from '@/config/host';
+import { COULD_DEV_API, MANAGER_DEV_API } from 'static/config/host';
 
-const baseUrl = COULD_DEV_URL;
-const managerUrl = MANAGER_DEV_URL;
+const baseUrl = COULD_DEV_API;
+const managerUrl = MANAGER_DEV_API;
 
 export const request = {
   // timeout: 1000,
@@ -57,7 +57,7 @@ export const request = {
   // 响应拦截
   responseInterceptors: [
     async (res, options) => {
-      if (!res) {
+      if (!res || !res.status) {
         message.error('响应超时！');
         return;
       }

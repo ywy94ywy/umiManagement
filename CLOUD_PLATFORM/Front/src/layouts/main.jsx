@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import {
   BasicLayout,
   SwitchSystems,
@@ -6,29 +6,16 @@ import {
   SwitchTheme,
   UserMenu,
 } from 'lanlinker';
-import { useRequest, useModel } from 'umi';
+import { useRequest, useModel, Link } from 'umi';
 import { removeToken, getToken, gotoLogin, setErrorMessage } from '@/utils';
 import { Spin, ConfigProvider } from 'antd';
 import { fetchMenus } from './services';
-import avatar from '@/assets/img/avatar.png';
+import avatar from 'static/images/user/avatar.png';
 import logo from '@/assets/img/logo.png';
 import zhCN from 'antd/es/locale/zh_CN';
 
 const Layout = ({ children, location }) => {
-  const fetchMenusRequest = useRequest(fetchMenus);
-  const { userInfo, fetchUserRequest } = useModel('userInfo');
   const token = getToken();
-
-  useEffect(() => {
-    if (!userInfo) {
-      fetchUserRequest.run();
-    }
-  }, []);
-
-  useEffect(() => {
-    window.screenTop = 0;
-  }, [location]);
-
   if (!token) {
     setErrorMessage('用户未登录！');
     gotoLogin(window.location.href);
@@ -39,6 +26,21 @@ const Layout = ({ children, location }) => {
       </div>
     );
   }
+  const [popover, setPopover] = useState(false);
+  const fetchMenusRequest = useRequest(fetchMenus);
+  const { userInfo, fetchUserRequest } = useModel('userInfo');
+  const { appliedSystems, fetchAppliedRequest } = useModel('systems');
+
+  useEffect(() => {
+    if (!userInfo) {
+      fetchUserRequest.run();
+    }
+    fetchAppliedRequest.run();
+  }, []);
+
+  useEffect(() => {
+    window.screenTop = 0;
+  }, [location]);
 
   if (!fetchMenusRequest.data) {
     return (
@@ -60,12 +62,19 @@ const Layout = ({ children, location }) => {
         headerLeft={
           <>
             <SwitchSystems
-              list={fakeSystems}
+              list={appliedSystems}
               height={400}
               onSelect={v => {
                 console.log(v);
               }}
               style={{ marginRight: 50 }}
+              extra={
+                <Link to="/userLicense" onClick={() => setPopover(false)}>
+                  申请新执照
+                </Link>
+              }
+              visible={popover}
+              onVisibleChange={visible => setPopover(visible)}
             />
             <TimeWeather />
           </>

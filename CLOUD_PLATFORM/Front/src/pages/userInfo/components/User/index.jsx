@@ -7,7 +7,7 @@ import { UploadOutlined } from '@ant-design/icons';
 import { blobToDataURL } from '@/utils';
 import ImgCrop from 'antd-img-crop';
 import styles from './style.less';
-import avatar from '@/assets/img/avatar.png';
+import avatar from 'static/images/user/avatar.png';
 import 'antd/es/slider/style';
 
 export default forwardRef(

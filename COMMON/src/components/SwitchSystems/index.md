@@ -30,38 +30,21 @@ export default () => {
         onSelect={value => {
           console.log(value);
         }}
+        extra={<a>申请新执照</a>}
       />
     </div>
   );
 };
-
 const list = [
   {
-    title: '通行证管理系统',
+    name: '通行证管理系统',
+    iconColor: 'linear-gradient(#EC808D,#D95148)',
+    iconUnicode: '&#xe65b;',
   },
   {
-    title: '项目综合管理系统',
-  },
-  {
-    title: '劳务实名制管理系统',
-  },
-  {
-    title: '视频监控管理系统',
-  },
-  {
-    title: '物料管理系统',
-  },
-  {
-    title: '质量安全监管系统',
-  },
-  {
-    title: '设备管理系统',
-  },
-  {
-    title: '项目进度管理系统',
-  },
-  {
-    title: '环境管理系统',
+    name: '222222222',
+    iconColor: 'linear-gradient(#EC808D,#D95148)',
+    iconUnicode: '&#xe65b;',
   },
 ];
 ```

@@ -1,5 +1,5 @@
 import Cookies from 'js-cookie';
-import { COULD_FPF_URL } from '@/config/host';
+import { DEV_DOMAIN } from 'static/config/host';
 
 const tk = 'TOKEN';
 const error_msg = 'errmsg';
@@ -21,7 +21,7 @@ export const removeToken = () => {
 
 // 回到登录页面
 export const gotoLogin = redirect => {
-  let url = COULD_FPF_URL;
+  let url = DEV_DOMAIN;
   if (redirect) {
     url += '/login?redirect=' + encodeURIComponent(redirect);
   }

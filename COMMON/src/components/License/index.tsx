@@ -2,11 +2,13 @@
  * @module 营业执照
  * @todo 字段动态化及字段处理
  */
-import React from 'react';
+import React, { forwardRef } from 'react';
 import { Form, Input, Select, Space, DatePicker, ConfigProvider } from 'antd';
 import { FormProps } from 'antd/es/form';
 import classNames from 'classnames';
 import { STATIC_IMAGE } from '../../config';
+import license_1 from 'static/images/license/license_1.png';
+
 import moment from 'moment';
 import styles from './style.less';
 
@@ -17,7 +19,6 @@ interface LicenseProps extends FormProps {
 
 const validate = {
   validateFirst: true,
-  validateTrigger: 'onSubmit',
   rules: [{ required: true }],
 };
 
@@ -37,6 +38,7 @@ const License: React.FC<LicenseProps> = ({
       <Form
         form={form}
         colon={false}
+        validateTrigger="onSubmit"
         validateMessages={validateMessages}
         className={classNames(styles.license, className)}
         labelCol={{ flex: '0 0 110px' }}
@@ -46,7 +48,7 @@ const License: React.FC<LicenseProps> = ({
         }}
         {...props}
       >
-        <img src={STATIC_IMAGE + '/license/license_1.png'} alt="" />
+        <img src={license_1} alt="" />
         <div
           className={styles.stretch}
           style={{
@@ -146,7 +148,7 @@ const License: React.FC<LicenseProps> = ({
 const Text: React.FC<{
   value?: any;
   className?: string;
-}> = ({ value, ...props }) => {
+}> = forwardRef(({ value, ...props }, _) => {
   const type = Object.prototype.toString.call(value);
   let v = '';
 
@@ -172,7 +174,7 @@ const Text: React.FC<{
       {v}
     </div>
   );
-};
+});
 
 const rightLayout = {
   labelCol: { span: 15 },

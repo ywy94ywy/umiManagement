@@ -8,20 +8,22 @@ import IconFont from '../IconFont';
 import classNames from 'classnames';
 import styles from './style.less';
 
-export interface IListItem {
-  title: string;
-}
-
 export interface SystemsListProps extends Pick<SwitchSystemsProps, 'onSelect'> {
-  list: IListItem[];
+  list: any[];
   height?: number;
   style?: React.CSSProperties;
   className?: string;
+  titleKey?: string;
+  iconKey?: string;
+  iconBgKey?: string;
 }
 
 const SystemsList: React.FC<SystemsListProps> = ({
   list,
   onSelect,
+  titleKey = 'name',
+  iconKey = 'iconUnicode',
+  iconBgKey = 'iconColor',
   style,
   className,
   height = 400,
@@ -32,7 +34,7 @@ const SystemsList: React.FC<SystemsListProps> = ({
   const handleChange = (e: any) => {
     const value = e.target.value;
     if (value) {
-      setNextList(list.filter(v => v.title.includes(value)));
+      setNextList(list.filter(v => v[titleKey].includes(value)));
     } else {
       setNextList(list);
     }
@@ -62,7 +64,14 @@ const SystemsList: React.FC<SystemsListProps> = ({
         className={classNames(styles.systemsList, className)}
       >
         {nextList.map((v, i) => (
-          <ListItem item={v} key={i} onSelect={onSelect}></ListItem>
+          <ListItem
+            item={v}
+            key={i}
+            onSelect={onSelect}
+            title={v[titleKey]}
+            icon={v[iconKey]}
+            iconBg={v[iconBgKey]}
+          />
         ))}
       </div>
     </>
@@ -70,73 +79,31 @@ const SystemsList: React.FC<SystemsListProps> = ({
 };
 
 interface ListItemProps extends Pick<SwitchSystemsProps, 'onSelect'> {
-  item: IListItem;
+  item: any;
+  title: string;
+  icon: string;
+  iconBg: string;
 }
-const ListItem: React.FC<ListItemProps> = ({ item, onSelect }) => (
+const ListItem: React.FC<ListItemProps> = ({
+  item,
+  onSelect,
+  title,
+  icon,
+  iconBg,
+}) => (
   <div
     className={styles.listItem}
     onClick={() => {
       onSelect && onSelect(item);
     }}
   >
-    <div
-      className={styles.logo}
-      style={{ background: LogoMap[item.title].background }}
-    >
-      <IconFont type={LogoMap[item.title].iconfont} />
+    <div className={styles.logo} style={{ background: iconBg }}>
+      <IconFont type={icon} />
     </div>
-    <div className={styles.title} title={item.title}>
-      {item.title}
+    <div className={styles.title} title={title}>
+      {title}
     </div>
   </div>
 );
-
-const LogoMap: { [key: string]: { background: string; iconfont: string } } = {
-  通行证管理系统: {
-    background:
-      'linear-gradient(180deg,rgba(255,226,159,1) 0%,rgba(247,121,125,1) 100%)',
-    iconfont: '&#xe792;',
-  },
-  项目综合管理系统: {
-    background:
-      'linear-gradient(180deg,rgba(113,187,255,1) 0%,rgba(24,144,255,1) 100%)',
-    iconfont: '&#xe792;',
-  },
-  劳务实名制管理系统: {
-    background:
-      'linear-gradient(180deg,rgba(236,128,141,1) 0%,rgba(217,81,72,1) 100%)',
-    iconfont: '&#xe792;',
-  },
-  视频监控管理系统: {
-    background:
-      'linear-gradient(180deg,rgba(4,222,236,1) 0%,rgba(65,152,231,1) 100%)',
-    iconfont: '&#xe792;',
-  },
-  物料管理系统: {
-    background:
-      'linear-gradient(180deg,rgba(255,224,153,1) 0%,rgba(254,182,20,1) 100%)',
-    iconfont: '&#xe792;',
-  },
-  质量安全监管系统: {
-    background:
-      'linear-gradient(180deg,rgba(181,181,255,1) 0%,rgba(127,127,213,1) 100%)',
-    iconfont: '&#xe792;',
-  },
-  设备管理系统: {
-    background:
-      'linear-gradient(180deg,rgba(179,178,211,1) 0%,rgba(137,137,186,1) 100%)',
-    iconfont: '&#xe792;',
-  },
-  项目进度管理系统: {
-    background:
-      'linear-gradient(180deg,rgba(153,198,255,1) 0%,rgba(79,168,232,1) 100%)',
-    iconfont: '&#xe792;',
-  },
-  环境管理系统: {
-    background:
-      'linear-gradient(180deg,rgba(113,217,158,1) 0%,rgba(60,186,115,1) 100%)',
-    iconfont: '&#xe792;',
-  },
-};
 
 export default SystemsList;

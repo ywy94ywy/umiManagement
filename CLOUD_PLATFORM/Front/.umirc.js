@@ -1,6 +1,13 @@
 import { defineConfig } from 'umi';
+import path from 'path';
 
 export default defineConfig({
+  chainWebpack(memo) {
+    memo.resolve.alias.set('static', path.join(__dirname, '../../static'));
+    // memo
+    //   .plugin('IgnorePlugin')
+    //   .use(webpack.IgnorePlugin, [/\.\/locale/, /moment/]);
+  },
   request: {
     dataField: 'resultDataContent',
   },
